@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Research Agent</title>
+  <style>
+    :root {
+      --ink: #f7fafc;
+      --muted: #9aa8b6;
+      --paper: #ffffff;
+      --night: #080d14;
+      --panel: rgba(12, 20, 31, 0.84);
+      --panel-strong: rgba(17, 29, 44, 0.94);
+      --line: rgba(255, 255, 255, 0.11);
+      --blue: #56a9ff;
+      --green: #39d98a;
+      --amber: #ffbd5a;
+      --red: #ff6b6b;
+      --steel: #d6e2ef;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(86, 169, 255, 0.22), transparent 28rem),
+        radial-gradient(circle at 85% 24%, rgba(57, 217, 138, 0.16), transparent 24rem),
+        linear-gradient(135deg, #080d14 0%, #101722 48%, #080d14 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 82%);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #06111c;
+      font-weight: 900;
+      letter-spacing: 0;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      box-shadow: 0 12px 34px rgba(86, 169, 255, 0.24);
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: var(--paper);
+    }
+
+    .brand-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--steel);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(57, 217, 138, 0.12);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(340px, 0.97fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .intro,
+    .agent-panel,
+    .results-panel,
+    .metric-card,
+    .log-panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(17, 29, 44, 0.88), rgba(9, 15, 24, 0.84));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .intro {
+      min-height: 430px;
+      border-radius: 8px;
+      padding: clamp(24px, 5vw, 46px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::after {
+      content: "";
+      position: absolute;
+      right: -15%;
+      bottom: -35%;
+      width: 58%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(86, 169, 255, 0.24);
+      box-shadow: inset 0 0 80px rgba(86, 169, 255, 0.08);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: max-content;
+      padding: 8px 11px;
+      border: 1px solid rgba(86, 169, 255, 0.25);
+      border-radius: 999px;
+      background: rgba(86, 169, 255, 0.08);
+      color: #b9dcff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 5px rgba(86, 169, 255, 0.12);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-top: 26px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.94;
+      letter-spacing: 0;
+      color: var(--paper);
+    }
+
+    .lead {
+      max-width: 620px;
+      margin-top: 22px;
+      color: #c1cedb;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .hero-footer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 36px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric-card {
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: none;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 21px;
+      color: var(--paper);
+    }
+
+    .metric-card span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .agent-panel {
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-heading h2 {
+      font-size: 18px;
+      color: var(--paper);
+      letter-spacing: 0;
+    }
+
+    .panel-heading p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .provider-badge {
+      color: #06111c;
+      background: var(--green);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: #d5e1ec;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .control,
+    .textarea {
+      width: 100%;
+      color: var(--paper);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      background: rgba(3, 8, 14, 0.56);
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .control {
+      height: 48px;
+      padding: 0 14px;
+    }
+
+    .textarea {
+      min-height: 92px;
+      resize: vertical;
+      padding: 13px 14px;
+      line-height: 1.5;
+    }
+
+    .control::placeholder,
+    .textarea::placeholder {
+      color: #718093;
+    }
+
+    .control:focus,
+    .textarea:focus {
+      border-color: rgba(86, 169, 255, 0.72);
+      box-shadow: 0 0 0 4px rgba(86, 169, 255, 0.12);
+      background: rgba(5, 11, 18, 0.82);
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      min-height: 48px;
+      padding: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      background: rgba(3, 8, 14, 0.56);
+    }
+
+    .segment {
+      min-width: 0;
+      min-height: 38px;
+      padding: 7px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #9baabd;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.1;
+      transition: background 160ms ease, color 160ms ease;
+    }
+
+    .segment.active {
+      color: #05111d;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+    }
+
+    .segment:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .two-up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .key-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .ghost-btn,
+    .run-btn,
+    .copy-btn {
+      height: 48px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: 0;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, opacity 160ms ease;
+      white-space: nowrap;
+    }
+
+    .run-btn {
+      width: 100%;
+      color: #05111d;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      box-shadow: 0 16px 38px rgba(86, 169, 255, 0.25);
+    }
+
+    .ghost-btn,
+    .copy-btn {
+      color: var(--steel);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .ghost-btn {
+      padding: 0 13px;
+    }
+
+    .copy-btn {
+      padding: 0 16px;
+    }
+
+    .run-btn:hover:not(:disabled),
+    .ghost-btn:hover:not(:disabled),
+    .copy-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .run-btn:disabled,
+    .ghost-btn:disabled,
+    .copy-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .helper {
+      color: #8191a4;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .helper a {
+      color: #9bd0ff;
+      text-decoration: none;
+    }
+
+    .tool-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .tool-step {
+      min-height: 78px;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .tool-step span {
+      display: block;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .tool-step strong {
+      display: block;
+      color: var(--paper);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .log-panel {
+      min-height: 66px;
+      border-radius: 8px;
+      padding: 14px;
+      color: #c4d1de;
+      font-size: 13px;
+      line-height: 1.55;
+      box-shadow: none;
+      background: rgba(4, 10, 18, 0.72);
+    }
+
+    .error {
+      display: none;
+      padding: 13px 14px;
+      border: 1px solid rgba(255, 107, 107, 0.36);
+      border-radius: 8px;
+      color: #ffd4d4;
+      background: rgba(255, 107, 107, 0.12);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .error.show {
+      display: block;
+    }
+
+    .results-panel {
+      display: none;
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .results-panel.show {
+      display: block;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .results-header h2 {
+      font-size: 24px;
+      color: var(--paper);
+      letter-spacing: 0;
+    }
+
+    .results-header p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .score-stack {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(112px, 1fr));
+      gap: 10px;
+      min-width: min(430px, 100%);
+    }
+
+    .score {
+      padding: 13px;
+      border-radius: 8px;
+      background: #07121e;
+      border: 1px solid rgba(57, 217, 138, 0.24);
+      text-align: left;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 28px;
+      color: var(--green);
+    }
+
+    .score span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 760px) {
+      .score-stack {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        min-width: 0;
+      }
+
+      .score {
+        min-height: 74px;
+        padding: 12px;
+      }
+
+      .score strong {
+        font-size: 22px;
+      }
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr 0.95fr;
+      gap: 12px;
+    }
+
+    .insight-card,
+    .analysis-card,
+    .risk-card,
+    .move-card,
+    .kpi-card {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .insight-card {
+      min-height: 178px;
+      padding: 18px;
+    }
+
+    .insight-card span,
+    .analysis-card span,
+    .risk-card span,
+    .move-card span,
+    .kpi-card span {
+      display: block;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+      margin-bottom: 9px;
+    }
+
+    .insight-card strong,
+    .analysis-card strong,
+    .risk-card strong,
+    .move-card strong,
+    .kpi-card strong {
+      display: block;
+      color: var(--paper);
+      font-size: 16px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .insight-card p,
+    .analysis-card p,
+    .risk-card p,
+    .move-card p,
+    .kpi-card p {
+      color: #c9d6e3;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .analysis-card {
+      min-height: 172px;
+      padding: 16px;
+    }
+
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .move-grid,
+    .risk-grid,
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .move-card,
+    .risk-card,
+    .kpi-card {
+      min-height: 160px;
+      padding: 15px;
+    }
+
+    .severity {
+      display: inline-flex;
+      width: max-content;
+      max-width: 100%;
+      min-height: 25px;
+      align-items: center;
+      padding: 5px 8px;
+      margin-top: 12px;
+      border-radius: 999px;
+      color: #ffd1d1;
+      background: rgba(255, 107, 107, 0.12);
+      border: 1px solid rgba(255, 107, 107, 0.22);
+      font-size: 11px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .section {
+      padding: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .section-title h3 {
+      color: var(--paper);
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .comp-card {
+      min-height: 220px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .comp-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .comp-name {
+      color: var(--paper);
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .rank {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #05111d;
+      font-size: 12px;
+      font-weight: 900;
+      background: var(--amber);
+      flex: 0 0 auto;
+    }
+
+    .comp-pos {
+      color: #c6d3df;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .tag {
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .tag-str {
+      color: #baf7d7;
+      background: rgba(57, 217, 138, 0.12);
+      border: 1px solid rgba(57, 217, 138, 0.22);
+    }
+
+    .tag-weak {
+      color: #ffd1d1;
+      background: rgba(255, 107, 107, 0.12);
+      border: 1px solid rgba(255, 107, 107, 0.24);
+    }
+
+    .gap-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .gap-list li {
+      min-height: 164px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.045);
+      color: #c9d6e3;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .gap-num {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      color: #05111d;
+      background: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: 11px 1fr;
+      gap: 14px;
+      color: #dbe7f2;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .verdict::before {
+      content: "";
+      border-radius: 999px;
+      background: linear-gradient(var(--green), var(--blue));
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .skeleton {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .skeleton.show {
+      display: grid;
+    }
+
+    .shimmer {
+      height: 96px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+      background-size: 220% 100%;
+      animation: shimmer 1.15s infinite linear;
+    }
+
+    .results-panel {
+      color: #162231;
+      background: #f6f8fb;
+      border-color: rgba(15, 35, 55, 0.14);
+      box-shadow: 0 26px 70px rgba(8, 13, 20, 0.25);
+    }
+
+    .results-panel .results-header {
+      background: #ffffff;
+      border-bottom-color: #dce5ee;
+    }
+
+    .results-panel .results-header h2,
+    .results-panel .section-title h3,
+    .results-panel .insight-card strong,
+    .results-panel .analysis-card strong,
+    .results-panel .risk-card strong,
+    .results-panel .move-card strong,
+    .results-panel .kpi-card strong,
+    .results-panel .comp-name {
+      color: #122033;
+    }
+
+    .results-panel .results-header p,
+    .results-panel .section-title span {
+      color: #607086;
+    }
+
+    .results-panel .section {
+      border-bottom-color: #dce5ee;
+    }
+
+    .results-panel .insight-card,
+    .results-panel .analysis-card,
+    .results-panel .risk-card,
+    .results-panel .move-card,
+    .results-panel .kpi-card,
+    .results-panel .comp-card,
+    .results-panel .gap-list li {
+      background: #ffffff;
+      border-color: #dce5ee;
+      box-shadow: 0 10px 28px rgba(15, 35, 55, 0.06);
+    }
+
+    .results-panel .insight-card p,
+    .results-panel .analysis-card p,
+    .results-panel .risk-card p,
+    .results-panel .move-card p,
+    .results-panel .kpi-card p,
+    .results-panel .comp-pos,
+    .results-panel .gap-list li,
+    .results-panel .verdict {
+      color: #344256;
+    }
+
+    .results-panel .insight-card span,
+    .results-panel .analysis-card span,
+    .results-panel .risk-card span,
+    .results-panel .move-card span,
+    .results-panel .kpi-card span {
+      color: #2878d8;
+    }
+
+    .results-panel .score {
+      background: #0b1624;
+      border-color: #dce5ee;
+      box-shadow: 0 10px 28px rgba(15, 35, 55, 0.08);
+    }
+
+    .results-panel .score strong {
+      color: #30d989;
+    }
+
+    .results-panel .score span {
+      color: #c6d3df;
+    }
+
+    .results-panel .tag {
+      background: #eef4fb;
+      color: #405269;
+      border: 1px solid #dce5ee;
+    }
+
+    .results-panel .tag-str {
+      color: #116444;
+      background: #e7f7ef;
+      border-color: #bfead4;
+    }
+
+    .results-panel .tag-weak,
+    .results-panel .severity {
+      color: #8d2a2a;
+      background: #fff0f0;
+      border-color: #f4cdcd;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 100% 0; }
+      to { background-position: -100% 0; }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-grid,
+      .analysis-grid,
+      .opportunity-grid,
+      .move-grid,
+      .risk-grid,
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .comp-grid,
+      .gap-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 22px, 1180px);
+        padding-top: 16px;
+      }
+
+      .topbar,
+      .results-header,
+      .section-title {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .intro {
+        min-height: auto;
+      }
+
+      .hero-footer,
+      .two-up,
+      .key-row,
+      .tool-strip,
+      .insight-grid,
+      .analysis-grid,
+      .opportunity-grid,
+      .move-grid,
+      .risk-grid,
+      .kpi-grid,
+      .comp-grid,
+      .gap-list,
+      .skeleton {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 46px;
+      }
+
+      .score {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">MR</div>
+        <div>
+          <div class="brand-title">Market Research Agent</div>
+          <div class="brand-subtitle">Competitive intelligence workspace</div>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span id="connection-label">Ready for analysis</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="intro">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> Agentic market research</div>
+          <h1>Launch-grade strategy in one run.</h1>
+          <p class="lead">
+            Enter a company, product, or market and generate a clean competitive map, opportunity gaps,
+            and a boardroom-ready strategic verdict.
+          </p>
+        </div>
+
+        <div class="hero-footer">
+          <div class="metric-card">
+            <strong>4</strong>
+            <span>Competitors mapped</span>
+          </div>
+          <div class="metric-card">
+            <strong>5</strong>
+            <span>Market gaps identified</span>
+          </div>
+          <div class="metric-card">
+            <strong>4</strong>
+            <span>Agent tools simulated</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="agent-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Research Console</h2>
+            <p>Use Gemini with a free key or Ollama running locally on your machine.</p>
+          </div>
+          <span class="provider-badge" id="provider-badge">GEMINI</span>
+        </div>
+
+        <div class="field">
+          <label for="product">Target</label>
+          <input class="control" type="text" id="product" placeholder="e.g. Zepto, protein water, OYO, AI legal assistant" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label for="context">Optional angle</label>
+          <textarea class="textarea" id="context" placeholder="Add geography, customer segment, price point, or positioning you care about."></textarea>
+        </div>
+
+        <div class="two-up">
+          <div class="field">
+            <label>Provider</label>
+            <div class="segmented" id="provider-segments" role="group" aria-label="Provider">
+              <button class="segment active" type="button" data-provider="gemini">Gemini</button>
+              <button class="segment" type="button" data-provider="ollama">Ollama</button>
+              <button class="segment" type="button" data-provider="demo">Demo</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="model">Model</label>
+            <input class="control" type="text" id="model" value="gemini-2.0-flash" />
+          </div>
+        </div>
+
+        <div class="field" id="api-key-wrap">
+          <label for="api-key">Gemini API key</label>
+          <div class="key-row">
+            <input class="control" type="password" id="api-key" placeholder="Paste your free Gemini key" autocomplete="off" />
+            <button class="ghost-btn" id="save-key-btn" type="button">Save</button>
+          </div>
+          <p class="helper">Stored only in this browser on this computer. Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer">Google AI Studio</a>.</p>
+        </div>
+
+        <div class="tool-strip">
+          <div class="tool-step"><span>Tool 01</span><strong>Find competitors</strong></div>
+          <div class="tool-step"><span>Tool 02</span><strong>Extract positioning</strong></div>
+          <div class="tool-step"><span>Tool 03</span><strong>Identify gaps</strong></div>
+          <div class="tool-step"><span>Tool 04</span><strong>Build strategy</strong></div>
+        </div>
+
+        <button class="run-btn" id="run-btn" type="button">Run Market Agent</button>
+        <div class="log-panel" id="log">Waiting for a target.</div>
+        <div class="error" id="error-box"></div>
+        <div class="skeleton" id="skeleton">
+          <div class="shimmer"></div>
+          <div class="shimmer"></div>
+          <div class="shimmer"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="results-panel" id="results">
+      <div class="results-header">
+        <div>
+          <h2 id="report-title">Market intelligence report</h2>
+          <p id="report-subtitle">Generated from the agent run.</p>
+        </div>
+        <div class="score-stack">
+          <div class="score">
+            <strong id="score-value">--</strong>
+            <span>Opportunity score</span>
+          </div>
+          <div class="score">
+            <strong id="confidence-value">--</strong>
+            <span>Confidence</span>
+          </div>
+          <div class="score">
+            <strong id="urgency-value">--</strong>
+            <span>Timing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Executive Snapshot</h3>
+          <span>Market read, buyer focus, and strategic angle</span>
+        </div>
+        <div class="insight-grid">
+          <article class="insight-card">
+            <span>SUMMARY</span>
+            <strong id="summary-title">Awaiting report</strong>
+            <p id="summary-text"></p>
+          </article>
+          <article class="insight-card">
+            <span>IDEAL CUSTOMER</span>
+            <strong id="customer-title">Awaiting report</strong>
+            <p id="customer-text"></p>
+          </article>
+          <article class="insight-card">
+            <span>POSITIONING</span>
+            <strong id="positioning-title">Awaiting report</strong>
+            <p id="positioning-text"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Target POV</h3>
+          <span>Company-specific read based on the name you entered</span>
+        </div>
+        <div class="analysis-grid">
+          <article class="analysis-card">
+            <span>CURRENT POSITION</span>
+            <strong id="pov-position-title">Awaiting report</strong>
+            <p id="pov-position-text"></p>
+          </article>
+          <article class="analysis-card">
+            <span>STRATEGIC ISSUE</span>
+            <strong id="pov-issue-title">Awaiting report</strong>
+            <p id="pov-issue-text"></p>
+          </article>
+          <article class="analysis-card">
+            <span>BEST NEXT MOVE</span>
+            <strong id="pov-move-title">Awaiting report</strong>
+            <p id="pov-move-text"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Competitive Landscape</h3>
+          <span>Positioning, strengths, and exposed weakness</span>
+        </div>
+        <div class="comp-grid" id="comp-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Market Gaps</h3>
+          <span>Specific openings a new entrant can attack</span>
+        </div>
+        <ul class="gap-list" id="gap-list"></ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Opportunity Plays</h3>
+          <span>Actionable openings with strategic rationale</span>
+        </div>
+        <div class="opportunity-grid" id="opportunity-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Go-To-Market Plan</h3>
+          <span>First moves for launch, demand, and retention</span>
+        </div>
+        <div class="move-grid" id="gtm-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Risks & Mitigations</h3>
+          <span>What could break, and how to reduce the downside</span>
+        </div>
+        <div class="risk-grid" id="risk-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Success Metrics</h3>
+          <span>Signals to track after launch</span>
+        </div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <h3>Strategic Verdict</h3>
+          <span>Executive recommendation</span>
+        </div>
+        <div class="verdict" id="verdict"></div>
+      </div>
+
+      <div class="section">
+        <div class="action-row">
+          <button class="copy-btn" id="copy-btn" type="button">Copy report</button>
+          <button class="copy-btn" id="download-btn" type="button">Download JSON</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      lastReport: null,
+      lastProduct: "",
+      provider: "gemini"
+    };
+
+    const els = {
+      product: document.getElementById("product"),
+      context: document.getElementById("context"),
+      providerSegments: document.getElementById("provider-segments"),
+      providerButtons: [...document.querySelectorAll("[data-provider]")],
+      model: document.getElementById("model"),
+      apiKey: document.getElementById("api-key"),
+      apiKeyWrap: document.getElementById("api-key-wrap"),
+      saveKey: document.getElementById("save-key-btn"),
+      run: document.getElementById("run-btn"),
+      log: document.getElementById("log"),
+      error: document.getElementById("error-box"),
+      results: document.getElementById("results"),
+      skeleton: document.getElementById("skeleton"),
+      providerBadge: document.getElementById("provider-badge"),
+      connectionLabel: document.getElementById("connection-label"),
+      reportTitle: document.getElementById("report-title"),
+      reportSubtitle: document.getElementById("report-subtitle"),
+      score: document.getElementById("score-value"),
+      confidence: document.getElementById("confidence-value"),
+      urgency: document.getElementById("urgency-value"),
+      summaryTitle: document.getElementById("summary-title"),
+      summaryText: document.getElementById("summary-text"),
+      customerTitle: document.getElementById("customer-title"),
+      customerText: document.getElementById("customer-text"),
+      positioningTitle: document.getElementById("positioning-title"),
+      positioningText: document.getElementById("positioning-text"),
+      povPositionTitle: document.getElementById("pov-position-title"),
+      povPositionText: document.getElementById("pov-position-text"),
+      povIssueTitle: document.getElementById("pov-issue-title"),
+      povIssueText: document.getElementById("pov-issue-text"),
+      povMoveTitle: document.getElementById("pov-move-title"),
+      povMoveText: document.getElementById("pov-move-text"),
+      compGrid: document.getElementById("comp-grid"),
+      gapList: document.getElementById("gap-list"),
+      opportunityGrid: document.getElementById("opportunity-grid"),
+      gtmGrid: document.getElementById("gtm-grid"),
+      riskGrid: document.getElementById("risk-grid"),
+      kpiGrid: document.getElementById("kpi-grid"),
+      verdict: document.getElementById("verdict"),
+      copy: document.getElementById("copy-btn"),
+      download: document.getElementById("download-btn")
+    };
+
+    const savedKey = localStorage.getItem("marketAgentGeminiKey");
+    if (savedKey) {
+      els.apiKey.value = savedKey;
+    }
+
+    function setProviderDefaults() {
+      const provider = state.provider;
+      els.providerButtons.forEach(button => {
+        button.classList.toggle("active", button.dataset.provider === provider);
+      });
+      els.apiKeyWrap.style.display = provider === "gemini" ? "grid" : "none";
+      els.providerBadge.textContent = provider.toUpperCase();
+      els.connectionLabel.textContent = provider === "ollama"
+        ? "Local Ollama mode"
+        : provider === "demo"
+          ? "Illustrative demo mode"
+          : "Gemini mode";
+
+      if (provider === "gemini" && !els.model.value.startsWith("gemini")) {
+        els.model.value = "gemini-2.0-flash";
+      }
+      if (provider === "ollama" && els.model.value.startsWith("gemini")) {
+        els.model.value = "llama3.1";
+      }
+      if (provider === "demo") {
+        els.model.value = "local-demo";
+      }
+    }
+
+    function log(message) {
+      els.log.textContent = message;
+    }
+
+    function showError(message) {
+      els.error.textContent = message;
+      els.error.classList.add("show");
+    }
+
+    function hideError() {
+      els.error.classList.remove("show");
+      els.error.textContent = "";
+    }
+
+    function setBusy(isBusy) {
+      els.run.disabled = isBusy;
+      els.providerButtons.forEach(button => {
+        button.disabled = isBusy;
+      });
+      els.model.disabled = isBusy;
+      els.skeleton.classList.toggle("show", isBusy);
+      els.run.textContent = isBusy ? "Agent Running..." : "Run Market Agent";
+    }
+
+    function buildPrompt(product, context) {
+      const angle = context ? `\nUser-specified angle: ${context}` : "";
+      return `
+You are a senior market research agent for a top-tier strategy team.
+Analyze this product, company, or market: "${product}".${angle}
+
+Personalization rules:
+- If "${product}" is a real company or brand, write from that company's point of view: its likely position, direct rivals, strategic constraints, and next move.
+- If "${product}" is a category or product idea, write from a new entrant's point of view in that category.
+- Use real competitor names whenever the target is a known company/category. Do not use placeholders such as "Category Leader", "Premium Specialist", "Competitor A", or generic archetypes.
+- Every section must mention details that logically fit "${product}" and its market. Avoid generic advice that could apply to any company.
+- If you are uncertain, use "closest alternatives" and explain why they are relevant.
+
+Simulate these tools in sequence:
+1. search_competitors: identify 4 real competitors or closest alternatives.
+2. extract_positioning: summarize each competitor's market angle, 2 strengths, and 1 weakness.
+3. identify_gaps: identify 5 concrete market gaps.
+4. build_strategy: create an executive strategy read, opportunity plays, launch moves, risks, and KPIs.
+
+Return only valid JSON with this exact schema:
+{
+  "summary": {
+    "headline": "Short executive headline",
+    "body": "2-3 sentence market read with the most important insight"
+  },
+  "market": {
+    "stage": "Emerging / growing / mature / saturated",
+    "timing": "Why now",
+    "confidence": "High / Medium / Low"
+  },
+  "targetCustomer": {
+    "segment": "Ideal first customer segment",
+    "pain": "The urgent pain or buying trigger"
+  },
+  "positioning": {
+    "angle": "Recommended positioning wedge",
+    "message": "One crisp positioning message"
+  },
+  "targetPov": {
+    "currentPosition": {
+      "title": "How the target currently competes",
+      "detail": "Company-specific read, not generic category advice"
+    },
+    "strategicIssue": {
+      "title": "Most important strategic tension",
+      "detail": "Why this issue matters for this exact target"
+    },
+    "bestNextMove": {
+      "title": "Best next strategic move",
+      "detail": "Specific action from the target's point of view"
+    }
+  },
+  "competitors": [
+    {
+      "name": "Real competitor or closest alternative name",
+      "positioning": "One sentence describing their angle",
+      "strengths": ["strength one", "strength two"],
+      "weakness": "one weakness",
+      "threatLevel": "High / Medium / Low"
+    }
+  ],
+  "gaps": [
+    "Gap 1 description",
+    "Gap 2 description",
+    "Gap 3 description",
+    "Gap 4 description",
+    "Gap 5 description"
+  ],
+  "opportunities": [
+    {
+      "title": "Opportunity title",
+      "why": "Why this opening exists",
+      "move": "What the entrant should do"
+    }
+  ],
+  "gtmMoves": [
+    {
+      "title": "Launch move",
+      "detail": "Specific action to execute"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Risk title",
+      "mitigation": "How to reduce this risk",
+      "severity": "High / Medium / Low"
+    }
+  ],
+  "kpis": [
+    {
+      "name": "Metric name",
+      "target": "Target or signal to watch"
+    }
+  ],
+  "verdict": "Two-sentence strategic recommendation for someone entering this market."
+}`;
+    }
+
+    async function callGemini(prompt) {
+      const key = els.apiKey.value.trim();
+      const model = els.model.value.trim() || "gemini-2.0-flash";
+      if (!key) {
+        throw new Error("Paste a Gemini API key, switch to Ollama, or use Demo mode.");
+      }
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.35,
+            responseMimeType: "application/json"
+          }
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        const message = data.error?.message || `Gemini request failed with status ${response.status}.`;
+        throw new Error(message);
+      }
+
+      return data.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("\n") || "";
+    }
+
+    async function callOllama(prompt) {
+      const model = els.model.value.trim() || "llama3.1";
+      const response = await fetch("http://localhost:11434/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model,
+          prompt,
+          stream: false,
+          format: "json",
+          options: { temperature: 0.35 }
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "Ollama did not respond. Make sure Ollama is installed, running, and the model is pulled.");
+      }
+
+      return data.response || "";
+    }
+
+    function isCompanyLike(input) {
+      const lower = input.toLowerCase();
+      const categoryWords = ["market", "brand", "app", "platform", "water", "drink", "assistant", "tool", "software", "agency", "service", "product"];
+      return !categoryWords.some(word => lower.includes(word)) || ["zepto", "oyo", "zomato", "swiggy"].some(word => lower.includes(word));
+    }
+
+    function knownDemoContext(product) {
+      const lower = product.toLowerCase();
+      if (lower.includes("zepto")) {
+        return {
+          targetType: "company",
+          category: "Indian quick commerce",
+          competitors: [
+            { name: "Blinkit", positioning: "Competes as a high-frequency quick-commerce app with strong grocery and impulse-purchase coverage.", strengths: ["High urban recall", "Dense delivery network"], weakness: "Can become promotion-heavy in overlapping city clusters", threatLevel: "High" },
+            { name: "Swiggy Instamart", positioning: "Uses Swiggy's food-delivery habit loop to cross-sell quick grocery and household essentials.", strengths: ["Existing app traffic", "Delivery operations depth"], weakness: "Must balance quick commerce with Swiggy's broader food ecosystem", threatLevel: "High" },
+            { name: "BigBasket Now", positioning: "Leverages BigBasket's grocery trust while trying to serve faster top-up missions.", strengths: ["Grocery credibility", "Assortment knowledge"], weakness: "May feel less youth-led and impulse-driven than pure quick-commerce rivals", threatLevel: "Medium" },
+            { name: "DMart Ready", positioning: "Appeals to value-conscious grocery buyers with a discount-led, planned-purchase mindset.", strengths: ["Value perception", "Retail supply discipline"], weakness: "Less naturally positioned for instant convenience", threatLevel: "Medium" }
+          ],
+          summary: {
+            headline: "Zepto needs to defend speed while building a stronger loyalty moat",
+            body: "Zepto is positioned in a crowded Indian quick-commerce market where speed alone is no longer enough. Its strongest path is to convert young, high-frequency users into loyal households through sharper assortment, reliability, and private-label or membership-led differentiation."
+          },
+          targetCustomer: {
+            segment: "Urban, mobile-first customers who use quick commerce for urgent top-ups, snacks, personal care, and convenience-led grocery missions.",
+            pain: "They switch easily between apps if delivery time, availability, discounts, or product trust feels better elsewhere."
+          },
+          positioning: {
+            angle: "From fastest delivery to most reliable everyday convenience.",
+            message: "Zepto should make the promise less about minutes alone and more about dependable availability, curated essentials, and habit-forming value."
+          },
+          targetPov: {
+            currentPosition: { title: "Strong youth recall in quick commerce", detail: "Zepto is known for speed and convenience, especially in dense urban markets where impulse and urgent grocery missions are common." },
+            strategicIssue: { title: "Speed is becoming table stakes", detail: "Blinkit and Instamart can match the core convenience promise, so Zepto needs stronger reasons for repeat preference beyond delivery time." },
+            bestNextMove: { title: "Build habit and margin depth", detail: "Use memberships, curated replenishment, private-label essentials, and hyperlocal availability to turn occasional orders into default weekly behavior." }
+          }
+        };
+      }
+
+      if (lower.includes("oyo")) {
+        return {
+          targetType: "company",
+          category: "budget hospitality and travel accommodation",
+          competitors: [
+            { name: "MakeMyTrip", positioning: "Aggregates hotels and travel demand with broad booking intent across price tiers.", strengths: ["Demand capture", "Travel ecosystem"], weakness: "Less control over property-level experience", threatLevel: "High" },
+            { name: "Booking.com", positioning: "Global accommodation marketplace with strong discovery, reviews, and cross-border inventory.", strengths: ["Global trust", "Review depth"], weakness: "Not specialized around standardized budget stays", threatLevel: "High" },
+            { name: "Airbnb", positioning: "Competes on unique stays and local host-led experiences rather than standardized hotel inventory.", strengths: ["Experience variety", "Brand affinity"], weakness: "Quality and service consistency can vary", threatLevel: "Medium" },
+            { name: "FabHotels", positioning: "Targets budget hotel customers with standardized economy stays in Indian cities.", strengths: ["Budget focus", "Standardization promise"], weakness: "Lower global brand scale than larger aggregators", threatLevel: "Medium" }
+          ],
+          summary: {
+            headline: "OYO's opportunity is trust recovery, not just room supply",
+            body: "OYO operates in a value-sensitive travel category where availability is abundant but trust is uneven. Its strongest strategy is to make budget stays feel more predictable through verified quality, clearer service guarantees, and tighter property accountability."
+          },
+          targetCustomer: {
+            segment: "Budget-conscious leisure and business travelers who want predictable rooms without paying premium hotel prices.",
+            pain: "They fear inconsistent cleanliness, check-in friction, and mismatch between listing promise and actual stay."
+          },
+          positioning: {
+            angle: "Standardized budget stays with visible quality assurance.",
+            message: "OYO should win by making affordable rooms feel dependable, verified, and low-risk."
+          },
+          targetPov: {
+            currentPosition: { title: "Large budget-stay supply network", detail: "OYO has broad recognition in affordable accommodation, but the customer decision often hinges on trust and consistency." },
+            strategicIssue: { title: "Marketplace trust gap", detail: "Travelers compare OYO against aggregators and hotel brands, so any inconsistency weakens repeat usage." },
+            bestNextMove: { title: "Make quality proof unavoidable", detail: "Prioritize verified property tiers, service guarantees, and transparent guest-experience signals in every booking flow." }
+          }
+        };
+      }
+
+      if (lower.includes("protein water")) {
+        return {
+          targetType: "category",
+          category: "protein water",
+          competitors: [
+            { name: "Protein2o", positioning: "Positions protein water as a light, fitness-friendly alternative to shakes.", strengths: ["Clear category fit", "Low-calorie appeal"], weakness: "Can feel niche outside fitness buyers", threatLevel: "High" },
+            { name: "Myprotein Clear Whey", positioning: "Turns whey protein into a lighter juice-like hydration format.", strengths: ["Sports nutrition trust", "Flavor variety"], weakness: "Powder format adds preparation friction", threatLevel: "Medium" },
+            { name: "Gatorade Protein", positioning: "Extends sports hydration into protein recovery occasions.", strengths: ["Sports brand equity", "Mass awareness"], weakness: "Less clean-label or premium wellness positioning", threatLevel: "Medium" },
+            { name: "Ready Sports Drink", positioning: "Combines performance beverage cues with protein and recovery messaging.", strengths: ["Athlete association", "Performance framing"], weakness: "May compete more as sports drink than daily wellness water", threatLevel: "Low" }
+          ],
+          summary: {
+            headline: "Protein water needs a sharper use case than 'healthier hydration'",
+            body: "The category can work if it owns a clear drinking occasion: post-workout recovery, office snacking replacement, or light daily protein. A new brand should avoid generic wellness claims and instead prove taste, digestibility, and protein quality."
+          },
+          targetCustomer: {
+            segment: "Fitness-aware consumers who dislike heavy shakes but still want convenient protein during the day.",
+            pain: "They want protein without chalky taste, bloating, high sugar, or meal-replacement heaviness."
+          },
+          positioning: {
+            angle: "Light protein for everyday recovery and snack replacement.",
+            message: "Hydration that helps you hit protein goals without the shake."
+          },
+          targetPov: {
+            currentPosition: { title: "New entrant in an education-heavy category", detail: "A protein water brand must explain why clear protein is useful and when customers should drink it." },
+            strategicIssue: { title: "Taste and credibility decide adoption", detail: "Consumers will trial once for novelty, but repeat purchase depends on flavor, protein source trust, and digestive comfort." },
+            bestNextMove: { title: "Own one consumption moment", detail: "Launch around a specific occasion such as post-gym commute or afternoon snack replacement, then expand flavors and pack sizes." }
+          }
+        };
+      }
+
+      if (lower.includes("legal") && lower.includes("ai")) {
+        return {
+          targetType: "category",
+          category: "AI legal assistant",
+          competitors: [
+            { name: "Harvey", positioning: "Enterprise AI platform for legal workflows at large law firms and legal teams.", strengths: ["Enterprise credibility", "Legal workflow focus"], weakness: "May feel inaccessible to smaller firms", threatLevel: "High" },
+            { name: "Spellbook", positioning: "AI contract drafting and review assistant built around lawyer document workflows.", strengths: ["Contract focus", "Microsoft Word workflow"], weakness: "Narrower outside transactional work", threatLevel: "High" },
+            { name: "CoCounsel", positioning: "Legal AI assistant associated with research, document review, and litigation support.", strengths: ["Legal research credibility", "Workflow breadth"], weakness: "Can be complex for smaller teams to adopt", threatLevel: "High" },
+            { name: "Lexis+ AI", positioning: "Adds generative AI to a trusted legal research and content ecosystem.", strengths: ["Authoritative content", "Existing legal user base"], weakness: "May be perceived as research-first rather than task automation-first", threatLevel: "Medium" }
+          ],
+          summary: {
+            headline: "AI legal assistants need workflow trust more than model novelty",
+            body: "Legal buyers care about accuracy, confidentiality, citations, and workflow fit. A new entrant should choose a narrow legal task, prove reliability, and reduce review burden rather than claiming broad lawyer replacement."
+          },
+          targetCustomer: {
+            segment: "Small and mid-sized legal teams with repetitive contract, research, or intake workflows.",
+            pain: "They need time savings but cannot tolerate hallucinated, uncited, or risky legal output."
+          },
+          positioning: {
+            angle: "Narrow legal workflow automation with auditable outputs.",
+            message: "AI assistance lawyers can verify quickly, trust safely, and use inside their existing workflow."
+          },
+          targetPov: {
+            currentPosition: { title: "New entrant against trusted legal AI platforms", detail: "A startup must win a focused workflow where larger platforms are too broad, expensive, or slow to configure." },
+            strategicIssue: { title: "Trust is the buying constraint", detail: "Legal users will not adopt unless answers are cited, reviewable, secure, and aligned with professional standards." },
+            bestNextMove: { title: "Own one repeatable legal task", detail: "Start with a narrow use case like contract redlining, clause comparison, or intake summarization and build proof around accuracy." }
+          }
+        };
+      }
+
+      return null;
+    }
+
+    function demoReport(product) {
+      const cleanProduct = product || "this market";
+      const known = knownDemoContext(cleanProduct);
+      const companyMode = known?.targetType === "company" || isCompanyLike(cleanProduct);
+      const category = known?.category || cleanProduct;
+      const competitors = known?.competitors || [
+        {
+          name: `${category} incumbent`,
+          positioning: `Represents established demand in ${category} with stronger awareness and distribution than a new entrant.`,
+          strengths: ["Existing reach", "Buyer familiarity"],
+          weakness: "Often less focused on a narrow underserved use case",
+          threatLevel: "High"
+        },
+        {
+          name: `${category} premium alternative`,
+          positioning: `Competes through stronger brand perception, polish, and higher-trust customer experience in ${category}.`,
+          strengths: ["Premium perception", "Pricing power"],
+          weakness: "May exclude price-sensitive customers",
+          threatLevel: "Medium"
+        },
+        {
+          name: `${category} value alternative`,
+          positioning: `Wins buyers who prioritize affordability and convenience over a differentiated experience.`,
+          strengths: ["Accessible pricing", "Simple value story"],
+          weakness: "Lower defensibility if competitors match price",
+          threatLevel: "Medium"
+        },
+        {
+          name: `${category} niche specialist`,
+          positioning: `Focuses on a specific customer job that larger players do not fully optimize for.`,
+          strengths: ["Focused message", "Early loyalty"],
+          weakness: "Limited awareness outside its niche",
+          threatLevel: "Low"
+        }
+      ];
+
+      return {
+        summary: known?.summary || {
+          headline: companyMode ? `${cleanProduct} needs a sharper company-specific wedge` : `${cleanProduct} needs one clear beachhead`,
+          body: companyMode
+            ? `${cleanProduct} should be evaluated against the rivals customers would actually compare it with, not just the broad category. The strategic priority is to clarify why this exact brand should win repeat preference when alternatives can copy features, discounts, or convenience.`
+            : `A new entrant in ${cleanProduct} should avoid broad positioning and choose one buyer segment, one painful use case, and one proof-backed reason to switch. The opportunity depends on making the first value moment more obvious than existing alternatives.`
+        },
+        market: {
+          stage: known ? "Growing" : "Needs validation",
+          timing: known?.market?.timing || `The timing depends on whether ${cleanProduct} has visible demand, active alternatives, and a buyer pain strong enough to motivate switching.`,
+          confidence: known ? "Medium" : "Low"
+        },
+        targetCustomer: known?.targetCustomer || {
+          segment: companyMode ? `Customers currently considering ${cleanProduct} alongside close alternatives.` : `High-intent early adopters who already feel the pain ${cleanProduct} is meant to solve.`,
+          pain: companyMode ? `They need a clearer reason to choose ${cleanProduct} instead of the alternatives they already know.` : "They need a credible, lower-friction solution that feels built for their exact situation."
+        },
+        positioning: known?.positioning || {
+          angle: companyMode ? `Make ${cleanProduct}'s strongest reason-to-believe impossible to miss.` : "Own a narrow wedge before broadening the category story.",
+          message: companyMode ? `${cleanProduct} should compete on a specific outcome customers can feel, verify, and repeat.` : `A focused ${cleanProduct} offer for customers who need proof before they switch.`
+        },
+        targetPov: known?.targetPov || {
+          currentPosition: {
+            title: companyMode ? `${cleanProduct} is being judged against direct alternatives` : `${cleanProduct} is a category entry point`,
+            detail: companyMode ? `The report treats ${cleanProduct} as the target company and frames recommendations around how it can win preference.` : `The report treats ${cleanProduct} as a product/category idea and frames recommendations around a new entrant.`
+          },
+          strategicIssue: {
+            title: companyMode ? "The brand needs sharper differentiation" : "The category needs a focused first use case",
+            detail: companyMode ? "If the offer sounds interchangeable, customers will choose based on price, habit, or availability." : "Without a clear wedge, the product will feel like a nice-to-have instead of an urgent switch."
+          },
+          bestNextMove: {
+            title: companyMode ? "Prove the strongest switch reason" : "Launch around one buyer pain",
+            detail: companyMode ? `Show why ${cleanProduct} is the better choice in the specific moments where customers compare options.` : `Pick one segment, one problem, and one measurable promise before expanding ${cleanProduct}.`
+          }
+        },
+        competitors,
+        gaps: [
+          companyMode ? `A clearer reason to choose ${cleanProduct} when competitors match the basic offer.` : `A focused wedge for one underserved ${cleanProduct} buyer segment instead of a broad launch.`,
+          "A trust layer that makes claims, quality, pricing, or outcomes easier to verify before purchase.",
+          "A faster onboarding or first-use experience that reduces the gap between interest and value.",
+          "A repeatable education channel that turns customer confusion into qualified demand.",
+          "A bundled offer that combines product, service, and support into one simple decision."
+        ],
+        opportunities: [
+          {
+            title: companyMode ? "Defend the comparison moment" : "Own a narrow beachhead",
+            why: companyMode ? `${cleanProduct} wins when the customer immediately understands why it is preferable to the named alternatives.` : "Broad competitors leave specific use cases underserved because their messaging must stay generic.",
+            move: companyMode ? "Build proof, pricing, and messaging around the exact decision moment where customers compare options." : "Launch for one high-intent segment with tailored onboarding, proof points, and pricing."
+          },
+          {
+            title: "Make trust visible",
+            why: "Customers hesitate when claims sound similar across competitors.",
+            move: "Add transparent quality signals, comparison proof, and outcome-based guarantees."
+          },
+          {
+            title: "Turn education into demand",
+            why: "The buyer often needs help understanding what makes one option meaningfully better.",
+            move: "Build short expert-led content, calculators, and decision guides around the buying moment."
+          }
+        ],
+        gtmMoves: [
+          { title: "Define the comparison set", detail: `Name the alternatives customers compare with ${cleanProduct} and position against the strongest two.` },
+          { title: "Package the wedge", detail: "Create one clear plan, one outcome promise, and one landing page built around the core pain." },
+          { title: "Build proof loops", detail: "Collect testimonials, before-and-after metrics, and retention signals from every early customer." },
+          { title: "Expand by adjacency", detail: "Move into neighboring segments only after the first wedge shows repeat usage and referrals." }
+        ],
+        risks: [
+          { risk: "Generic positioning", mitigation: `Force every claim to answer why ${cleanProduct} wins against a named alternative.`, severity: "High" },
+          { risk: "Acquisition costs rise", mitigation: "Prioritize owned channels, partnerships, and referral loops before paid scale.", severity: "Medium" },
+          { risk: "Positioning becomes too broad", mitigation: "Keep the first offer focused on a single buyer pain and reject generic feature expansion.", severity: "Medium" },
+          { risk: "Trust claims feel unproven", mitigation: "Replace broad promises with evidence, benchmarks, customer stories, and clear guarantees.", severity: "High" }
+        ],
+        kpis: [
+          { name: "Preference lift", target: `${cleanProduct} chosen more often against named alternatives in user tests` },
+          { name: "Activation rate", target: "60%+ of qualified users reach first value in week one" },
+          { name: "Repeat usage", target: "40%+ return within 30 days" },
+          { name: "Referral signal", target: "15%+ of new leads from organic or word-of-mouth channels" }
+        ],
+        verdict: companyMode
+          ? `${cleanProduct} should not compete as a generic category player; it needs to win a specific comparison against the alternatives customers already consider. The best path is to make its strongest switch reason visible, provable, and tied to repeat behavior.`
+          : `The strongest entry point for ${cleanProduct} is a narrow wedge with unusually clear proof of value. Avoid copying broad incumbents; win the segment they underserve, then expand once trust and repeat usage are visible.`
+      };
+    }
+
+    function parseJson(raw) {
+      if (!raw) {
+        throw new Error("The model returned an empty response.");
+      }
+
+      const cleaned = raw
+        .replace(/```json/gi, "")
+        .replace(/```/g, "")
+        .trim();
+
+      try {
+        return JSON.parse(cleaned);
+      } catch (firstError) {
+        const start = cleaned.indexOf("{");
+        const end = cleaned.lastIndexOf("}");
+        if (start >= 0 && end > start) {
+          return JSON.parse(cleaned.slice(start, end + 1));
+        }
+        throw firstError;
+      }
+    }
+
+    function normalizeReport(data) {
+      const normalized = {
+        summary: {
+          headline: data.summary?.headline || "A focused entrant can still create strategic advantage.",
+          body: data.summary?.body || "The market shows enough competitive activity to prove demand, but the winning wedge depends on sharper targeting, clearer differentiation, and faster proof of value."
+        },
+        market: {
+          stage: data.market?.stage || "Growing",
+          timing: data.market?.timing || "The category has visible demand, but customer expectations are still evolving.",
+          confidence: data.market?.confidence || "Medium"
+        },
+        targetCustomer: {
+          segment: data.targetCustomer?.segment || "A specific high-intent buyer segment with urgent need.",
+          pain: data.targetCustomer?.pain || "They need a more credible, lower-friction reason to choose."
+        },
+        positioning: {
+          angle: data.positioning?.angle || "Own a specific wedge instead of competing broadly.",
+          message: data.positioning?.message || "Sharper focus, clearer proof, and faster value for the customer segment that matters first."
+        },
+        targetPov: {
+          currentPosition: {
+            title: data.targetPov?.currentPosition?.title || "Target-specific position needs validation",
+            detail: data.targetPov?.currentPosition?.detail || "The report should describe how this target competes against the alternatives customers actually consider."
+          },
+          strategicIssue: {
+            title: data.targetPov?.strategicIssue?.title || "Differentiation must be made specific",
+            detail: data.targetPov?.strategicIssue?.detail || "Generic strategy is not enough; the target needs a clear reason to win against named alternatives."
+          },
+          bestNextMove: {
+            title: data.targetPov?.bestNextMove?.title || "Prove one switch reason",
+            detail: data.targetPov?.bestNextMove?.detail || "Focus on the most credible customer pain, then build proof around that decision moment."
+          }
+        },
+        competitors: Array.isArray(data.competitors) ? data.competitors.slice(0, 4) : [],
+        gaps: Array.isArray(data.gaps) ? data.gaps.slice(0, 5) : [],
+        opportunities: Array.isArray(data.opportunities) ? data.opportunities.slice(0, 3) : [],
+        gtmMoves: Array.isArray(data.gtmMoves) ? data.gtmMoves.slice(0, 4) : [],
+        risks: Array.isArray(data.risks) ? data.risks.slice(0, 4) : [],
+        kpis: Array.isArray(data.kpis) ? data.kpis.slice(0, 4) : [],
+        verdict: typeof data.verdict === "string" ? data.verdict : ""
+      };
+
+      if (!normalized.opportunities.length) {
+        normalized.opportunities = [
+          { title: "Sharpen the wedge", why: "Competitors are spread across broad segments.", move: "Choose one urgent use case and make the offer impossible to misunderstand." },
+          { title: "Reduce buyer uncertainty", why: "Customers need stronger proof before switching.", move: "Use transparent claims, comparison evidence, and visible guarantees." },
+          { title: "Create an owned channel", why: "Paid acquisition can get expensive quickly.", move: "Build content, partnerships, and referrals around the buying moment." }
+        ];
+      }
+      if (!normalized.gtmMoves.length) {
+        normalized.gtmMoves = [
+          { title: "Validate demand", detail: "Interview high-intent buyers and test one focused landing page." },
+          { title: "Launch the wedge", detail: "Ship a narrow offer with clear proof and a simple call to action." },
+          { title: "Capture proof", detail: "Turn early wins into testimonials, benchmarks, and case studies." },
+          { title: "Scale selectively", detail: "Expand only into adjacent segments with similar buying triggers." }
+        ];
+      }
+      if (!normalized.risks.length) {
+        normalized.risks = [
+          { risk: "Weak differentiation", mitigation: "Tie the product to one specific customer pain and measurable outcome.", severity: "High" },
+          { risk: "High acquisition cost", mitigation: "Use owned channels and partnerships before scaling paid spend.", severity: "Medium" },
+          { risk: "Slow trust building", mitigation: "Make proof, guarantees, and social validation visible early.", severity: "Medium" },
+          { risk: "Incumbent response", mitigation: "Build depth in workflow, community, and customer insight.", severity: "High" }
+        ];
+      }
+      if (!normalized.kpis.length) {
+        normalized.kpis = [
+          { name: "Activation", target: "First value reached within week one" },
+          { name: "Conversion", target: "Visitor-to-lead rate improves after proof assets" },
+          { name: "Retention", target: "Repeat usage within 30 days" },
+          { name: "Referral", target: "Organic leads increase from customer advocacy" }
+        ];
+      }
+
+      return normalized;
+    }
+
+    function scoreReport(report) {
+      const competitorScore = Math.min(report.competitors.length, 4) * 12;
+      const gapScore = Math.min(report.gaps.length, 5) * 8;
+      const strategyScore = Math.min(report.opportunities.length, 3) * 4 + Math.min(report.gtmMoves.length, 4) * 2;
+      const verdictScore = report.verdict.length > 40 ? 8 : 0;
+      return Math.min(100, 28 + competitorScore + gapScore + strategyScore + verdictScore);
+    }
+
+    function confidenceScore(report) {
+      const label = String(report.market.confidence || "Medium").toLowerCase();
+      if (label.includes("high")) return "High";
+      if (label.includes("low")) return "Low";
+      return "Med";
+    }
+
+    function timingLabel(report) {
+      const stage = String(report.market.stage || "Growing");
+      if (stage.length <= 10) return stage;
+      return stage.split(/[\/,]/)[0].trim().slice(0, 10);
+    }
+
+    function textNode(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      el.textContent = text || "";
+      return el;
+    }
+
+    function renderCardGrid(container, items, cardClass, mapItem) {
+      container.innerHTML = "";
+      items.forEach(item => {
+        const mapped = mapItem(item);
+        const card = document.createElement("article");
+        card.className = cardClass;
+        card.appendChild(textNode("span", "", mapped.label));
+        card.appendChild(textNode("strong", "", mapped.title));
+        card.appendChild(textNode("p", "", mapped.body));
+        if (mapped.severity) {
+          card.appendChild(textNode("div", "severity", `Severity: ${mapped.severity}`));
+        }
+        container.appendChild(card);
+      });
+    }
+
+    function renderResults(data) {
+      const report = normalizeReport(data);
+      state.lastReport = report;
+      state.lastProduct = els.product.value.trim();
+
+      els.reportTitle.textContent = `${state.lastProduct} intelligence report`;
+      els.reportSubtitle.textContent = `${report.competitors.length} competitors, ${report.gaps.length} gaps, ${report.opportunities.length} opportunity plays, ${report.risks.length} risks`;
+      els.score.textContent = scoreReport(report);
+      els.confidence.textContent = confidenceScore(report);
+      els.urgency.textContent = timingLabel(report);
+
+      els.summaryTitle.textContent = report.summary.headline;
+      els.summaryText.textContent = report.summary.body;
+      els.customerTitle.textContent = report.targetCustomer.segment;
+      els.customerText.textContent = report.targetCustomer.pain;
+      els.positioningTitle.textContent = report.positioning.angle;
+      els.positioningText.textContent = report.positioning.message;
+      els.povPositionTitle.textContent = report.targetPov.currentPosition.title;
+      els.povPositionText.textContent = report.targetPov.currentPosition.detail;
+      els.povIssueTitle.textContent = report.targetPov.strategicIssue.title;
+      els.povIssueText.textContent = report.targetPov.strategicIssue.detail;
+      els.povMoveTitle.textContent = report.targetPov.bestNextMove.title;
+      els.povMoveText.textContent = report.targetPov.bestNextMove.detail;
+
+      els.compGrid.innerHTML = "";
+      report.competitors.forEach((competitor, index) => {
+        const card = document.createElement("article");
+        card.className = "comp-card";
+
+        const top = document.createElement("div");
+        top.className = "comp-top";
+        top.appendChild(textNode("p", "comp-name", competitor.name || "Unnamed competitor"));
+        top.appendChild(textNode("span", "rank", String(index + 1).padStart(2, "0")));
+
+        const positioning = textNode("p", "comp-pos", competitor.positioning || "Positioning unavailable.");
+        const tags = document.createElement("div");
+        tags.className = "tag-wrap";
+
+        (competitor.strengths || []).slice(0, 2).forEach(strength => {
+          tags.appendChild(textNode("span", "tag tag-str", strength));
+        });
+        if (competitor.weakness) {
+          tags.appendChild(textNode("span", "tag tag-weak", competitor.weakness));
+        }
+        if (competitor.threatLevel) {
+          tags.appendChild(textNode("span", "tag", `Threat: ${competitor.threatLevel}`));
+        }
+
+        card.append(top, positioning, tags);
+        els.compGrid.appendChild(card);
+      });
+
+      els.gapList.innerHTML = "";
+      report.gaps.forEach((gap, index) => {
+        const item = document.createElement("li");
+        item.appendChild(textNode("div", "gap-num", String(index + 1).padStart(2, "0")));
+        item.appendChild(textNode("span", "", gap));
+        els.gapList.appendChild(item);
+      });
+
+      renderCardGrid(els.opportunityGrid, report.opportunities, "analysis-card", item => ({
+        label: "OPPORTUNITY",
+        title: item.title || "Untitled opportunity",
+        body: `${item.why || ""}${item.move ? ` ${item.move}` : ""}`.trim()
+      }));
+
+      renderCardGrid(els.gtmGrid, report.gtmMoves, "move-card", item => ({
+        label: "GTM MOVE",
+        title: item.title || "Launch move",
+        body: item.detail || ""
+      }));
+
+      renderCardGrid(els.riskGrid, report.risks, "risk-card", item => ({
+        label: item.severity ? `${item.severity} RISK` : "RISK",
+        title: item.risk || "Risk",
+        body: item.mitigation || "",
+        severity: item.severity
+      }));
+
+      renderCardGrid(els.kpiGrid, report.kpis, "kpi-card", item => ({
+        label: "KPI",
+        title: item.name || "Metric",
+        body: item.target || ""
+      }));
+
+      els.verdict.textContent = report.verdict || "No strategic verdict returned.";
+      els.results.classList.add("show");
+      els.results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function runAgent() {
+      const product = els.product.value.trim();
+      const context = els.context.value.trim();
+      if (!product) {
+        showError("Enter a company, product, or market first.");
+        els.product.focus();
+        return;
+      }
+
+      hideError();
+      setBusy(true);
+      els.results.classList.remove("show");
+
+      try {
+        log("Tool 01 running: mapping competitors...");
+        await new Promise(resolve => setTimeout(resolve, 220));
+
+        log("Tool 02 running: extracting positioning, strengths, and weaknesses...");
+        const prompt = buildPrompt(product, context);
+        let raw = "";
+
+        if (state.provider === "gemini") {
+          raw = await callGemini(prompt);
+        } else if (state.provider === "ollama") {
+          raw = await callOllama(prompt);
+        } else {
+          raw = JSON.stringify(demoReport(product));
+        }
+
+        log("Tool 03 running: identifying market gaps...");
+        const parsed = parseJson(raw);
+
+        log("Complete. Rendering the report...");
+        renderResults(parsed);
+        log("Report ready.");
+      } catch (error) {
+        log("The agent stopped before it could finish.");
+        showError(error.message || "Something went wrong. Try Demo mode to verify the interface, or check your provider settings.");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    function buildReportText() {
+      const report = state.lastReport;
+      if (!report) return "";
+
+      let text = `MARKET RESEARCH REPORT: ${state.lastProduct}\n\n`;
+      text += `EXECUTIVE SNAPSHOT\n`;
+      text += `${report.summary.headline}\n${report.summary.body}\n\n`;
+      text += `IDEAL CUSTOMER\n${report.targetCustomer.segment}\n${report.targetCustomer.pain}\n\n`;
+      text += `POSITIONING\n${report.positioning.angle}\n${report.positioning.message}\n\n`;
+      text += `TARGET POV\n`;
+      text += `${report.targetPov.currentPosition.title}: ${report.targetPov.currentPosition.detail}\n`;
+      text += `${report.targetPov.strategicIssue.title}: ${report.targetPov.strategicIssue.detail}\n`;
+      text += `${report.targetPov.bestNextMove.title}: ${report.targetPov.bestNextMove.detail}\n\n`;
+      text += "COMPETITIVE LANDSCAPE\n";
+      report.competitors.forEach((competitor, index) => {
+        text += `${index + 1}. ${competitor.name}: ${competitor.positioning}\n`;
+        text += `   Strengths: ${(competitor.strengths || []).join(", ")}\n`;
+        text += `   Weakness: ${competitor.weakness || "N/A"}\n`;
+        text += `   Threat: ${competitor.threatLevel || "N/A"}\n`;
+      });
+      text += "\nMARKET GAPS\n";
+      report.gaps.forEach((gap, index) => {
+        text += `${index + 1}. ${gap}\n`;
+      });
+      text += "\nOPPORTUNITY PLAYS\n";
+      report.opportunities.forEach((opportunity, index) => {
+        text += `${index + 1}. ${opportunity.title}: ${opportunity.why} ${opportunity.move}\n`;
+      });
+      text += "\nGO-TO-MARKET PLAN\n";
+      report.gtmMoves.forEach((move, index) => {
+        text += `${index + 1}. ${move.title}: ${move.detail}\n`;
+      });
+      text += "\nRISKS & MITIGATIONS\n";
+      report.risks.forEach((risk, index) => {
+        text += `${index + 1}. ${risk.risk} (${risk.severity || "N/A"}): ${risk.mitigation}\n`;
+      });
+      text += "\nSUCCESS METRICS\n";
+      report.kpis.forEach((kpi, index) => {
+        text += `${index + 1}. ${kpi.name}: ${kpi.target}\n`;
+      });
+      text += `\nSTRATEGIC VERDICT\n${report.verdict}\n`;
+      return text;
+    }
+
+    async function copyReport() {
+      const text = buildReportText();
+      if (!text) return;
+
+      await navigator.clipboard.writeText(text);
+      els.copy.textContent = "Copied";
+      setTimeout(() => {
+        els.copy.textContent = "Copy report";
+      }, 1600);
+    }
+
+    function downloadJson() {
+      if (!state.lastReport) return;
+
+      const blob = new Blob([JSON.stringify({
+        product: state.lastProduct,
+        generatedAt: new Date().toISOString(),
+        report: state.lastReport
+      }, null, 2)], { type: "application/json" });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${state.lastProduct.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "market-report"}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    els.providerButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        state.provider = button.dataset.provider;
+        setProviderDefaults();
+        hideError();
+      });
+    });
+    els.run.addEventListener("click", runAgent);
+    els.copy.addEventListener("click", copyReport);
+    els.download.addEventListener("click", downloadJson);
+    els.saveKey.addEventListener("click", () => {
+      const key = els.apiKey.value.trim();
+      if (!key) {
+        localStorage.removeItem("marketAgentGeminiKey");
+        els.saveKey.textContent = "Cleared";
+      } else {
+        localStorage.setItem("marketAgentGeminiKey", key);
+        els.saveKey.textContent = "Saved";
+      }
+      setTimeout(() => {
+        els.saveKey.textContent = "Save";
+      }, 1400);
+    });
+
+    els.product.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        runAgent();
+      }
+    });
+
+    setProviderDefaults();
+  </script>
+</body>
+</html>

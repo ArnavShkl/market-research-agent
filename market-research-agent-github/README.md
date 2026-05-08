@@ -28,3 +28,8 @@ Market Research Agent is a single-page AI strategy tool designed for founders, a
 ## Notes
 
 No private API key is hardcoded. Users can paste their own Gemini API key, run Ollama locally, or use Demo mode.
+
+## Access Link
+marketintelagent.netlify.app
+
+

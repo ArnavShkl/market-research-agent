@@ -25,14 +25,6 @@ An AI-powered competitive intelligence dashboard that turns a company, product, 
 
 Market Research Agent is a single-page AI strategy tool designed for founders, analysts, and product teams. It takes a target company or market and generates a boardroom-ready competitive intelligence report with positioning, named competitors, market gaps, opportunity plays, go-to-market moves, risks, KPIs, and an executive verdict.
 
-## Deployment
-
-This is a static site. Deploy the folder directly to Netlify, GitHub Pages, or Vercel.
-
-For the simplest launch, drag this entire folder into Netlify Drop:
-
-https://app.netlify.com/drop
-
 ## Notes
 
 No private API key is hardcoded. Users can paste their own Gemini API key, run Ollama locally, or use Demo mode.

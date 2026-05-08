@@ -32,3 +32,7 @@ The project focuses on practical AI product design: clear prompts, structured JS
 - JavaScript data rendering
 - Static site deployment
 - Portfolio-ready product storytelling
+
+# Access
+https://marketresearchagent.netlify.app/
+

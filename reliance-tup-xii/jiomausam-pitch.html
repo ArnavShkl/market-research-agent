@@ -1,0 +1,418 @@
+<title>JioMausam Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070B18; --s1:#0F1630; --s2:#172045; --line:#27315C;
+  --tx:#F3F1EC; --mu:#9CA6C6; --ac:#F5A623; --rain:#3DD6F5; --heat:#FF5A4E; --ok:#35D49A; --twr:#8B95B8;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#070B18; color-scheme:dark; } }
+:root[data-theme="dark"]{ --bg:#070B18; color-scheme:dark; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+#stage{position:fixed;left:50%;top:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--k,1));overflow:hidden;
+  background:radial-gradient(1100px 560px at 88% -12%,#1c2d7040,transparent 62%),radial-gradient(900px 480px at -8% 112%,#f5a62316,transparent 60%),var(--bg)}
+#bar{position:absolute;left:0;top:0;height:4px;width:0;background:linear-gradient(90deg,var(--ac),var(--heat));z-index:3}
+.slide{position:absolute;inset:0;padding:58px 84px 150px;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.slide.active{opacity:1;visibility:visible}
+[data-w]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+[data-w].on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-w]{transform:none;transition:opacity .3s}.drop,.ring,.beam,.merc{animation:none!important}}
+.kicker{font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);margin-bottom:22px}
+h1,h2,h3{font-family:Sora,"DM Sans",sans-serif;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:72px;line-height:1.04;font-weight:800;max-width:780px}
+h2{font-size:52px;line-height:1.08;font-weight:800}
+h3{font-size:23px;font-weight:700;line-height:1.2}
+.mu{color:var(--mu)} .ac{color:var(--ac)}
+.chips{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.chips span{border:1px solid var(--line);background:var(--s1);padding:10px 18px;border-radius:999px;font-size:19px;font-weight:500}
+/* s1 */
+.jio{margin-top:40px;font-family:Sora,sans-serif;font-size:62px;font-weight:800;letter-spacing:-.02em}
+.jio b{color:var(--ac)}
+.deco{position:absolute;right:90px;top:90px;width:300px;height:380px}
+.ring{fill:none;stroke:var(--ac);stroke-width:2;transform-origin:150px 64px;animation:ring 3.2s ease-out infinite}
+.ring:nth-of-type(2){animation-delay:1.05s}.ring:nth-of-type(3){animation-delay:2.1s}
+@keyframes ring{from{transform:scale(.25);opacity:.9}to{transform:scale(3.4);opacity:0}}
+.twr{color:var(--twr)}
+/* s2 */
+.people{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.people span{background:#ff5a4e14;border:1px solid #ff5a4e40;color:#ffb3ad;padding:9px 16px;border-radius:10px;font-size:18px;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+.stat{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.num{font-family:Sora,sans-serif;font-size:50px;font-weight:800;color:var(--rain);line-height:1.05;margin-bottom:8px}
+.stat.heat .num{color:var(--heat)} .stat.slow .num{color:var(--ac)}
+.stat div:not(.num){font-size:19px;line-height:1.35}
+.stat small{display:block;color:var(--mu);font-size:13px;margin-top:10px}
+/* s3 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.panel{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:20px 26px 22px}
+.ill{display:block;width:100%;height:150px;margin-bottom:10px}
+.panel p{color:var(--mu);font-size:18px;margin:8px 0 6px}
+.panel small{color:var(--mu);font-size:13px;opacity:.85}
+.tag{display:inline-block;margin-top:14px;padding:8px 14px;border-radius:10px;font-weight:700;font-size:20px}
+.tag.rain{background:#3dd6f51c;color:var(--rain)} .tag.heat{background:#ff5a4e1c;color:var(--heat)}
+.punch{margin-top:24px;text-align:center;font-family:Sora,sans-serif;font-size:34px;font-weight:700}
+.punch b{color:var(--ac)}
+.beam{stroke:var(--rain);stroke-width:3;stroke-dasharray:7 9;animation:beam 2.4s linear infinite}
+@keyframes beam{0%{stroke-dashoffset:0;opacity:1}50%{opacity:.3}100%{stroke-dashoffset:-64;opacity:1}}
+.drop{stroke:var(--rain);stroke-width:2;stroke-linecap:round;animation:fall 1.1s linear infinite}
+@keyframes fall{from{transform:translateY(-24px);opacity:0}25%{opacity:.9}to{transform:translateY(96px);opacity:0}}
+.svt{fill:var(--mu);font:500 12px "DM Sans",sans-serif}
+.svb{fill:var(--heat);font:800 34px Sora,sans-serif}
+.merc{fill:var(--heat);transform-origin:40px 114px;animation:merc 2.6s ease-in-out infinite alternate}
+@keyframes merc{from{transform:scaleY(.45)}to{transform:scaleY(1)}}
+.ph{fill:#0b1024;stroke:var(--twr);stroke-width:2.2}
+.thermo{fill:none;stroke:var(--heat);stroke-width:2}
+.bulb{fill:var(--heat)}
+.dot{fill:var(--heat)}
+/* s4 */
+.s4{display:grid;grid-template-columns:1.3fr .7fr;gap:30px}
+.lead{font-size:21px;line-height:1.4;color:var(--mu);margin:12px 0 18px;max-width:560px}
+.map{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:14px 16px 10px;width:max-content}
+.map svg{display:block;width:512px;height:210px}
+.legend{display:flex;justify-content:space-between;color:var(--mu);font-size:13px;margin-top:8px}
+.legend i{font-style:normal}
+.s4 .chips{margin-top:18px}
+.phone{justify-self:center;width:272px;height:500px;border-radius:38px;border:10px solid #1d2550;background:#0b1024;padding:16px 14px;box-shadow:0 30px 80px #0009;margin-top:-6px}
+.app-h{font-weight:700;font-size:17px;margin:4px 4px 12px;display:flex;justify-content:space-between}
+.app-h span{color:var(--mu);font-weight:500;font-size:13px}
+.row{background:var(--s2);border-radius:12px;padding:12px;font-size:14px;display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}
+.row.kv{border:1px solid var(--ac)}
+.row b{white-space:nowrap}
+.pay{margin-top:4px;background:var(--ac);color:#1a1200;text-align:center;font-weight:700;border-radius:12px;padding:11px;font-size:15px}
+.note{border-radius:12px;padding:12px;font-size:14px;margin-top:12px;line-height:1.38}
+.note.heat{background:#ff5a4e20;border:1px solid #ff5a4e66}
+.note.ok{background:#35d49a20;border:1px solid #35d49a66}
+.note b{display:block;font-size:15px;margin-bottom:2px}
+/* s5 */
+.cards{align-items:stretch}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:24px 26px}
+.card.z{border-color:var(--ac)}
+.lbl{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);margin-bottom:10px;font-weight:600}
+.big{font-family:Sora,sans-serif;font-size:38px;font-weight:800;color:var(--ac);margin:14px 0 6px}
+.card p,.card li{color:var(--mu);font-size:17px;line-height:1.45}
+.card p{margin:8px 0 0}
+.card ul{margin:12px 0 0;padding-left:18px}
+/* s6 */
+.s6{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center;height:100%}
+.one{margin-top:26px;font-family:Sora,sans-serif;font-size:40px;font-weight:800;color:var(--ac);line-height:1.1}
+.layer{display:flex;align-items:center;gap:18px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:15px 20px;margin-bottom:12px}
+.layer b{font-family:Sora,sans-serif;font-size:21px;width:96px;color:var(--ac)}
+.layer span{color:var(--tx);font-size:18px}
+/* s7 */
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.when{color:var(--ac);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.step p{color:var(--mu);font-size:16px;line-height:1.45;margin:8px 0 0}
+.closer{margin-top:28px;font-family:Sora,sans-serif;font-size:27px;line-height:1.35;font-weight:600}
+.closer div:first-child{color:var(--mu)}
+.brand{margin-top:22px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;font-family:Sora,sans-serif;font-size:46px;font-weight:800}
+.brand em{font-style:normal;font-size:24px;color:var(--mu);font-weight:600}
+.team{font-family:"DM Sans",sans-serif;font-size:17px;color:var(--mu);font-weight:600;letter-spacing:.02em}
+.team:empty{display:none}
+/* captions + countdown */
+#cap{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:max-content;max-width:1080px;padding:12px 24px;border-radius:14px;
+  background:#050814dd;border:1px solid var(--line);font-size:25px;line-height:1.36;font-weight:500;text-align:center;z-index:3}
+#cap.off,#cap:empty{opacity:0}
+#cd{position:absolute;inset:0;display:grid;place-items:center;font-family:Sora,sans-serif;font-size:180px;font-weight:800;color:var(--ac);background:var(--bg);z-index:5}
+#cd[hidden]{display:none}
+/* chrome outside the video frame */
+#ctl{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:4px;align-items:center;
+  background:#0f1630ee;border:1px solid var(--line);border-radius:14px;padding:6px 8px;z-index:8;transition:opacity .3s;max-width:calc(100vw - 32px)}
+body.idle #ctl{opacity:0;pointer-events:none}
+body.idle{cursor:none}
+#ctl button{background:transparent;border:0;color:var(--tx);font:700 15px "DM Sans",sans-serif;min-width:38px;height:38px;border-radius:9px;cursor:pointer;padding:0 8px}
+#ctl button:hover,#ctl button:focus-visible{background:var(--s2);outline:none}
+#ctl button[aria-pressed="false"]{color:var(--mu)}
+#ctl .t{font-variant-numeric:tabular-nums;color:var(--mu);font-size:14px;padding:0 6px}
+.over{color:var(--heat)!important}
+#intro{position:fixed;inset:0;z-index:10;background:#070b18f4;display:grid;place-items:center;padding:16px;overflow:auto}
+#intro[hidden]{display:none}
+.box{width:100%;max-width:560px;background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:28px}
+.box h1{font-size:30px;max-width:none;margin-bottom:6px}
+.box p{color:var(--mu);font-size:15px;line-height:1.5;margin:0 0 16px}
+.box ol{margin:0 0 18px;padding-left:20px;color:var(--tx);font-size:15px;line-height:1.55}
+.box ol li{margin-bottom:6px}
+.box kbd{background:var(--s2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font:600 13px "DM Sans",sans-serif}
+.box label{display:block;font-size:13px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.box input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--tx);font:500 16px "DM Sans",sans-serif;padding:11px 12px;margin-bottom:16px}
+.box input:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.pace{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.pace button{background:var(--s2);border:1px solid var(--line);color:var(--tx);width:36px;height:36px;border-radius:9px;font:700 18px "DM Sans",sans-serif;cursor:pointer}
+.pace span{font-variant-numeric:tabular-nums;font-size:15px}
+#go{width:100%;background:var(--ac);color:#1a1200;border:0;border-radius:12px;padding:14px;font:800 17px Sora,sans-serif;cursor:pointer}
+#go:focus-visible{outline:3px solid var(--tx);outline-offset:2px}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="tw" viewBox="0 0 40 130">
+      <path d="M20 4 L2 128 M20 4 L38 128 M7 95 H33 M11 64 H29 M15 34 H25 M7 95 L29 64 M33 95 L11 64 M11 64 L25 34 M29 64 L15 34" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="20" cy="4" r="4" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage" role="region" aria-label="Pitch video">
+  <div id="bar"></div>
+
+  <!-- 1 · Hook -->
+  <section class="slide">
+    <div class="kicker" data-w="0">Reliance T.U.P XII &middot; Different by Design <span class="team"></span></div>
+    <h1 data-w="0">India&rsquo;s biggest weather network already exists.</h1>
+    <div class="chips" data-w="7"><span>Lakhs of stations</span><span>Every district</span><span>Switched on, 24&times;7</span></div>
+    <div class="jio" data-w="23">It&rsquo;s called <b>Jio</b>.</div>
+    <svg class="deco" viewBox="0 0 300 380" aria-hidden="true">
+      <circle class="ring" cx="150" cy="64" r="40"/><circle class="ring" cx="150" cy="64" r="40"/><circle class="ring" cx="150" cy="64" r="40"/>
+      <use href="#tw" x="104" y="56" width="92" height="300" class="twr"/>
+    </svg>
+  </section>
+
+  <!-- 2 · Problem -->
+  <section class="slide">
+    <div class="kicker" data-w="0">The problem</div>
+    <h2 data-w="0">Weather is hyperlocal.<br><span class="mu">Our data isn&rsquo;t.</span></h2>
+    <div class="people" data-w="31"><span>Farmers</span><span>Delivery riders</span><span>Construction workers</span><span>Street vendors</span></div>
+    <div class="grid3">
+      <div class="stat" data-w="10"><div class="num">~40</div><div>Doppler weather radars for 3.3 million km&sup2;</div><small>IMD network</small></div>
+      <div class="stat heat" data-w="47"><div class="num">34M</div><div>full-time jobs&rsquo; worth of work hours lost to heat by 2030</div><small>ILO, Working on a Warmer Planet (2019)</small></div>
+      <div class="stat slow" data-w="58"><div class="num">Months</div><div>for a crop-insurance claim to reach a farmer</div><small>Survey, loss assessment, then payout</small></div>
+    </div>
+  </section>
+
+  <!-- 3 · Insight -->
+  <section class="slide">
+    <div class="kicker" data-w="0">The insight</div>
+    <div class="two">
+      <div class="panel" data-w="3">
+        <svg class="ill" viewBox="0 0 460 150" aria-hidden="true">
+          <use href="#tw" x="28" y="16" width="40" height="130" class="twr"/>
+          <use href="#tw" x="392" y="16" width="40" height="130" class="twr"/>
+          <line class="beam" x1="48" y1="21" x2="412" y2="21"/>
+          <g id="drops"></g>
+          <text class="svt" x="230" y="146" text-anchor="middle">signal loss between towers &rarr; mm of rain per hour</text>
+        </svg>
+        <h3>Rain weakens the signal between towers</h3>
+        <p>The drop in signal tells you how hard it&rsquo;s raining, minute by minute.</p>
+        <small>Messer, Zinevich &amp; Alpert &middot; Science, 2006</small><br>
+        <div class="tag rain" data-w="42">Every tower is a rain gauge</div>
+      </div>
+      <div class="panel" data-w="29">
+        <svg class="ill" viewBox="0 0 460 150" aria-hidden="true">
+          <g transform="translate(96,0)">
+            <rect class="ph" x="0" y="0" width="80" height="148" rx="14"/>
+            <rect x="35" y="30" width="10" height="84" rx="5" class="thermo"/>
+            <rect class="merc" x="38" y="44" width="4" height="70"/>
+            <circle class="bulb" cx="40" cy="116" r="11"/>
+          </g>
+          <circle class="dot" cx="208" cy="30" r="4" opacity=".5"/><circle class="dot" cx="226" cy="118" r="4" opacity=".7"/>
+          <circle class="dot" cx="410" cy="36" r="4" opacity=".6"/><circle class="dot" cx="428" cy="112" r="4" opacity=".4"/>
+          <text class="svb" x="236" y="80">41.8&deg;C</text>
+          <text class="svt" x="238" y="102">city average, crowd-sourced</text>
+        </svg>
+        <h3>Phone batteries feel the city&rsquo;s heat</h3>
+        <p>Battery temperatures, averaged across a city, track the air temperature.</p>
+        <small>Overeem et al. &middot; Geophysical Research Letters, 2013</small><br>
+        <div class="tag heat" data-w="49">Every phone is a thermometer</div>
+      </div>
+    </div>
+    <div class="punch" data-w="54">We don&rsquo;t build sensors. <b>We become the sensor.</b></div>
+  </section>
+
+  <!-- 4 · Product -->
+  <section class="slide">
+    <div class="s4">
+      <div>
+        <div class="kicker" data-w="0">The product</div>
+        <h2 data-w="0">Jio<span class="ac">Mausam</span></h2>
+        <p class="lead" data-w="2">A live, street-level weather map of India, built from network data. Zero new hardware.</p>
+        <div class="map" data-w="4">
+          <svg id="heatmap" viewBox="0 0 512 210" aria-label="Illustrative 1 km weather grid"></svg>
+          <div class="legend"><i>Heavy rain</i><i>Illustrative 1 km grid</i><i>Extreme heat</i></div>
+        </div>
+        <div class="chips" data-w="60"><span>No claim forms</span><span>No surveyor</span><span>No waiting</span></div>
+      </div>
+      <div class="phone" data-w="17">
+        <div class="app-h">Recharge <span>MyJio</span></div>
+        <div class="row"><span>Unlimited 5G &middot; 28 days</span><b>&#8377;299</b></div>
+        <div class="row kv"><span>Mausam Kavach<br><span class="mu">heat + rain cover</span></span><b>&#8377;29/mo</b></div>
+        <div class="pay">Pay &#8377;328</div>
+        <div class="note heat" data-w="35"><b>46.2&deg;C near you</b>Measured by the network in Nagpur, Sitabuldi. Kavach triggered.</div>
+        <div class="note ok" data-w="51"><b>&#8377;300 credited to JioPay</b>Paid 2 hours after the trigger. Nothing to file.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Business -->
+  <section class="slide">
+    <div class="kicker" data-w="0">The business</div>
+    <h2 data-w="0">Three layers of revenue</h2>
+    <div class="grid3 cards">
+      <div class="card" data-w="5"><div class="lbl">B2C</div><h3>Mausam Kavach</h3><div class="big">&asymp; &#8377;170 Cr/yr</div><p>1% of Jio&rsquo;s 500M users = 5M policies &times; &#8377;29 a month. Underwritten with Jio Financial Services&rsquo; insurance partners.</p></div>
+      <div class="card" data-w="32"><div class="lbl">B2B</div><h3>Cover + data</h3><p>Gig platforms insure their riders.</p><p>Insurers, state disaster agencies and agri companies license hyperlocal weather data.</p></div>
+      <div class="card z" data-w="48"><div class="lbl">Customer zero</div><h3>Reliance itself</h3><ul><li>JioMart: rainy-day demand</li><li>New Energy: solar output</li><li>Jio: rain-fade prediction</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 6 · Why Reliance -->
+  <section class="slide">
+    <div class="s6">
+      <div>
+        <div class="kicker" data-w="0">The moat</div>
+        <h2 data-w="0">Why only Reliance?</h2>
+        <div class="one" data-w="37">Every layer.<br>One roof.</div>
+      </div>
+      <div>
+        <div class="layer" data-w="3"><b>Sense</b><span>Jio network, lakhs of sites</span></div>
+        <div class="layer" data-w="9"><b>Reach</b><span>500M+ subscribers, every recharge</span></div>
+        <div class="layer" data-w="20"><b>Pay</b><span>JioPay &middot; JioFinance</span></div>
+        <div class="layer" data-w="24"><b>Insure</b><span>Jio Financial Services partners</span></div>
+        <div class="layer" data-w="28"><b>Use</b><span>JioMart &middot; Reliance New Energy</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Roadmap + close -->
+  <section class="slide">
+    <div class="kicker" data-w="0">The roadmap</div>
+    <div class="timeline">
+      <div class="step" data-w="0"><div class="when">Days 0&ndash;90</div><h3>Pilot</h3><p>Rain in Vidarbha, heat in Ahmedabad. Validated against IMD gauges.</p></div>
+      <div class="step" data-w="16"><div class="when">Months 4&ndash;9</div><h3>IRDAI sandbox</h3><p>Kavach launched with JFS insurance partners.</p></div>
+      <div class="step" data-w="21"><div class="when">Year 2</div><h3>National map</h3><p>Open API: weather data as a service.</p></div>
+    </div>
+    <div class="closer">
+      <div data-w="25">India won&rsquo;t adapt to climate change only by building new infrastructure.</div>
+      <div data-w="36">It&rsquo;ll adapt by listening to the infrastructure it already has.</div>
+    </div>
+    <div class="brand" data-w="46">Jio<span class="ac" style="margin-left:-18px">Mausam</span><em>Different by design.</em><span class="team"></span></div>
+  </section>
+
+  <div id="cap" aria-live="polite"></div>
+  <div id="cd" hidden>3</div>
+</div>
+
+<div id="ctl" hidden>
+  <button id="bRe" title="Restart (R)" aria-label="Restart">&#8634;</button>
+  <button id="bPrev" title="Previous slide (&larr;)" aria-label="Previous slide">&lsaquo;</button>
+  <button id="bPlay" title="Play / pause (Space)" aria-label="Play or pause">&#9654;</button>
+  <button id="bNext" title="Next slide (&rarr;)" aria-label="Next slide">&rsaquo;</button>
+  <span class="t" id="time">0:00 / 0:00</span>
+  <button id="bSlow" title="Slower narration" aria-label="Slower">&minus;</button>
+  <span class="t" id="wpmL">140 wpm</span>
+  <button id="bFast" title="Faster narration" aria-label="Faster">+</button>
+  <button id="bCap" title="Captions (C)" aria-pressed="true">CC</button>
+  <button id="bFull" title="Fullscreen (F)" aria-label="Fullscreen">&#x26F6;</button>
+</div>
+
+<div id="intro">
+  <div class="box">
+    <h1>JioMausam: 3-minute pitch</h1>
+    <p>This page plays like a video. Record your screen with your mic on and read the captions aloud. The slides move at your reading pace.</p>
+    <ol>
+      <li>Type your team name (it shows on the first and last slide).</li>
+      <li>Start your screen recorder with the microphone on. Windows: <kbd>Win</kbd>+<kbd>Alt</kbd>+<kbd>R</kbd>. Mac: <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>5</kbd>. Phone: built-in screen record.</li>
+      <li>Press <b>Start</b>. After a 3-2-1 countdown, read each caption as it appears. <kbd>Space</kbd> pauses, <kbd>&larr;</kbd> <kbd>&rarr;</kbd> jump slides, <kbd>F</kbd> goes fullscreen.</li>
+    </ol>
+    <label for="teamIn">Team name</label>
+    <input id="teamIn" type="text" placeholder="e.g. Team Monsoon" autocomplete="off">
+    <label>Reading pace</label>
+    <div class="pace"><button id="pSlow" aria-label="Slower">&minus;</button><span id="paceL">140 wpm &middot; 2:49</span><button id="pFast" aria-label="Faster">+</button></div>
+    <button id="go">Start (3-2-1)</button>
+  </div>
+</div>
+
+<script>
+const S=[
+ ["India's biggest weather network already exists.","It has lakhs of stations, it covers every district, and it's switched on right now.","Nobody noticed — because we call it Jio."],
+ ["Weather in India is hyperlocal, but our data isn't.","About forty Doppler radars watch 3.3 million square kilometres.","So when a heatwave hits one ward, or a cloudburst hits one village,","the people who lose the most — farmers, delivery riders, construction workers, street vendors — lose it alone.","Heat alone could cost India thirty-four million full-time jobs by 2030.","And when insurance does exist, claims take months."],
+ ["Here's the insight.","Rain weakens the radio links between towers —","and how much it weakens tells you how hard it's raining, minute by minute.","Science published that in 2006.","Smartphone battery temperatures, averaged across a city, track air temperature — that's published too.","So every tower is a rain gauge.","Every phone is a thermometer.","We don't build sensors. We become the sensor."],
+ ["Meet JioMausam —","a live, street-level weather map of India, built from network data, with zero new hardware.","On top of it: Mausam Kavach —","parametric micro-insurance you add to your recharge for twenty-nine rupees a month.","When the network measures 45 degrees in your area, or rain heavy enough to stop work,","the payout lands in your JioPay wallet within hours.","No claim forms. No surveyor. No waiting."],
+ ["The business has three layers.","One: Kavach premiums — just one percent of Jio's 500 million users is five million policies —","around 170 crore rupees a year, underwritten with Jio Financial's insurance partners.","Two: B2B — gig platforms buy cover for their riders;","insurers and state governments buy hyperlocal data.","Three — our favourite — Reliance is customer zero.","JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade."],
+ ["Why only Reliance?","A startup can't own the towers.","An insurer can't reach 500 million people.","No other telecom has a payments app, an insurance arm, a retail chain","and a giga-scale energy business under one roof.","Reliance has every layer."],
+ ["We start with a ninety-day pilot — rain in Vidarbha, heat in Ahmedabad — validated against IMD gauges.","Then an IRDAI sandbox product. Then a national map.","India won't adapt to climate change only by building new infrastructure.","It'll adapt by listening to the infrastructure it already has.","This is JioMausam. Different by design."]
+];
+const TAIL=0.7, END_TAIL=2.5, LIMIT=180;
+const $=id=>document.getElementById(id);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const wc=s=>(s.match(/[\p{L}\p{N}][\p{L}\p{N}'’.\-]*/gu)||[]).length;
+const W=S.map(a=>a.map(wc)), WT=W.map(a=>a.reduce((x,y)=>x+y,0));
+const slides=[...document.querySelectorAll('.slide')];
+const stage=$('stage'), cap=$('cap'), bar=$('bar');
+let wpm=+store.get('wpm')||140, t=0, playing=false, last=performance.now(), cur=-1, starts=[], total=0, started=false;
+
+function layout(){starts=[];let a=0;WT.forEach((w,i)=>{starts.push(a);a+=w*60/wpm+(i===WT.length-1?END_TAIL:TAIL)});total=a}
+function locate(x){let i=starts.length-1;while(i>0&&x<starts[i])i--;return i}
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function paceText(){const over=total>LIMIT;return {txt:wpm+' wpm · '+fmt(total)+(over?' (over 3:00)':''),over}}
+function showPace(){const p=paceText();$('paceL').textContent=p.txt;$('paceL').classList.toggle('over',p.over);$('wpmL').textContent=wpm+' wpm';}
+function setWpm(n){const i=locate(t),wpos=(t-starts[i])*wpm/60;wpm=Math.min(190,Math.max(110,n));layout();t=Math.min(total-0.01,starts[i]+wpos*60/wpm);store.set('wpm',wpm);showPace();}
+
+function render(){
+  const i=locate(t);
+  if(i!==cur){slides.forEach((s,k)=>s.classList.toggle('active',k===i));cur=i;if(i===3)paint();}
+  const wpos=(t-starts[i])*wpm/60;
+  slides[i].querySelectorAll('[data-w]').forEach(el=>el.classList.toggle('on',wpos>=+el.dataset.w));
+  let a=0,k=0;for(;k<W[i].length;k++){if(wpos<a+W[i][k])break;a+=W[i][k]}
+  if(k>=W[i].length)k=W[i].length-1;
+  const txt=started?S[i][k]:'';
+  if(cap.textContent!==txt)cap.textContent=txt;
+  bar.style.width=(100*t/total)+'%';
+  $('time').textContent=fmt(t)+' / '+fmt(total);
+}
+function tick(ts){if(playing){t+=(ts-last)/1000;if(t>=total){t=total-0.001;setPlay(false)}}last=ts;render();requestAnimationFrame(tick)}
+function setPlay(p){playing=p;$('bPlay').innerHTML=p?'&#10074;&#10074;':'&#9654;';if(p)poke();else document.body.classList.remove('idle')}
+function toggle(){if(!started)return begin();if(!playing&&t>=total-0.01)t=0;setPlay(!playing)}
+function next(){const i=locate(t);if(i<slides.length-1)t=starts[i+1]}
+function prev(){const i=locate(t);t=(t-starts[i]>1.5)?starts[i]:starts[Math.max(0,i-1)]}
+function restart(){t=0;cur=-1}
+
+function begin(){
+  const name=$('teamIn').value.trim();store.set('team',name);applyTeam(name);
+  $('intro').hidden=true;$('ctl').hidden=false;restart();started=true;
+  const cd=$('cd');let n=3;cd.textContent=n;cd.hidden=false;
+  const iv=setInterval(()=>{n--;if(n>0){cd.textContent=n}else{clearInterval(iv);cd.hidden=true;t=0;last=performance.now();setPlay(true)}},850);
+}
+function applyTeam(n){document.querySelectorAll('.team').forEach((el,i)=>el.textContent=n?(i===0?'· '+n:n):'')}
+
+let idleT;function poke(){document.body.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(()=>{if(playing)document.body.classList.add('idle')},2200)}
+addEventListener('mousemove',poke);addEventListener('touchstart',poke,{passive:true});
+
+function fit(){stage.style.setProperty('--k',Math.min(innerWidth/1280,innerHeight/720))}
+addEventListener('resize',fit);fit();
+
+// rain drops
+(function(){const g=$('drops'),ns='http://www.w3.org/2000/svg';for(let i=0;i<24;i++){const l=document.createElementNS(ns,'line');const x=84+i*12.5+(i*7%5);const y=30+(i*13%20);l.setAttribute('x1',x);l.setAttribute('x2',x-3);l.setAttribute('y1',y);l.setAttribute('y2',y+10);l.setAttribute('class','drop');l.style.animationDelay=(-(i*0.37)%1.1)+'s';g.appendChild(l)}})();
+
+// illustrative weather grid
+const hm=$('heatmap'),cells=[];
+(function(){const ns='http://www.w3.org/2000/svg';for(let r=0;r<13;r++)for(let c=0;c<32;c++){const e=document.createElementNS(ns,'rect');e.setAttribute('x',c*16);e.setAttribute('y',r*16);e.setAttribute('width',13);e.setAttribute('height',13);e.setAttribute('rx',3);hm.appendChild(e);cells.push([c,r,e])}})();
+let phase=0;
+function col(v){if(v>1.2){const d=Math.min(1,(v-1.2)/1.4);return `hsl(${22-d*16},92%,${46+d*10}%)`}if(v<-1.2){const d=Math.min(1,(-v-1.2)/1.4);return `hsl(191,85%,${38+d*18}%)`}return `hsl(228,34%,${15+(v+1.2)*2.2}%)`}
+function paint(){cells.forEach(([c,r,e])=>{const v=Math.sin(c*.31+phase)+Math.cos(r*.52-phase*.8)+.8*Math.sin((c-r)*.2+phase*.45);e.setAttribute('fill',col(v))})}
+setInterval(()=>{if(cur===3&&playing){phase+=.12;paint()}},600);paint();
+
+// controls
+$('bPlay').onclick=toggle;$('bNext').onclick=next;$('bPrev').onclick=prev;$('bRe').onclick=()=>{restart();setPlay(false)};
+$('bSlow').onclick=()=>setWpm(wpm-10);$('bFast').onclick=()=>setWpm(wpm+10);
+$('pSlow').onclick=()=>setWpm(wpm-10);$('pFast').onclick=()=>setWpm(wpm+10);
+$('bCap').onclick=()=>{const on=cap.classList.toggle('off');$('bCap').setAttribute('aria-pressed',String(!on))};
+function full(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
+$('bFull').onclick=full;$('go').onclick=begin;
+stage.addEventListener('click',()=>{if(started)toggle()});
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'){if(e.key==='Enter')begin();return}
+  const k=e.key.toLowerCase();
+  if(k===' '||k==='k'){e.preventDefault();toggle()}
+  else if(k==='arrowright'||k==='l')next();
+  else if(k==='arrowleft'||k==='j')prev();
+  else if(k==='c')$('bCap').click();
+  else if(k==='r'){restart();setPlay(false)}
+  else if(k==='f')full();
+});
+
+const savedTeam=store.get('team')||'';$('teamIn').value=savedTeam;applyTeam(savedTeam);
+layout();showPace();requestAnimationFrame(tick);
+</script>

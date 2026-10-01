@@ -1,0 +1,63 @@
+JioMausam · 3-minute pitch · voice-over script
+Pace: 145 words per minute · total 2:53
+Read each line when its timestamp comes up. The slide changes at each [m:ss] mark.
+
+[0:00] SLIDE 1 · Hook
+    India's biggest weather network already exists.
+    It has lakhs of stations, it covers every district, and it's switched on right now.
+    Nobody noticed — because we call it Jio.
+
+[0:12] SLIDE 2 · Problem
+    Weather in India is hyperlocal, but our data isn't.
+    About forty Doppler radars watch 3.3 million square kilometres.
+    When a cloudburst hits one ward, the people who lose the most —
+    farmers, delivery riders, construction workers, street vendors — lose it alone.
+    Heat alone could cost India thirty-four million full-time jobs by 2030.
+    And when insurance does exist, claims take months.
+
+[0:37] SLIDE 3 · Insight
+    Here's the insight.
+    Rain weakens the radio links between towers —
+    and how much it weakens tells you how hard it's raining, minute by minute.
+    Smartphone batteries, averaged across a city, track air temperature.
+    So every tower is a rain gauge. Every phone is a thermometer.
+    We don't build sensors. We become the sensor.
+
+[1:00] SLIDE 4 · Proof
+    Does it actually work? We built it.
+    We ran our prototype on 500 real microwave links for eleven days —
+    and checked it against national weather radar.
+    Network-wide, our rain readings match radar with a correlation of 0.95.
+    Our payout rule made the same decision as radar ninety-five percent of the time.
+
+[1:21] SLIDE 5 · Product
+    Meet JioMausam —
+    a live, street-level weather map built from network data.
+    On top of it: Mausam Kavach —
+    parametric micro-insurance you add to your recharge for twenty-nine rupees a month.
+    When the network measures 45 degrees in your area, or rain heavy enough to stop work,
+    the payout lands in your JioPay wallet within hours.
+    No claim forms. No surveyor. No waiting.
+
+[1:47] SLIDE 6 · Business
+    The business has three layers.
+    One: Kavach premiums — one percent of Jio's 500 million users is five million policies —
+    around 170 crore rupees a year.
+    Two: B2B — gig platforms buy cover for riders; insurers and states buy hyperlocal data.
+    Three: Reliance is customer zero —
+    JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade.
+
+[2:12] SLIDE 7 · Why Reliance
+    Why only Reliance?
+    A startup can't own the towers.
+    An insurer can't reach 500 million people.
+    No other telecom has a payments app, an insurance arm, a retail chain
+    and a giga-scale energy business under one roof.
+    Reliance has every layer.
+
+[2:30] SLIDE 8 · Roadmap & close
+    We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.
+    Then an IRDAI sandbox product. Then a national map.
+    India won't adapt to climate change only by building new infrastructure.
+    It'll adapt by listening to the infrastructure it already has.
+    This is JioMausam. Different by design.

@@ -1,0 +1,175 @@
+1
+00:00:00,000 --> 00:00:02,483
+India's biggest weather network already exists.
+
+2
+00:00:02,483 --> 00:00:08,690
+It has lakhs of stations, it covers every district, and it's switched on right now.
+
+3
+00:00:08,690 --> 00:00:11,586
+Nobody noticed — because we call it Jio.
+
+4
+00:00:12,286 --> 00:00:16,010
+Weather in India is hyperlocal, but our data isn't.
+
+5
+00:00:16,010 --> 00:00:19,734
+About forty Doppler radars watch 3.3 million square kilometres.
+
+6
+00:00:19,734 --> 00:00:24,700
+When a cloudburst hits one ward, the people who lose the most —
+
+7
+00:00:24,700 --> 00:00:28,838
+farmers, delivery riders, construction workers, street vendors — lose it alone.
+
+8
+00:00:28,838 --> 00:00:33,390
+Heat alone could cost India thirty-four million full-time jobs by 2030.
+
+9
+00:00:33,390 --> 00:00:36,700
+And when insurance does exist, claims take months.
+
+10
+00:00:37,400 --> 00:00:38,641
+Here's the insight.
+
+11
+00:00:38,641 --> 00:00:41,538
+Rain weakens the radio links between towers —
+
+12
+00:00:41,538 --> 00:00:47,331
+and how much it weakens tells you how hard it's raining, minute by minute.
+
+13
+00:00:47,331 --> 00:00:51,055
+Smartphone batteries, averaged across a city, track air temperature.
+
+14
+00:00:51,055 --> 00:00:56,021
+So every tower is a rain gauge. Every phone is a thermometer.
+
+15
+00:00:56,021 --> 00:00:59,331
+We don't build sensors. We become the sensor.
+
+16
+00:01:00,031 --> 00:01:02,928
+Does it actually work? We built it.
+
+17
+00:01:02,928 --> 00:01:07,893
+We ran our prototype on 500 real microwave links for eleven days —
+
+18
+00:01:07,893 --> 00:01:10,790
+and checked it against national weather radar.
+
+19
+00:01:10,790 --> 00:01:15,341
+Network-wide, our rain readings match radar with a correlation of 0.95.
+
+20
+00:01:15,341 --> 00:01:21,134
+Our payout rule made the same decision as radar ninety-five percent of the time.
+
+21
+00:01:21,834 --> 00:01:22,662
+Meet JioMausam —
+
+22
+00:01:22,662 --> 00:01:26,386
+a live, street-level weather map built from network data.
+
+23
+00:01:26,386 --> 00:01:28,869
+On top of it: Mausam Kavach —
+
+24
+00:01:28,869 --> 00:01:33,834
+parametric micro-insurance you add to your recharge for twenty-nine rupees a month.
+
+25
+00:01:33,834 --> 00:01:40,455
+When the network measures 45 degrees in your area, or rain heavy enough to stop work,
+
+26
+00:01:40,455 --> 00:01:44,179
+the payout lands in your JioPay wallet within hours.
+
+27
+00:01:44,179 --> 00:01:47,076
+No claim forms. No surveyor. No waiting.
+
+28
+00:01:47,776 --> 00:01:49,845
+The business has three layers.
+
+29
+00:01:49,845 --> 00:01:55,638
+One: Kavach premiums — one percent of Jio's 500 million users is five million policies —
+
+30
+00:01:55,638 --> 00:01:58,121
+around 170 crore rupees a year.
+
+31
+00:01:58,121 --> 00:02:03,914
+Two: B2B — gig platforms buy cover for riders; insurers and states buy hyperlocal data.
+
+32
+00:02:03,914 --> 00:02:05,983
+Three: Reliance is customer zero —
+
+33
+00:02:05,983 --> 00:02:12,190
+JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade.
+
+34
+00:02:12,890 --> 00:02:14,131
+Why only Reliance?
+
+35
+00:02:14,131 --> 00:02:16,614
+A startup can't own the towers.
+
+36
+00:02:16,614 --> 00:02:19,510
+An insurer can't reach 500 million people.
+
+37
+00:02:19,510 --> 00:02:24,890
+No other telecom has a payments app, an insurance arm, a retail chain
+
+38
+00:02:24,890 --> 00:02:28,200
+and a giga-scale energy business under one roof.
+
+39
+00:02:28,200 --> 00:02:29,855
+Reliance has every layer.
+
+40
+00:02:30,555 --> 00:02:36,348
+We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.
+
+41
+00:02:36,348 --> 00:02:40,072
+Then an IRDAI sandbox product. Then a national map.
+
+42
+00:02:40,072 --> 00:02:44,624
+India won't adapt to climate change only by building new infrastructure.
+
+43
+00:02:44,624 --> 00:02:48,762
+It'll adapt by listening to the infrastructure it already has.
+
+44
+00:02:48,762 --> 00:02:51,245
+This is JioMausam. Different by design.

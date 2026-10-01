@@ -113,6 +113,16 @@ h3{font-size:23px;font-weight:700;line-height:1.2}
 .brand em{font-style:normal;font-size:24px;color:var(--mu);font-weight:600}
 .team{font-family:"DM Sans",sans-serif;font-size:17px;color:var(--mu);font-weight:600;letter-spacing:.02em}
 .team:empty{display:none}
+.proof{display:grid;grid-template-columns:1.5fr .78fr;gap:22px;margin-top:22px}
+.pchart{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:14px 18px 12px}
+.pchart svg{display:block;width:100%;height:auto}
+.plg{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--mu);margin-top:6px}
+.plg i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:7px;vertical-align:middle}
+.pstats{display:grid;gap:12px;align-content:start}
+.pstats .stat{padding:14px 18px}.pstats .num{font-size:42px;margin-bottom:4px}
+.pstats .stat div:not(.num){font-size:17px}
+.stat.okc .num{color:var(--ok)}
+.pfoot{margin-top:14px;color:var(--mu);font-size:13px}
 /* captions + countdown */
 #cap{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:max-content;max-width:1080px;padding:12px 24px;border-radius:14px;
   background:#050814dd;border:1px solid var(--line);font-size:25px;line-height:1.36;font-weight:500;text-align:center;z-index:3}
@@ -175,11 +185,11 @@ body.idle{cursor:none}
   <section class="slide">
     <div class="kicker" data-w="0">The problem</div>
     <h2 data-w="0">Weather is hyperlocal.<br><span class="mu">Our data isn&rsquo;t.</span></h2>
-    <div class="people" data-w="31"><span>Farmers</span><span>Delivery riders</span><span>Construction workers</span><span>Street vendors</span></div>
+    <div class="people" data-w="30"><span>Farmers</span><span>Delivery riders</span><span>Construction workers</span><span>Street vendors</span></div>
     <div class="grid3">
       <div class="stat" data-w="10"><div class="num">~40</div><div>Doppler weather radars for 3.3 million km&sup2;</div><small>IMD network</small></div>
-      <div class="stat heat" data-w="47"><div class="num">34M</div><div>full-time jobs&rsquo; worth of work hours lost to heat by 2030</div><small>ILO, Working on a Warmer Planet (2019)</small></div>
-      <div class="stat slow" data-w="58"><div class="num">Months</div><div>for a crop-insurance claim to reach a farmer</div><small>Survey, loss assessment, then payout</small></div>
+      <div class="stat heat" data-w="40"><div class="num">34M</div><div>full-time jobs&rsquo; worth of work hours lost to heat by 2030</div><small>ILO, Working on a Warmer Planet (2019)</small></div>
+      <div class="stat slow" data-w="51"><div class="num">Months</div><div>for a crop-insurance claim to reach a farmer</div><small>Survey, loss assessment, then payout</small></div>
     </div>
   </section>
 
@@ -198,9 +208,9 @@ body.idle{cursor:none}
         <h3>Rain weakens the signal between towers</h3>
         <p>The drop in signal tells you how hard it&rsquo;s raining, minute by minute.</p>
         <small>Messer, Zinevich &amp; Alpert &middot; Science, 2006</small><br>
-        <div class="tag rain" data-w="42">Every tower is a rain gauge</div>
+        <div class="tag rain" data-w="33">Every tower is a rain gauge</div>
       </div>
-      <div class="panel" data-w="29">
+      <div class="panel" data-w="24">
         <svg class="ill" viewBox="0 0 460 150" aria-hidden="true">
           <g transform="translate(96,0)">
             <rect class="ph" x="0" y="0" width="80" height="148" rx="14"/>
@@ -216,10 +226,28 @@ body.idle{cursor:none}
         <h3>Phone batteries feel the city&rsquo;s heat</h3>
         <p>Battery temperatures, averaged across a city, track the air temperature.</p>
         <small>Overeem et al. &middot; Geophysical Research Letters, 2013</small><br>
-        <div class="tag heat" data-w="49">Every phone is a thermometer</div>
+        <div class="tag heat" data-w="40">Every phone is a thermometer</div>
       </div>
     </div>
-    <div class="punch" data-w="54">We don&rsquo;t build sensors. <b>We become the sensor.</b></div>
+    <div class="punch" data-w="45">We don&rsquo;t build sensors. <b>We become the sensor.</b></div>
+  </section>
+
+  <!-- 3b · Proof -->
+  <section class="slide">
+    <div class="kicker" data-w="0">Proof &middot; we built it</div>
+    <h2 data-w="0">Tested on 500 real network links</h2>
+    <div class="proof">
+      <div class="pchart" data-w="7">
+        <svg viewBox="0 0 640 250" aria-label="Hourly network-average rain, links vs radar"><rect x="34" y="8" width="163.7" height="216" fill="#ffffff0d"/><text x="115.9" y="22" text-anchor="middle" class="svt">calibration</text><line x1="34" x2="632" y1="224.0" y2="224.0" stroke="#27315C"/><text x="28" y="228.0" text-anchor="end" class="svt">0</text><line x1="34" x2="632" y1="116.0" y2="116.0" stroke="#27315C"/><text x="28" y="120.0" text-anchor="end" class="svt">1</text><line x1="34" x2="632" y1="8.0" y2="8.0" stroke="#27315C"/><text x="28" y="12.0" text-anchor="end" class="svt">2</text><text x="34.0" y="244" text-anchor="middle" class="svt">10 May</text><text x="143.1" y="244" text-anchor="middle" class="svt">12 May</text><text x="252.3" y="244" text-anchor="middle" class="svt">14 May</text><text x="361.4" y="244" text-anchor="middle" class="svt">16 May</text><text x="470.6" y="244" text-anchor="middle" class="svt">18 May</text><text x="579.7" y="244" text-anchor="middle" class="svt">20 May</text><path d="M34.0,222.9 L36.3,220.8 L38.5,216.4 L40.8,216.4 L43.1,210.0 L45.4,210.0 L47.6,213.2 L49.9,220.8 L52.2,217.5 L54.5,208.9 L56.7,185.1 L59.0,137.6 L61.3,111.7 L63.6,168.9 L65.8,176.5 L68.1,197.0 L70.4,200.2 L72.7,194.8 L74.9,179.7 L77.2,202.4 L79.5,220.8 L81.7,221.8 L84.0,222.9 L86.3,224.0 L88.6,224.0 L90.8,224.0 L93.1,224.0 L95.4,224.0 L97.7,224.0 L99.9,224.0 L102.2,224.0 L104.5,224.0 L106.8,224.0 L109.0,224.0 L111.3,224.0 L113.6,224.0 L115.9,224.0 L118.1,224.0 L120.4,224.0 L122.7,224.0 L125.0,224.0 L127.2,224.0 L129.5,224.0 L131.8,224.0 L134.0,224.0 L136.3,224.0 L138.6,224.0 L140.9,224.0 L143.1,224.0 L145.4,224.0 L147.7,224.0 L150.0,224.0 L152.2,224.0 L154.5,224.0 L156.8,224.0 L159.1,224.0 L161.3,224.0 L163.6,224.0 L165.9,224.0 L168.2,224.0 L170.4,224.0 L172.7,224.0 L175.0,224.0 L177.2,224.0 L179.5,222.9 L181.8,220.8 L184.1,220.8 L186.3,224.0 L188.6,222.9 L190.9,219.7 L193.2,221.8 L195.4,221.8 L197.7,224.0 L200.0,224.0 L202.3,224.0 L204.5,224.0 L206.8,224.0 L209.1,224.0 L211.4,221.8 L213.6,221.8 L215.9,221.8 L218.2,224.0 L220.4,224.0 L222.7,224.0 L225.0,210.0 L227.3,180.8 L229.5,165.7 L231.8,92.2 L234.1,78.2 L236.4,96.6 L238.6,57.7 L240.9,35.0 L243.2,60.9 L245.5,23.1 L247.7,35.0 L250.0,56.6 L252.3,130.0 L254.6,197.0 L256.8,197.0 L259.1,191.6 L261.4,206.7 L263.7,214.3 L265.9,218.6 L268.2,219.7 L270.5,222.9 L272.7,221.8 L275.0,221.8 L277.3,219.7 L279.6,197.0 L281.8,183.0 L284.1,148.4 L286.4,156.0 L288.7,179.7 L290.9,205.6 L293.2,192.7 L295.5,175.4 L297.8,178.6 L300.0,171.1 L302.3,212.1 L304.6,224.0 L306.9,224.0 L309.1,224.0 L311.4,224.0 L313.7,224.0 L315.9,222.9 L318.2,220.8 L320.5,220.8 L322.8,218.6 L325.0,224.0 L327.3,224.0 L329.6,224.0 L331.9,220.8 L334.1,207.8 L336.4,211.0 L338.7,204.6 L341.0,197.0 L343.2,183.0 L345.5,185.1 L347.8,210.0 L350.1,220.8 L352.3,221.8 L354.6,218.6 L356.9,213.2 L359.1,194.8 L361.4,166.8 L363.7,137.6 L366.0,119.2 L368.2,129.0 L370.5,145.2 L372.8,186.2 L375.1,210.0 L377.3,218.6 L379.6,211.0 L381.9,212.1 L384.2,217.5 L386.4,198.1 L388.7,189.4 L391.0,165.7 L393.3,144.1 L395.5,156.0 L397.8,176.5 L400.1,195.9 L402.3,205.6 L404.6,207.8 L406.9,199.2 L409.2,188.4 L411.4,156.0 L413.7,174.3 L416.0,158.1 L418.3,173.2 L420.5,171.1 L422.8,198.1 L425.1,192.7 L427.4,185.1 L429.6,203.5 L431.9,216.4 L434.2,219.7 L436.5,219.7 L438.7,219.7 L441.0,219.7 L443.3,222.9 L445.6,224.0 L447.8,224.0 L450.1,224.0 L452.4,224.0 L454.6,224.0 L456.9,224.0 L459.2,224.0 L461.5,224.0 L463.7,224.0 L466.0,222.9 L468.3,222.9 L470.6,224.0 L472.8,224.0 L475.1,224.0 L477.4,224.0 L479.7,224.0 L481.9,224.0 L484.2,224.0 L486.5,224.0 L488.8,224.0 L491.0,224.0 L493.3,224.0 L495.6,224.0 L497.8,224.0 L500.1,224.0 L502.4,224.0 L504.7,224.0 L506.9,224.0 L509.2,224.0 L511.5,224.0 L513.8,224.0 L516.0,224.0 L518.3,224.0 L520.6,224.0 L522.9,224.0 L525.1,224.0 L527.4,224.0 L529.7,224.0 L532.0,224.0 L534.2,224.0 L536.5,224.0 L538.8,224.0 L541.0,224.0 L543.3,224.0 L545.6,224.0 L547.9,224.0 L550.1,224.0 L552.4,222.9 L554.7,222.9 L557.0,216.4 L559.2,212.1 L561.5,211.0 L563.8,210.0 L566.1,206.7 L568.3,210.0 L570.6,218.6 L572.9,219.7 L575.2,212.1 L577.4,198.1 L579.7,171.1 L582.0,140.8 L584.3,146.2 L586.5,168.9 L588.8,188.4 L591.1,164.6 L593.3,171.1 L595.6,189.4 L597.9,201.3 L600.2,208.9 L602.4,205.6 L604.7,208.9 L607.0,213.2 L609.3,218.6 L611.5,219.7 L613.8,219.7 L616.1,221.8 L618.4,221.8 L620.6,220.8 L622.9,222.9 L625.2,224.0 L627.5,224.0 L629.7,224.0 L632.0,224.0" fill="none" stroke="#d95926" stroke-width="2.2" stroke-linejoin="round"/><path d="M34.0,222.9 L36.3,218.6 L38.5,216.4 L40.8,214.3 L43.1,213.2 L45.4,215.4 L47.6,218.6 L49.9,221.8 L52.2,218.6 L54.5,214.3 L56.7,184.0 L59.0,156.0 L61.3,143.0 L63.6,164.6 L65.8,165.7 L68.1,188.4 L70.4,192.7 L72.7,183.0 L74.9,179.7 L77.2,205.6 L79.5,220.8 L81.7,222.9 L84.0,222.9 L86.3,224.0 L88.6,224.0 L90.8,224.0 L93.1,222.9 L95.4,224.0 L97.7,224.0 L99.9,224.0 L102.2,224.0 L104.5,224.0 L106.8,224.0 L109.0,224.0 L111.3,222.9 L113.6,222.9 L115.9,222.9 L118.1,224.0 L120.4,224.0 L122.7,224.0 L125.0,224.0 L127.2,224.0 L129.5,224.0 L131.8,224.0 L134.0,222.9 L136.3,222.9 L138.6,224.0 L140.9,222.9 L143.1,222.9 L145.4,221.8 L147.7,221.8 L150.0,221.8 L152.2,220.8 L154.5,219.7 L156.8,222.9 L159.1,222.9 L161.3,224.0 L163.6,224.0 L165.9,222.9 L168.2,222.9 L170.4,222.9 L172.7,222.9 L175.0,222.9 L177.2,224.0 L179.5,224.0 L181.8,222.9 L184.1,222.9 L186.3,224.0 L188.6,222.9 L190.9,219.7 L193.2,221.8 L195.4,221.8 L197.7,222.9 L200.0,222.9 L202.3,224.0 L204.5,224.0 L206.8,224.0 L209.1,222.9 L211.4,221.8 L213.6,221.8 L215.9,220.8 L218.2,222.9 L220.4,222.9 L222.7,221.8 L225.0,213.2 L227.3,200.2 L229.5,177.6 L231.8,135.4 L234.1,117.1 L236.4,104.1 L238.6,69.6 L240.9,60.9 L243.2,56.6 L245.5,16.6 L247.7,23.1 L250.0,98.7 L252.3,154.9 L254.6,206.7 L256.8,210.0 L259.1,199.2 L261.4,215.4 L263.7,218.6 L265.9,218.6 L268.2,221.8 L270.5,222.9 L272.7,222.9 L275.0,221.8 L277.3,220.8 L279.6,200.2 L281.8,172.2 L284.1,163.5 L286.4,177.6 L288.7,191.6 L290.9,203.5 L293.2,197.0 L295.5,170.0 L297.8,176.5 L300.0,176.5 L302.3,216.4 L304.6,221.8 L306.9,222.9 L309.1,222.9 L311.4,222.9 L313.7,222.9 L315.9,222.9 L318.2,221.8 L320.5,219.7 L322.8,218.6 L325.0,222.9 L327.3,221.8 L329.6,221.8 L331.9,216.4 L334.1,205.6 L336.4,211.0 L338.7,203.5 L341.0,190.5 L343.2,189.4 L345.5,191.6 L347.8,214.3 L350.1,222.9 L352.3,222.9 L354.6,221.8 L356.9,220.8 L359.1,210.0 L361.4,197.0 L363.7,181.9 L366.0,172.2 L368.2,175.4 L370.5,188.4 L372.8,206.7 L375.1,213.2 L377.3,213.2 L379.6,208.9 L381.9,214.3 L384.2,211.0 L386.4,190.5 L388.7,178.6 L391.0,158.1 L393.3,132.2 L395.5,147.3 L397.8,184.0 L400.1,200.2 L402.3,206.7 L404.6,210.0 L406.9,203.5 L409.2,187.3 L411.4,152.7 L413.7,179.7 L416.0,153.8 L418.3,160.3 L420.5,158.1 L422.8,192.7 L425.1,187.3 L427.4,192.7 L429.6,205.6 L431.9,218.6 L434.2,217.5 L436.5,218.6 L438.7,217.5 L441.0,218.6 L443.3,220.8 L445.6,222.9 L447.8,224.0 L450.1,222.9 L452.4,224.0 L454.6,224.0 L456.9,224.0 L459.2,224.0 L461.5,222.9 L463.7,222.9 L466.0,222.9 L468.3,222.9 L470.6,222.9 L472.8,224.0 L475.1,222.9 L477.4,224.0 L479.7,224.0 L481.9,224.0 L484.2,222.9 L486.5,224.0 L488.8,224.0 L491.0,224.0 L493.3,224.0 L495.6,224.0 L497.8,224.0 L500.1,222.9 L502.4,224.0 L504.7,224.0 L506.9,224.0 L509.2,224.0 L511.5,224.0 L513.8,224.0 L516.0,224.0 L518.3,224.0 L520.6,224.0 L522.9,224.0 L525.1,224.0 L527.4,224.0 L529.7,224.0 L532.0,224.0 L534.2,222.9 L536.5,222.9 L538.8,224.0 L541.0,224.0 L543.3,224.0 L545.6,224.0 L547.9,224.0 L550.1,222.9 L552.4,222.9 L554.7,222.9 L557.0,214.3 L559.2,213.2 L561.5,215.4 L563.8,211.0 L566.1,214.3 L568.3,215.4 L570.6,219.7 L572.9,218.6 L575.2,216.4 L577.4,213.2 L579.7,202.4 L582.0,199.2 L584.3,188.4 L586.5,195.9 L588.8,213.2 L591.1,200.2 L593.3,205.6 L595.6,211.0 L597.9,215.4 L600.2,219.7 L602.4,216.4 L604.7,217.5 L607.0,217.5 L609.3,220.8 L611.5,222.9 L613.8,221.8 L616.1,221.8 L618.4,222.9 L620.6,222.9 L622.9,221.8 L625.2,221.8 L627.5,222.9 L629.7,222.9 L632.0,222.9" fill="none" stroke="#3987e5" stroke-width="2.2" stroke-linejoin="round"/></svg>
+        <div class="plg"><span><i style="background:#3987e5"></i>Rain measured by network links</span><span><i style="background:#d95926"></i>National weather radar</span><span>Hourly network average, mm/h</span></div>
+      </div>
+      <div class="pstats">
+        <div class="stat" data-w="26"><div class="num">0.95</div><div>correlation with radar on held-out days</div></div>
+        <div class="stat" data-w="33"><div class="num">91%</div><div>of rainy days detected, 4.6% false alarms</div></div>
+        <div class="stat okc" data-w="37"><div class="num">95%</div><div>of payout decisions identical to radar</div></div>
+      </div>
+    </div>
+    <div class="pfoot" data-w="7">Real data: 500 commercial microwave links, 1-minute signal levels, May 2018 (OpenSense / pycomlink sample), scored against German Weather Service radar.</div>
   </section>
 
   <!-- 4 · Product -->
@@ -233,15 +261,15 @@ body.idle{cursor:none}
           <svg id="heatmap" viewBox="0 0 512 210" aria-label="Illustrative 1 km weather grid"></svg>
           <div class="legend"><i>Heavy rain</i><i>Illustrative 1 km grid</i><i>Extreme heat</i></div>
         </div>
-        <div class="chips" data-w="60"><span>No claim forms</span><span>No surveyor</span><span>No waiting</span></div>
+        <div class="chips" data-w="54"><span>No claim forms</span><span>No surveyor</span><span>No waiting</span></div>
       </div>
-      <div class="phone" data-w="17">
+      <div class="phone" data-w="11">
         <div class="app-h">Recharge <span>MyJio</span></div>
         <div class="row"><span>Unlimited 5G &middot; 28 days</span><b>&#8377;299</b></div>
         <div class="row kv"><span>Mausam Kavach<br><span class="mu">heat + rain cover</span></span><b>&#8377;29/mo</b></div>
         <div class="pay">Pay &#8377;328</div>
-        <div class="note heat" data-w="35"><b>46.2&deg;C near you</b>Measured by the network in Nagpur, Sitabuldi. Kavach triggered.</div>
-        <div class="note ok" data-w="51"><b>&#8377;300 credited to JioPay</b>Paid 2 hours after the trigger. Nothing to file.</div>
+        <div class="note heat" data-w="29"><b>46.2&deg;C near you</b>Measured by the network in Nagpur, Sitabuldi. Kavach triggered.</div>
+        <div class="note ok" data-w="45"><b>&#8377;300 credited to JioPay</b>Paid 2 hours after the trigger. Nothing to file.</div>
       </div>
     </div>
   </section>
@@ -252,8 +280,8 @@ body.idle{cursor:none}
     <h2 data-w="0">Three layers of revenue</h2>
     <div class="grid3 cards">
       <div class="card" data-w="5"><div class="lbl">B2C</div><h3>Mausam Kavach</h3><div class="big">&asymp; &#8377;170 Cr/yr</div><p>1% of Jio&rsquo;s 500M users = 5M policies &times; &#8377;29 a month. Underwritten with Jio Financial Services&rsquo; insurance partners.</p></div>
-      <div class="card" data-w="32"><div class="lbl">B2B</div><h3>Cover + data</h3><p>Gig platforms insure their riders.</p><p>Insurers, state disaster agencies and agri companies license hyperlocal weather data.</p></div>
-      <div class="card z" data-w="48"><div class="lbl">Customer zero</div><h3>Reliance itself</h3><ul><li>JioMart: rainy-day demand</li><li>New Energy: solar output</li><li>Jio: rain-fade prediction</li></ul></div>
+      <div class="card" data-w="25"><div class="lbl">B2B</div><h3>Cover + data</h3><p>Gig platforms insure their riders.</p><p>Insurers, state disaster agencies and agri companies license hyperlocal weather data.</p></div>
+      <div class="card z" data-w="39"><div class="lbl">Customer zero</div><h3>Reliance itself</h3><ul><li>JioMart: rainy-day demand</li><li>New Energy: solar output</li><li>Jio: rain-fade prediction</li></ul></div>
     </div>
   </section>
 
@@ -280,14 +308,14 @@ body.idle{cursor:none}
     <div class="kicker" data-w="0">The roadmap</div>
     <div class="timeline">
       <div class="step" data-w="0"><div class="when">Days 0&ndash;90</div><h3>Pilot</h3><p>Rain in Vidarbha, heat in Ahmedabad. Validated against IMD gauges.</p></div>
-      <div class="step" data-w="16"><div class="when">Months 4&ndash;9</div><h3>IRDAI sandbox</h3><p>Kavach launched with JFS insurance partners.</p></div>
-      <div class="step" data-w="21"><div class="when">Year 2</div><h3>National map</h3><p>Open API: weather data as a service.</p></div>
+      <div class="step" data-w="14"><div class="when">Months 4&ndash;9</div><h3>IRDAI sandbox</h3><p>Kavach launched with JFS insurance partners.</p></div>
+      <div class="step" data-w="19"><div class="when">Year 2</div><h3>National map</h3><p>Open API: weather data as a service.</p></div>
     </div>
     <div class="closer">
-      <div data-w="25">India won&rsquo;t adapt to climate change only by building new infrastructure.</div>
-      <div data-w="36">It&rsquo;ll adapt by listening to the infrastructure it already has.</div>
+      <div data-w="23">India won&rsquo;t adapt to climate change only by building new infrastructure.</div>
+      <div data-w="34">It&rsquo;ll adapt by listening to the infrastructure it already has.</div>
     </div>
-    <div class="brand" data-w="46">Jio<span class="ac" style="margin-left:-18px">Mausam</span><em>Different by design.</em><span class="team"></span></div>
+    <div class="brand" data-w="44">Jio<span class="ac" style="margin-left:-18px">Mausam</span><em>Different by design.</em><span class="team"></span></div>
   </section>
 
   <div id="cap" aria-live="polite"></div>
@@ -319,21 +347,13 @@ body.idle{cursor:none}
     <label for="teamIn">Team name</label>
     <input id="teamIn" type="text" placeholder="e.g. Team Monsoon" autocomplete="off">
     <label>Reading pace</label>
-    <div class="pace"><button id="pSlow" aria-label="Slower">&minus;</button><span id="paceL">140 wpm &middot; 2:49</span><button id="pFast" aria-label="Faster">+</button></div>
+    <div class="pace"><button id="pSlow" aria-label="Slower">&minus;</button><span id="paceL">145 wpm</span><button id="pFast" aria-label="Faster">+</button></div>
     <button id="go">Start (3-2-1)</button>
   </div>
 </div>
 
 <script>
-const S=[
- ["India's biggest weather network already exists.","It has lakhs of stations, it covers every district, and it's switched on right now.","Nobody noticed — because we call it Jio."],
- ["Weather in India is hyperlocal, but our data isn't.","About forty Doppler radars watch 3.3 million square kilometres.","So when a heatwave hits one ward, or a cloudburst hits one village,","the people who lose the most — farmers, delivery riders, construction workers, street vendors — lose it alone.","Heat alone could cost India thirty-four million full-time jobs by 2030.","And when insurance does exist, claims take months."],
- ["Here's the insight.","Rain weakens the radio links between towers —","and how much it weakens tells you how hard it's raining, minute by minute.","Science published that in 2006.","Smartphone battery temperatures, averaged across a city, track air temperature — that's published too.","So every tower is a rain gauge.","Every phone is a thermometer.","We don't build sensors. We become the sensor."],
- ["Meet JioMausam —","a live, street-level weather map of India, built from network data, with zero new hardware.","On top of it: Mausam Kavach —","parametric micro-insurance you add to your recharge for twenty-nine rupees a month.","When the network measures 45 degrees in your area, or rain heavy enough to stop work,","the payout lands in your JioPay wallet within hours.","No claim forms. No surveyor. No waiting."],
- ["The business has three layers.","One: Kavach premiums — just one percent of Jio's 500 million users is five million policies —","around 170 crore rupees a year, underwritten with Jio Financial's insurance partners.","Two: B2B — gig platforms buy cover for their riders;","insurers and state governments buy hyperlocal data.","Three — our favourite — Reliance is customer zero.","JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade."],
- ["Why only Reliance?","A startup can't own the towers.","An insurer can't reach 500 million people.","No other telecom has a payments app, an insurance arm, a retail chain","and a giga-scale energy business under one roof.","Reliance has every layer."],
- ["We start with a ninety-day pilot — rain in Vidarbha, heat in Ahmedabad — validated against IMD gauges.","Then an IRDAI sandbox product. Then a national map.","India won't adapt to climate change only by building new infrastructure.","It'll adapt by listening to the infrastructure it already has.","This is JioMausam. Different by design."]
-];
+const S=[["India's biggest weather network already exists.","It has lakhs of stations, it covers every district, and it's switched on right now.","Nobody noticed — because we call it Jio."],["Weather in India is hyperlocal, but our data isn't.","About forty Doppler radars watch 3.3 million square kilometres.","When a cloudburst hits one ward, the people who lose the most —","farmers, delivery riders, construction workers, street vendors — lose it alone.","Heat alone could cost India thirty-four million full-time jobs by 2030.","And when insurance does exist, claims take months."],["Here's the insight.","Rain weakens the radio links between towers —","and how much it weakens tells you how hard it's raining, minute by minute.","Smartphone batteries, averaged across a city, track air temperature.","So every tower is a rain gauge. Every phone is a thermometer.","We don't build sensors. We become the sensor."],["Does it actually work? We built it.","We ran our prototype on 500 real microwave links for eleven days —","and checked it against national weather radar.","Network-wide, our rain readings match radar with a correlation of 0.95.","Our payout rule made the same decision as radar ninety-five percent of the time."],["Meet JioMausam —","a live, street-level weather map built from network data.","On top of it: Mausam Kavach —","parametric micro-insurance you add to your recharge for twenty-nine rupees a month.","When the network measures 45 degrees in your area, or rain heavy enough to stop work,","the payout lands in your JioPay wallet within hours.","No claim forms. No surveyor. No waiting."],["The business has three layers.","One: Kavach premiums — one percent of Jio's 500 million users is five million policies —","around 170 crore rupees a year.","Two: B2B — gig platforms buy cover for riders; insurers and states buy hyperlocal data.","Three: Reliance is customer zero —","JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade."],["Why only Reliance?","A startup can't own the towers.","An insurer can't reach 500 million people.","No other telecom has a payments app, an insurance arm, a retail chain","and a giga-scale energy business under one roof.","Reliance has every layer."],["We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.","Then an IRDAI sandbox product. Then a national map.","India won't adapt to climate change only by building new infrastructure.","It'll adapt by listening to the infrastructure it already has.","This is JioMausam. Different by design."]];
 const TAIL=0.7, END_TAIL=2.5, LIMIT=180;
 const $=id=>document.getElementById(id);
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
@@ -341,14 +361,14 @@ const wc=s=>(s.match(/[\p{L}\p{N}][\p{L}\p{N}'’.\-]*/gu)||[]).length;
 const W=S.map(a=>a.map(wc)), WT=W.map(a=>a.reduce((x,y)=>x+y,0));
 const slides=[...document.querySelectorAll('.slide')];
 const stage=$('stage'), cap=$('cap'), bar=$('bar');
-let wpm=+store.get('wpm')||140, t=0, playing=false, last=performance.now(), cur=-1, starts=[], total=0, started=false;
+let wpm=+store.get('wpm2')||145, t=0, playing=false, last=performance.now(), cur=-1, starts=[], total=0, started=false;
 
 function layout(){starts=[];let a=0;WT.forEach((w,i)=>{starts.push(a);a+=w*60/wpm+(i===WT.length-1?END_TAIL:TAIL)});total=a}
 function locate(x){let i=starts.length-1;while(i>0&&x<starts[i])i--;return i}
 const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function paceText(){const over=total>LIMIT;return {txt:wpm+' wpm · '+fmt(total)+(over?' (over 3:00)':''),over}}
 function showPace(){const p=paceText();$('paceL').textContent=p.txt;$('paceL').classList.toggle('over',p.over);$('wpmL').textContent=wpm+' wpm';}
-function setWpm(n){const i=locate(t),wpos=(t-starts[i])*wpm/60;wpm=Math.min(190,Math.max(110,n));layout();t=Math.min(total-0.01,starts[i]+wpos*60/wpm);store.set('wpm',wpm);showPace();}
+function setWpm(n){const i=locate(t),wpos=(t-starts[i])*wpm/60;wpm=Math.min(190,Math.max(110,n));layout();t=Math.min(total-0.01,starts[i]+wpos*60/wpm);store.set('wpm2',wpm);showPace();}
 
 function render(){
   const i=locate(t);
@@ -415,4 +435,5 @@ addEventListener('keydown',e=>{
 
 const savedTeam=store.get('team')||'';$('teamIn').value=savedTeam;applyTeam(savedTeam);
 layout();showPace();requestAnimationFrame(tick);
+window.__rec=(caps=true)=>{$('intro').hidden=true;$('ctl').hidden=true;cap.classList.toggle('off',!caps);started=true;restart();t=0;last=performance.now();setPlay(true);return total};
 </script>

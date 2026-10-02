@@ -47,125 +47,121 @@ Rain weakens the radio links between towers —
 and how much it weakens tells you how hard it's raining, minute by minute.
 
 13
-00:00:47,745 --> 00:00:51,469
-Smartphone batteries, averaged across a city, track air temperature.
+00:00:47,745 --> 00:00:50,641
+So every tower is a rain gauge.
 
 14
-00:00:51,469 --> 00:00:56,434
-So every tower is a rain gauge. Every phone is a thermometer.
-
-15
-00:00:56,434 --> 00:00:59,745
+00:00:50,641 --> 00:00:53,952
 We don't build sensors. We become the sensor.
 
-16
-00:01:00,445 --> 00:01:03,341
+15
+00:00:54,652 --> 00:00:57,548
 Does it actually work? We built it.
 
-17
-00:01:03,341 --> 00:01:09,962
+16
+00:00:57,548 --> 00:01:04,169
 On 500 real microwave links, our rain readings matched national radar at 0.95.
 
-18
-00:01:09,962 --> 00:01:15,755
+17
+00:01:04,169 --> 00:01:09,962
 Our payout rule made the same decision as radar ninety-five percent of the time.
 
+18
+00:01:09,962 --> 00:01:14,100
+And twenty-five years of IMD records show where to start:
+
 19
-00:01:15,755 --> 00:01:19,893
-Then we priced Kavach on twenty-five years of IMD records —
+00:01:14,100 --> 00:01:16,997
+Mumbai gets twelve heavy-rain days a year.
 
 20
-00:01:19,893 --> 00:01:24,031
-rain cover for Mumbai, heat cover for Nagpur and Ahmedabad.
-
-21
-00:01:24,731 --> 00:01:25,559
+00:01:17,697 --> 00:01:18,524
 Meet JioMausam —
 
-22
-00:01:25,559 --> 00:01:29,283
+21
+00:01:18,524 --> 00:01:22,248
 a live, street-level weather map built from network data.
 
+22
+00:01:22,248 --> 00:01:24,731
+On top of it: Mausam Kavach.
+
 23
-00:01:29,283 --> 00:01:31,766
-On top of it: Mausam Kavach —
+00:01:24,731 --> 00:01:27,628
+Delivery apps buy it for their riders.
 
 24
-00:01:31,766 --> 00:01:36,317
-you add it to your recharge, from twenty-nine rupees a month.
+00:01:27,628 --> 00:01:33,421
+When the towers around a rider measure ten millimetres of rain in three hours,
 
 25
-00:01:36,317 --> 00:01:42,524
-When the network measures your city's extreme — 47 degrees in Ahmedabad, a deluge in Mumbai —
+00:01:33,421 --> 00:01:37,972
+three hundred rupees lands in the rider's JioPay wallet within hours.
 
 26
-00:01:42,524 --> 00:01:46,662
-three hundred rupees lands in your JioPay wallet within hours.
-
-27
-00:01:46,662 --> 00:01:49,559
+00:01:37,972 --> 00:01:40,869
 No claim forms. No surveyor. No waiting.
 
+27
+00:01:41,569 --> 00:01:43,224
+It pays three ways.
+
 28
-00:01:50,259 --> 00:01:52,328
-The business has three layers.
+00:01:43,224 --> 00:01:50,259
+Delivery apps buy Kavach Plus: in Mumbai, fifty thousand riders is about twelve crore rupees a year.
 
 29
-00:01:52,328 --> 00:01:58,121
-One: Kavach premiums — one percent of Jio's 500 million users is five million policies —
+00:01:50,259 --> 00:01:58,121
+Workers add Kavach Basic at recharge — one percent of Jio's users is 174 crore a year.
 
 30
-00:01:58,121 --> 00:02:00,603
-around 170 crore rupees a year.
+00:01:58,121 --> 00:02:02,259
+And insurers, states, JioMart and New Energy use the data.
 
 31
-00:02:00,603 --> 00:02:06,810
-Two: delivery apps buy Kavach Plus for their riders; insurers and states buy the data.
-
-32
-00:02:06,810 --> 00:02:11,362
-Three: Reliance is customer zero — JioMart, New Energy and Jio itself.
-
-33
-00:02:12,062 --> 00:02:13,303
+00:02:02,959 --> 00:02:04,200
 Why only Reliance?
 
-34
-00:02:13,303 --> 00:02:15,786
+32
+00:02:04,200 --> 00:02:06,683
 A startup can't own the towers.
 
-35
-00:02:15,786 --> 00:02:18,683
+33
+00:02:06,683 --> 00:02:09,579
 An insurer can't reach 500 million people.
 
-36
-00:02:18,683 --> 00:02:24,062
+34
+00:02:09,579 --> 00:02:14,959
 No other telecom has a payments app, an insurance arm, a retail chain
 
-37
-00:02:24,062 --> 00:02:27,372
+35
+00:02:14,959 --> 00:02:18,269
 and a giga-scale energy business under one roof.
 
-38
-00:02:27,372 --> 00:02:29,028
+36
+00:02:18,269 --> 00:02:19,924
 Reliance has every layer.
 
+37
+00:02:20,624 --> 00:02:25,590
+Phase one: a ninety-day Mumbai monsoon pilot — rain, riders, one delivery app.
+
+38
+00:02:25,590 --> 00:02:28,486
+Phase two: heatwaves, in Nagpur and Ahmedabad.
+
 39
-00:02:29,728 --> 00:02:35,521
-We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.
+00:02:28,486 --> 00:02:33,452
+Phase three: Kavach Basic at every recharge. Phase four: a national map.
 
 40
-00:02:35,521 --> 00:02:39,245
-Then an IRDAI sandbox product. Then a national map.
-
-41
-00:02:39,245 --> 00:02:43,797
+00:02:33,452 --> 00:02:38,003
 India won't adapt to climate change only by building new infrastructure.
 
-42
-00:02:43,797 --> 00:02:47,934
+41
+00:02:38,003 --> 00:02:42,141
 It'll adapt by listening to the infrastructure it already has.
 
-43
-00:02:47,934 --> 00:02:50,417
+42
+00:02:42,141 --> 00:02:44,624
 This is JioMausam. Different by design.

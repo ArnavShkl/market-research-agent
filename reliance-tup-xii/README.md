@@ -1,19 +1,21 @@
 # JioMausam · Reliance T.U.P XII
 
-Every tower is a rain gauge, every phone a thermometer. JioMausam maps weather street by street from Jio's own network, and Mausam Kavach pays workers automatically when extreme rain or heat stops their work.
+Every tower is a rain gauge. JioMausam maps weather street by street from Jio's own network, and Mausam Kavach pays workers automatically when extreme weather stops their work.
+
+**Focus: rain first, riders first, Mumbai first.** Phase 1: a 90-day Mumbai monsoon pilot with one delivery app. Phase 2: heatwaves in Nagpur and Ahmedabad. Phase 3: Kavach Basic at every recharge. Phase 4: a national map and data API.
 
 ## Deliverables
 
 | What | File |
 |---|---|
-| Drill book (read and rehearse from this) | `JioMausam_Drill_Book.pdf` |
-| 3-minute presentation, with Morph transitions and animations | `JioMausam_3min_Presentation.pptx` (static backup: `JioMausam_3min_Presentation.pdf`) |
-| 3-minute pitch video, 2:53 | `JioMausam_Pitch_3min_clean.mp4` (for your voice-over), `JioMausam_Pitch_3min_captions.mp4` |
+| **Drill book: the master document** (42 pages, 185 cross-questions) | `JioMausam_Drill_Book.pdf` |
+| 3-minute presentation (9 slides), with Morph transitions and animations | `JioMausam_3min_Presentation.pptx` (static backup: `JioMausam_3min_Presentation.pdf`) |
+| 3-minute pitch video, 2:47 | `JioMausam_Pitch_3min_clean.mp4` (for your voice-over), `JioMausam_Pitch_3min_captions.mp4` |
 | Voice-over script and subtitles | `voiceover-script-3min.txt`, `JioMausam_Pitch_3min.srt` |
 | Pitch page you can record live with your voice | `jiomausam-pitch.html` |
 | Phone-app prototype (Mausam Kavach) | `prototype/Mausam_Kavach_App_standalone.html` |
 | Working model (Control Room, including the India layer) | `prototype/JioMausam_Control_Room_standalone.html` |
-| Idea brief (19 pages) | `JioMausam_Idea_Brief.pdf` |
+| Idea brief (19 pages, older: its pilot plan predates the Mumbai focus) | `JioMausam_Idea_Brief.pdf` |
 | Beginner's guide (24 pages, superseded by the drill book) | `JioMausam_Explained_Simply.pdf` |
 
 The standalone HTML files open offline in any browser. Fonts load from Google Fonts when you're online.

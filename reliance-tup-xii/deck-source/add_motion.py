@@ -36,7 +36,8 @@ SPEC = {
                     ('col2', 'float', 'after', 0, 600), ('colT2', 'float', 'with', 0, 600), ('source', 'fade', 'with', 0, 500)]),
     7: (MORPH, K + [(f'layer{i}', 'wipeL', 'after', 60, 450) for i in range(5)] +
                    [('askBox', 'zoom', 'after', 150, 700), ('askText', 'fade', 'with', 350, 700)]),
-    8: (FADE_BLACK, [('line1', 'fade', 'after', 400, 1300), ('line2', 'fade', 'after', 500, 1300), ('!!brand', 'zoom', 'after', 400, 900),
+    8: (MORPH, K + [x for i in range(4) for x in ((f'phB{i}', 'float', 'after', 80, 600), (f'phT{i}', 'float', 'with', 0, 600))]),
+    9: (FADE_BLACK, [('line1', 'fade', 'after', 400, 1300), ('line2', 'fade', 'after', 500, 1300), ('!!brand', 'zoom', 'after', 400, 900),
                      ('tag', 'fade', 'with', 300, 800)]),
 }
 

@@ -141,6 +141,10 @@ h3{font-size:23px;font-weight:700;line-height:1.2}
 .cities{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .cities span{background:var(--s2);border-radius:8px;padding:4px 9px;font-size:13px;font-weight:600}
 .stat.ind .num{color:var(--ac)}
+.timeline.t4{grid-template-columns:repeat(4,1fr);gap:14px}
+.t4 .step{padding:16px 18px}
+.t4 .step h3{font-size:20px}
+.t4 .step p{font-size:14.5px}
 /* captions + countdown */
 #cap{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:max-content;max-width:1080px;padding:12px 24px;border-radius:14px;
   background:#050814dd;border:1px solid var(--line);font-size:25px;line-height:1.36;font-weight:500;text-align:center;z-index:3}
@@ -235,9 +239,9 @@ body.idle{cursor:none}
         <h3>Rain weakens the signal between towers</h3>
         <p>The drop in signal tells you how hard it&rsquo;s raining, minute by minute.</p>
         <small>Messer, Zinevich &amp; Alpert &middot; Science, 2006</small><br>
-        <div class="tag rain" data-w="33">Every tower is a rain gauge</div>
+        <div class="tag rain" data-w="24">Every tower is a rain gauge</div>
       </div>
-      <div class="panel" data-w="24">
+      <div class="panel" data-w="27">
         <svg class="ill" viewBox="0 0 460 150" aria-hidden="true">
           <g transform="translate(96,0)">
             <rect class="ph" x="0" y="0" width="80" height="148" rx="14"/>
@@ -250,13 +254,13 @@ body.idle{cursor:none}
           <text class="svb" x="236" y="80">41.8&deg;C</text>
           <text class="svt" x="238" y="102">city average, crowd-sourced</text>
         </svg>
-        <h3>Phone batteries feel the city&rsquo;s heat</h3>
+        <h3>Phase two: phone batteries feel the heat</h3>
         <p>Battery temperatures, averaged across a city, track the air temperature.</p>
         <small>Overeem et al. &middot; Geophysical Research Letters, 2013</small><br>
-        <div class="tag heat" data-w="40">Every phone is a thermometer</div>
+        <div class="tag heat" data-w="28">Phase two: every phone a thermometer</div>
       </div>
     </div>
-    <div class="punch" data-w="45">We don&rsquo;t build sensors. <b>We become the sensor.</b></div>
+    <div class="punch" data-w="30">We don&rsquo;t build sensors. <b>We become the sensor.</b></div>
   </section>
 
   <!-- 3b · Proof -->
@@ -271,8 +275,8 @@ body.idle{cursor:none}
       <div class="pstats">
         <div class="stat" data-w="7"><div class="num">0.95</div><div>match with radar on 500 real links</div></div>
         <div class="stat okc" data-w="23"><div class="num">95%</div><div>of payout decisions identical to radar</div></div>
-        <div class="stat ind" data-w="37"><div class="num">25 years</div><div>of IMD records set each city&rsquo;s price</div>
-          <div class="cities" data-w="47"><span>Mumbai &middot; rain &middot; &#8377;45</span><span>Nagpur &middot; heat &middot; &#8377;52</span><span>Ahmedabad &middot; heat &middot; &#8377;29</span></div></div>
+        <div class="stat ind" data-w="37"><div class="num">12 a year</div><div>heavy-rain days in Mumbai (IMD, 2000&ndash;2024)</div>
+          <div class="cities" data-w="47"><span>Mumbai &middot; rain &middot; phase 1</span><span>Nagpur &middot; heat &middot; phase 2</span><span>Ahmedabad &middot; heat &middot; phase 2</span></div></div>
       </div>
     </div>
     <div class="pfoot" data-w="0">Real data: 500 commercial microwave links, 1-minute signal levels, May 2018 (OpenSense / pycomlink sample), scored against German Weather Service radar.</div>
@@ -289,15 +293,15 @@ body.idle{cursor:none}
           <svg id="heatmap" viewBox="0 0 512 210" aria-label="Illustrative 1 km weather grid"></svg>
           <div class="legend"><i>Heavy rain</i><i>Illustrative 1 km grid</i><i>Extreme heat</i></div>
         </div>
-        <div class="chips" data-w="53"><span>No claim forms</span><span>No surveyor</span><span>No waiting</span></div>
+        <div class="chips" data-w="49"><span>No claim forms</span><span>No surveyor</span><span>No waiting</span></div>
       </div>
-      <div class="phone" data-w="11">
-        <div class="app-h">Recharge <span>MyJio</span></div>
-        <div class="row"><span>Unlimited 5G &middot; 28 days</span><b>&#8377;299</b></div>
-        <div class="row kv"><span>Mausam Kavach<br><span class="mu">Ahmedabad &middot; heat cover</span></span><b>&#8377;29/mo</b></div>
-        <div class="pay">Pay &#8377;328</div>
-        <div class="note heat" data-w="28"><b>47.2&deg;C near you</b>Measured by the network in Maninagar, Ahmedabad. Kavach triggered.</div>
-        <div class="note ok" data-w="43"><b>&#8377;300 credited to JioPay</b>Paid 2 hours after the trigger. Nothing to file.</div>
+      <div class="phone" data-w="17">
+        <div class="app-h">Mausam Kavach <span>Andheri East</span></div>
+        <div class="row"><span>Ravi &middot; delivery rider</span><b>Mumbai</b></div>
+        <div class="row kv"><span>Kavach Plus<br><span class="mu">paid by your delivery app</span></span><b>&#8377;0</b></div>
+        <div class="pay">You&rsquo;re covered</div>
+        <div class="note heat" data-w="24" style="background:#3987e520;border-color:#3987e566"><b>14.2 mm in 3 hours near you</b>Measured by 8 tower links in Andheri East. Kavach triggered.</div>
+        <div class="note ok" data-w="38"><b>&#8377;300 credited to JioPay</b>Paid automatically. Nothing to file.</div>
       </div>
     </div>
   </section>
@@ -305,11 +309,11 @@ body.idle{cursor:none}
   <!-- 5 · Business -->
   <section class="slide">
     <div class="kicker" data-w="0">The business</div>
-    <h2 data-w="0">Three layers of revenue</h2>
+    <h2 data-w="0">Riders first. Then everyone.</h2>
     <div class="grid3 cards">
-      <div class="card" data-w="5"><div class="lbl">B2C</div><h3>Mausam Kavach</h3><div class="big">&asymp; &#8377;170 Cr/yr</div><p>1% of Jio&rsquo;s 500M users = 5M policies &times; &#8377;29 a month. City prices &#8377;29&ndash;52, set from IMD data.</p></div>
-      <div class="card" data-w="25"><div class="lbl">B2B</div><h3>Plus cover + data</h3><p>Delivery apps buy Kavach Plus for their riders (&#8377;208 a rider a month in Mumbai).</p><p>Insurers and state disaster agencies license the data.</p></div>
-      <div class="card z" data-w="40"><div class="lbl">Customer zero</div><h3>Reliance itself</h3><ul><li>JioMart: rainy-day demand</li><li>New Energy: solar output</li><li>Jio: rain-fade prediction</li></ul></div>
+      <div class="card z" data-w="4"><div class="lbl">First &middot; B2B</div><h3>Kavach Plus</h3><div class="big">&asymp; &#8377;12.5 Cr/yr</div><p>One delivery app covering 50,000 Mumbai riders at &#8377;208 a rider a month.</p></div>
+      <div class="card" data-w="21"><div class="lbl">Phase 3 &middot; B2C</div><h3>Kavach Basic</h3><div class="big">&#8377;174 Cr/yr</div><p>At recharge, &#8377;29&ndash;52 a month by city. 1% of Jio&rsquo;s 500M users = 5M policies.</p></div>
+      <div class="card" data-w="40"><div class="lbl">Data &middot; customer zero</div><h3>The weather map</h3><ul><li>Insurers and states license it</li><li>JioMart: rainy-day demand</li><li>New Energy: solar output</li></ul></div>
     </div>
   </section>
 
@@ -333,17 +337,18 @@ body.idle{cursor:none}
 
   <!-- 7 · Roadmap + close -->
   <section class="slide">
-    <div class="kicker" data-w="0">The roadmap</div>
-    <div class="timeline">
-      <div class="step" data-w="0"><div class="when">Days 0&ndash;90</div><h3>Pilot</h3><p>Rain in Vidarbha, heat in Ahmedabad. Validated against IMD gauges.</p></div>
-      <div class="step" data-w="14"><div class="when">Months 4&ndash;9</div><h3>IRDAI sandbox</h3><p>Kavach launched with JFS insurance partners.</p></div>
-      <div class="step" data-w="19"><div class="when">Year 2</div><h3>National map</h3><p>Open API: weather data as a service.</p></div>
+    <div class="kicker" data-w="0">The roadmap &middot; four phases</div>
+    <div class="timeline t4">
+      <div class="step" data-w="0"><div class="when">Phase 1 &middot; months 0&ndash;3</div><h3>Mumbai monsoon pilot</h3><p>Rain, riders, one delivery app. Measure link coverage and accuracy against IMD.</p></div>
+      <div class="step" data-w="12"><div class="when">Phase 2 &middot; months 4&ndash;12</div><h3>Heatwaves</h3><p>Nagpur and Ahmedabad: heat from phone and site sensors.</p></div>
+      <div class="step" data-w="19"><div class="when">Phase 3 &middot; year 2</div><h3>Kavach Basic</h3><p>At every recharge, priced city by city (&#8377;29&ndash;52).</p></div>
+      <div class="step" data-w="25"><div class="when">Phase 4 &middot; year 3</div><h3>National map</h3><p>Every district. Data API for insurers and states.</p></div>
     </div>
     <div class="closer">
-      <div data-w="23">India won&rsquo;t adapt to climate change only by building new infrastructure.</div>
-      <div data-w="34">It&rsquo;ll adapt by listening to the infrastructure it already has.</div>
+      <div data-w="31">India won&rsquo;t adapt to climate change only by building new infrastructure.</div>
+      <div data-w="42">It&rsquo;ll adapt by listening to the infrastructure it already has.</div>
     </div>
-    <div class="brand" data-w="44">Jio<span class="ac" style="margin-left:-18px">Mausam</span><em>Different by design.</em><span class="team"></span></div>
+    <div class="brand" data-w="52">Jio<span class="ac" style="margin-left:-18px">Mausam</span><em>Different by design.</em><span class="team"></span></div>
   </section>
 
   <div id="cap" aria-live="polite"></div>
@@ -381,7 +386,7 @@ body.idle{cursor:none}
 </div>
 
 <script>
-const S=[["India's biggest weather network already exists.", "It has lakhs of stations, it covers every district, and it's switched on right now.", "Nobody noticed — because we call it Jio."], ["Weather in India is hyperlocal, but our data isn't.", "On 26 July 2005, Santacruz in Mumbai got 944 millimetres of rain. {+7}", "Colaba, twenty kilometres away, got 73. {+2}", "About forty radars can't see that difference.", "The people who lose the most — riders, vendors, labourers — get no help,", "and insurance claims take months."], ["Here's the insight.", "Rain weakens the radio links between towers —", "and how much it weakens tells you how hard it's raining, minute by minute.", "Smartphone batteries, averaged across a city, track air temperature.", "So every tower is a rain gauge. Every phone is a thermometer.", "We don't build sensors. We become the sensor."], ["Does it actually work? We built it.", "On 500 real microwave links, our rain readings matched national radar at 0.95. {+3}", "Our payout rule made the same decision as radar ninety-five percent of the time.", "Then we priced Kavach on twenty-five years of IMD records —", "rain cover for Mumbai, heat cover for Nagpur and Ahmedabad."], ["Meet JioMausam —", "a live, street-level weather map built from network data.", "On top of it: Mausam Kavach —", "you add it to your recharge, from twenty-nine rupees a month.", "When the network measures your city's extreme — 47 degrees in Ahmedabad, a deluge in Mumbai —", "three hundred rupees lands in your JioPay wallet within hours.", "No claim forms. No surveyor. No waiting."], ["The business has three layers.", "One: Kavach premiums — one percent of Jio's 500 million users is five million policies —", "around 170 crore rupees a year.", "Two: delivery apps buy Kavach Plus for their riders; insurers and states buy the data.", "Three: Reliance is customer zero — JioMart, New Energy and Jio itself."], ["Why only Reliance?", "A startup can't own the towers.", "An insurer can't reach 500 million people.", "No other telecom has a payments app, an insurance arm, a retail chain", "and a giga-scale energy business under one roof.", "Reliance has every layer."], ["We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.", "Then an IRDAI sandbox product. Then a national map.", "India won't adapt to climate change only by building new infrastructure.", "It'll adapt by listening to the infrastructure it already has.", "This is JioMausam. Different by design."]];
+const S=[["India's biggest weather network already exists.", "It has lakhs of stations, it covers every district, and it's switched on right now.", "Nobody noticed — because we call it Jio."], ["Weather in India is hyperlocal, but our data isn't.", "On 26 July 2005, Santacruz in Mumbai got 944 millimetres of rain. {+7}", "Colaba, twenty kilometres away, got 73. {+2}", "About forty radars can't see that difference.", "The people who lose the most — riders, vendors, labourers — get no help,", "and insurance claims take months."], ["Here's the insight.", "Rain weakens the radio links between towers —", "and how much it weakens tells you how hard it's raining, minute by minute.", "So every tower is a rain gauge.", "We don't build sensors. We become the sensor."], ["Does it actually work? We built it.", "On 500 real microwave links, our rain readings matched national radar at 0.95. {+3}", "Our payout rule made the same decision as radar ninety-five percent of the time.", "And twenty-five years of IMD records show where to start:", "Mumbai gets twelve heavy-rain days a year."], ["Meet JioMausam —", "a live, street-level weather map built from network data.", "On top of it: Mausam Kavach.", "Delivery apps buy it for their riders.", "When the towers around a rider measure ten millimetres of rain in three hours,", "three hundred rupees lands in the rider's JioPay wallet within hours.", "No claim forms. No surveyor. No waiting."], ["It pays three ways.", "Delivery apps buy Kavach Plus: in Mumbai, fifty thousand riders is about twelve crore rupees a year.", "Workers add Kavach Basic at recharge — one percent of Jio's users is 174 crore a year. {+3}", "And insurers, states, JioMart and New Energy use the data."], ["Why only Reliance?", "A startup can't own the towers.", "An insurer can't reach 500 million people.", "No other telecom has a payments app, an insurance arm, a retail chain", "and a giga-scale energy business under one roof.", "Reliance has every layer."], ["Phase one: a ninety-day Mumbai monsoon pilot — rain, riders, one delivery app.", "Phase two: heatwaves, in Nagpur and Ahmedabad.", "Phase three: Kavach Basic at every recharge. Phase four: a national map.", "India won't adapt to climate change only by building new infrastructure.", "It'll adapt by listening to the infrastructure it already has.", "This is JioMausam. Different by design."]];
 const TAIL=0.7, END_TAIL=2.5, LIMIT=180;
 const $=id=>document.getElementById(id);
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};

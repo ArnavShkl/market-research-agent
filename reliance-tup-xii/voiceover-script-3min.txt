@@ -1,7 +1,7 @@
-JioMausam · 3-minute pitch · voice-over script (India edition)
-Pace: 145 words per minute · total 2:52
+JioMausam · 3-minute pitch · voice-over script (rain first, riders first, Mumbai first)
+Pace: 145 words per minute · total 2:47
 Read each line when its timestamp comes up. The slide changes at each [m:ss] mark.
-Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and forty-four millimetres", "zero point nine five".
+Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and forty-four millimetres", "zero point nine five", "one hundred and seventy-four crore".
 
 [0:00] SLIDE 1 · Hook
     India's biggest weather network already exists.
@@ -16,38 +16,36 @@ Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and 
     The people who lose the most — riders, vendors, labourers — get no help,
     and insurance claims take months.
 
-[0:37] SLIDE 3 · Insight
+[0:37] SLIDE 3 · Insight (heat is phase two)
     Here's the insight.
     Rain weakens the radio links between towers —
     and how much it weakens tells you how hard it's raining, minute by minute.
-    Smartphone batteries, averaged across a city, track air temperature.
-    So every tower is a rain gauge. Every phone is a thermometer.
+    So every tower is a rain gauge.
     We don't build sensors. We become the sensor.
 
-[1:00] SLIDE 4 · Proof + Indian pricing
+[0:54] SLIDE 4 · Proof + where to start
     Does it actually work? We built it.
     On 500 real microwave links, our rain readings matched national radar at 0.95.
     Our payout rule made the same decision as radar ninety-five percent of the time.
-    Then we priced Kavach on twenty-five years of IMD records —
-    rain cover for Mumbai, heat cover for Nagpur and Ahmedabad.
+    And twenty-five years of IMD records show where to start:
+    Mumbai gets twelve heavy-rain days a year.
 
-[1:24] SLIDE 5 · Product
+[1:17] SLIDE 5 · Product: riders on Kavach Plus
     Meet JioMausam —
     a live, street-level weather map built from network data.
-    On top of it: Mausam Kavach —
-    you add it to your recharge, from twenty-nine rupees a month.
-    When the network measures your city's extreme — 47 degrees in Ahmedabad, a deluge in Mumbai —
-    three hundred rupees lands in your JioPay wallet within hours.
+    On top of it: Mausam Kavach.
+    Delivery apps buy it for their riders.
+    When the towers around a rider measure ten millimetres of rain in three hours,
+    three hundred rupees lands in the rider's JioPay wallet within hours.
     No claim forms. No surveyor. No waiting.
 
-[1:50] SLIDE 6 · Business
-    The business has three layers.
-    One: Kavach premiums — one percent of Jio's 500 million users is five million policies —
-    around 170 crore rupees a year.
-    Two: delivery apps buy Kavach Plus for their riders; insurers and states buy the data.
-    Three: Reliance is customer zero — JioMart, New Energy and Jio itself.
+[1:41] SLIDE 6 · Business: riders first
+    It pays three ways.
+    Delivery apps buy Kavach Plus: in Mumbai, fifty thousand riders is about twelve crore rupees a year.
+    Workers add Kavach Basic at recharge — one percent of Jio's users is 174 crore a year.
+    And insurers, states, JioMart and New Energy use the data.
 
-[2:12] SLIDE 7 · Why Reliance
+[2:02] SLIDE 7 · Why Reliance
     Why only Reliance?
     A startup can't own the towers.
     An insurer can't reach 500 million people.
@@ -55,9 +53,10 @@ Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and 
     and a giga-scale energy business under one roof.
     Reliance has every layer.
 
-[2:29] SLIDE 8 · Roadmap & close
-    We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.
-    Then an IRDAI sandbox product. Then a national map.
+[2:20] SLIDE 8 · Four phases + close
+    Phase one: a ninety-day Mumbai monsoon pilot — rain, riders, one delivery app.
+    Phase two: heatwaves, in Nagpur and Ahmedabad.
+    Phase three: Kavach Basic at every recharge. Phase four: a national map.
     India won't adapt to climate change only by building new infrastructure.
     It'll adapt by listening to the infrastructure it already has.
     This is JioMausam. Different by design.

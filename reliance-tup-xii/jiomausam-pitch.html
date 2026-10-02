@@ -416,7 +416,7 @@ function render(){
   $('time').textContent=fmt(t)+' / '+fmt(total);
 }
 function tick(ts){if(playing){t+=(ts-last)/1000;if(t>=total){t=total-0.001;setPlay(false)}}last=ts;render();requestAnimationFrame(tick)}
-function setPlay(p){playing=p;$('bPlay').innerHTML=p?'&#10074;&#10074;':'&#9654;';if(p)poke();else document.body.classList.remove('idle')}
+function setPlay(p){playing=p;$('bPlay').innerHTML=p?'&#10074;&#10074;':'&#9654;';if(p){clearTimeout(idleT);document.body.classList.add('idle')}else document.body.classList.remove('idle')}
 function toggle(){if(!started)return begin();if(!playing&&t>=total-0.01)t=0;setPlay(!playing)}
 function next(){const i=locate(t);if(i<slides.length-1)t=starts[i+1]}
 function prev(){const i=locate(t);t=(t-starts[i]>1.5)?starts[i]:starts[Math.max(0,i-1)]}
@@ -431,7 +431,7 @@ function begin(){
 function applyTeam(n){document.querySelectorAll('.team').forEach((el,i)=>el.textContent=n?(i===0?'· '+n:n):'')}
 
 let idleT;function poke(){document.body.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(()=>{if(playing)document.body.classList.add('idle')},2200)}
-addEventListener('mousemove',poke);addEventListener('touchstart',poke,{passive:true});
+addEventListener('mousemove',e=>{if(!playing||e.clientY>innerHeight-140)poke()});addEventListener('touchstart',poke,{passive:true});
 
 function fit(){stage.style.setProperty('--k',Math.min(innerWidth/1280,innerHeight/720))}
 addEventListener('resize',fit);fit();

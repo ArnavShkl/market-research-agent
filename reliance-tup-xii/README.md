@@ -12,7 +12,9 @@ Every tower is a rain gauge. JioMausam maps weather street by street from Jio's 
 | 3-minute presentation (9 slides), with Morph transitions and animations | `JioMausam_3min_Presentation.pptx` (static backup: `JioMausam_3min_Presentation.pdf`) |
 | 3-minute pitch video, 2:47 | `JioMausam_Pitch_3min_clean.mp4` (for your voice-over), `JioMausam_Pitch_3min_captions.mp4` |
 | Voice-over script and subtitles | `voiceover-script-3min.txt`, `JioMausam_Pitch_3min.srt` |
-| Pitch page you can record live with your voice | `jiomausam-pitch.html` |
+| **Pitch recorder** (open, type team name, press Start, 3-2-1, read captions while screen-recording) | `JioMausam_Pitch_Recorder_standalone.html` |
+| Pitch video with a 5-second get-ready countdown, for speaking over while it plays | `JioMausam_Pitch_for_recording.mp4` |
+| Pitch page (artifact source) | `jiomausam-pitch.html` |
 | Phone-app prototype (Mausam Kavach) | `prototype/Mausam_Kavach_App_standalone.html` |
 | Working model (Control Room, including the India layer) | `prototype/JioMausam_Control_Room_standalone.html` |
 | Idea brief (19 pages, older: its pilot plan predates the Mumbai focus) | `JioMausam_Idea_Brief.pdf` |

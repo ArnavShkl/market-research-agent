@@ -1,5 +1,5 @@
 JioMausam · 3-minute pitch · voice-over script (rain first, riders first, Mumbai first)
-Pace: 145 words per minute · total 2:47
+Pace: 145 words per minute · total 2:54
 Read each line when its timestamp comes up. The slide changes at each [m:ss] mark.
 Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and forty-four millimetres", "zero point nine five", "one hundred and seventy-four crore".
 
@@ -39,13 +39,13 @@ Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and 
     three hundred rupees lands in the rider's JioPay wallet within hours.
     No claim forms. No surveyor. No waiting.
 
-[1:41] SLIDE 6 · Business: riders first
+[1:41] SLIDE 6 · Business: premiums vs Jio fees
     It pays three ways.
-    Delivery apps buy Kavach Plus: in Mumbai, fifty thousand riders is about twelve crore rupees a year.
-    Workers add Kavach Basic at recharge — one percent of Jio's users is 174 crore a year.
-    And insurers, states, JioMart and New Energy use the data.
+    Delivery apps buy Kavach Plus: fifty thousand Mumbai riders is about twelve crore rupees of premiums a year.
+    Later, workers add Kavach Basic at recharge — one percent of Jio's users is 174 crore in premiums.
+    Jio earns fees on both, and sells the data to insurers and states.
 
-[2:02] SLIDE 7 · Why Reliance
+[2:05] SLIDE 7 · Why Reliance
     Why only Reliance?
     A startup can't own the towers.
     An insurer can't reach 500 million people.
@@ -53,9 +53,9 @@ Say numbers naturally: "twenty-sixth July two thousand five", "nine hundred and 
     and a giga-scale energy business under one roof.
     Reliance has every layer.
 
-[2:20] SLIDE 8 · Four phases + close
-    Phase one: a ninety-day Mumbai monsoon pilot — rain, riders, one delivery app.
-    Phase two: heatwaves, in Nagpur and Ahmedabad.
+[2:22] SLIDE 8 · Four phases + close
+    Phase one: a ninety-day Mumbai coverage audit, with payouts in shadow mode — rain, riders, one delivery app.
+    Phase two: real payouts in the IRDAI sandbox, and heatwaves in Nagpur and Ahmedabad.
     Phase three: Kavach Basic at every recharge. Phase four: a national map.
     India won't adapt to climate change only by building new infrastructure.
     It'll adapt by listening to the infrastructure it already has.

@@ -1,0 +1,67 @@
+{
+ "Mumbai Basic (>=204.5mm)": {
+  "label": "Mumbai Basic (>=204.5mm)",
+  "mean_days": 1.08,
+  "mean_capped": 1.08,
+  "premium_month": 45,
+  "worst_year": 2019,
+  "worst_days": 4,
+  "worst_paid_days": 4,
+  "worst_loss_ratio": 2.22,
+  "years_over_100pct": 7,
+  "n_years": 25,
+  "max_payout_per_person": 1500
+ },
+ "Nagpur Basic (>=47C)": {
+  "label": "Nagpur Basic (>=47C)",
+  "mean_days": 2.2,
+  "mean_capped": 1.24,
+  "premium_month": 52,
+  "worst_year": 2013,
+  "worst_days": 14,
+  "worst_paid_days": 5,
+  "worst_loss_ratio": 2.42,
+  "years_over_100pct": 5,
+  "n_years": 25,
+  "max_payout_per_person": 1500
+ },
+ "Ahmedabad Basic (>=47C)": {
+  "label": "Ahmedabad Basic (>=47C)",
+  "mean_days": 0.72,
+  "mean_capped": 0.64,
+  "premium_month": 27,
+  "worst_year": 2018,
+  "worst_days": 7,
+  "worst_paid_days": 5,
+  "worst_loss_ratio": 4.69,
+  "years_over_100pct": 4,
+  "n_years": 25,
+  "max_payout_per_person": 1500
+ },
+ "Mumbai Plus cap5 (>=64.5mm)": {
+  "label": "Mumbai Plus cap5 (>=64.5mm)",
+  "mean_days": 11.88,
+  "mean_capped": 5.0,
+  "premium_month": 208,
+  "worst_year": 2010,
+  "worst_days": 19,
+  "worst_paid_days": 5,
+  "worst_loss_ratio": 0.6,
+  "years_over_100pct": 0,
+  "n_years": 25,
+  "max_payout_per_person": 1500
+ },
+ "Mumbai Plus cap3 (>=64.5mm)": {
+  "label": "Mumbai Plus cap3 (>=64.5mm)",
+  "mean_days": 11.88,
+  "mean_capped": 3.0,
+  "premium_month": 125,
+  "worst_year": 2010,
+  "worst_days": 19,
+  "worst_paid_days": 3,
+  "worst_loss_ratio": 0.6,
+  "years_over_100pct": 0,
+  "n_years": 25,
+  "max_payout_per_person": 900
+ }
+}

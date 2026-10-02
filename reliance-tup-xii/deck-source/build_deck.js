@@ -164,13 +164,13 @@ const sec = { sectionTitle: 'Elimination round' };
   title(s, 'Riders first. Then everyone.');
   s.addText([
     { text: `₹${D.plus_cr} Cr`, options: { fontFace: 'Cambria', fontSize: 72, bold: true, color: sa, breakLine: true } },
-    { text: `a year from one delivery app covering 50,000 Mumbai riders on Kavach Plus (₹${D.price.MumbaiPlus} a rider a month)`, options: { fontFace: 'Calibri', fontSize: 16, color: 'D7DDEA' } },
+    { text: `of premiums a year from one delivery app covering 50,000 Mumbai riders on Kavach Plus (₹${D.price.MumbaiPlus} a rider a month)`, options: { fontFace: 'Calibri', fontSize: 16, color: 'D7DDEA' } },
   ], { x: M, y: 2.3, w: 4.9, h: 2.6, margin: 0, valign: 'top', isTextBox: true, objectName: 'bignum' });
-  s.addText('Riders first: one platform deal covers thousands of workers at once. Settlement is automatic, so most of the premium goes back to people.', { x: M, y: 5.0, w: 4.6, h: 0.9, fontFace: 'Calibri', fontSize: 13, color: mute, margin: 0, isTextBox: true, objectName: 'why' });
+  s.addText('Premiums aren’t Jio’s revenue: a licensed insurer holds them. Jio keeps 15–25% as distribution and data fees, about ₹1.9–3.1 Cr here, and carries no insurance risk.', { x: M, y: 5.0, w: 4.6, h: 0.9, fontFace: 'Calibri', fontSize: 13, color: mute, margin: 0, isTextBox: true, objectName: 'why' });
   const cols = [
     ['Kavach Plus · first', `Delivery apps buy it for riders: ₹${D.price.MumbaiPlus} a rider a month in Mumbai, any work-stopping day, up to 5 a year.`],
-    ['Kavach Basic · phase 3', 'Individuals add it at recharge for ₹29–52 a month by city. 1% of Jio’s users = ₹174 Cr a year.'],
-    ['Data + customer zero', 'Insurers and state disaster agencies license the map. JioMart, New Energy and Jio use it first.'],
+    ['Kavach Basic · phase 3', 'Individuals add it at recharge for ₹29–52 a month by city. 1% of Jio’s users = ₹174 Cr of premiums; Jio’s fees ₹26–44 Cr.'],
+    ['Data + customer zero', 'Insurers and state disaster agencies license the map: revenue that is Jio’s own. JioMart, New Energy and Jio use it first.'],
   ];
   cols.forEach((c, i) => {
     const y = 2.35 + i * 1.32;
@@ -179,7 +179,7 @@ const sec = { sectionTitle: 'Elimination round' };
       { x: 6.4, y: y + 0.12, w: 6.1, h: 0.9, margin: 0, valign: 'top', isTextBox: true, objectName: 'colT' + i });
   });
   foot(s, 'Illustrative. A licensed insurer underwrites through Jio Financial Services’ partners; Jio earns distribution and data fees and carries no insurance risk.');
-  s.addNotes(`[1:50–2:15] We start with riders, because one deal with one delivery app covers thousands of workers. Kavach Plus in Mumbai costs about ₹${D.price.MumbaiPlus} a rider a month, so fifty thousand riders is about ${D.plus_cr} crore a year. In phase three, anyone can add Kavach Basic at recharge, ₹29 to ₹52 by city; one percent of Jio’s users is 174 crore a year. And insurers, states, JioMart and New Energy use the data.`);
+  s.addNotes(`[1:50–2:15] We start with riders, because one deal with one delivery app covers thousands of workers. Kavach Plus in Mumbai is about ₹${D.price.MumbaiPlus} a rider a month, so fifty thousand riders is about ${D.plus_cr} crore of premiums a year. To be clear, premiums aren’t Jio’s revenue: a licensed insurer holds them, and Jio keeps fifteen to twenty-five percent as distribution and data fees. In phase three, anyone can add Kavach Basic at recharge; one percent of Jio’s users is 174 crore of premiums, or 26 to 44 crore in fees for Jio. On top of that, the data is Jio’s own revenue.`);
 }
 
 // 7 ---------------------------------------------------------------- moat + ask
@@ -196,8 +196,8 @@ const sec = { sectionTitle: 'Elimination round' };
   });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 7.1, y: 2.3, w: 5.63, h: 4.25, rectRadius: 0.14, fill: { color: 'F5A623' }, line: { color: 'F5A623', width: 0 }, objectName: 'askBox' });
   s.addText([
-    { text: 'The ask: a 90-day pilot', options: { fontFace: 'Cambria', fontSize: 22, bold: true, color: '1A1200', breakLine: true } },
-    { text: 'Mumbai monsoon: rain, riders, one delivery app.', options: { fontFace: 'Calibri', fontSize: 15, color: '1A1200', breakLine: true } },
+    { text: 'The ask: a 90-day coverage audit', options: { fontFace: 'Cambria', fontSize: 22, bold: true, color: '1A1200', breakLine: true } },
+    { text: 'Mumbai monsoon: rain, riders, one delivery app. Payouts in shadow mode, so no money moves yet.', options: { fontFace: 'Calibri', fontSize: 15, color: '1A1200', breakLine: true } },
     { text: ' ', options: { fontSize: 6, breakLine: true } },
     { text: 'Jio link logs for Mumbai', options: { fontFace: 'Calibri', fontSize: 14.5, color: '1A1200', bullet: true, breakLine: true } },
     { text: 'One JFS insurance partner and one delivery app', options: { fontFace: 'Calibri', fontSize: 14.5, color: '1A1200', bullet: true, breakLine: true } },
@@ -205,7 +205,7 @@ const sec = { sectionTitle: 'Elimination round' };
     { text: ' ', options: { fontSize: 6, breakLine: true } },
     { text: 'Success: r ≥ 0.8 against IMD gauges, 80% of heavy-rain events caught, money in wallets within 6 hours.', options: { fontFace: 'Calibri', fontSize: 13, italic: true, color: '3A2A00' } },
   ], { x: 7.4, y: 2.55, w: 5.05, h: 3.8, margin: 0, valign: 'top', paraSpaceAfter: 4, isTextBox: true, objectName: 'askText' });
-  s.addNotes('[2:15–2:35] Why only Reliance? It takes five layers: a network to sense, half a billion people to reach, a way to pay, an insurer, and businesses that use the data. Reliance is the only company with all five. Our ask is small: a ninety-day Mumbai monsoon pilot with Jio’s link logs for Mumbai, one insurance partner, one delivery app and a five-person team. No new hardware. It tests our two riskiest assumptions: link coverage and payout accuracy.');
+  s.addNotes('[2:15–2:35] Why only Reliance? It takes five layers: a network to sense, half a billion people to reach, a way to pay, an insurer, and businesses that use the data. Reliance is the only company with all five. Our ask is small: a ninety-day Mumbai coverage audit with Jio’s link logs, one insurance partner, one delivery app and five people. Payouts run in shadow mode, so no money moves until the regulator’s sandbox. It tests our two riskiest assumptions: link coverage and payout accuracy.');
 }
 
 // 8 ---------------------------------------------------------------- phases
@@ -215,8 +215,8 @@ const sec = { sectionTitle: 'Elimination round' };
   kicker(s, 'The roadmap');
   title(s, 'Four phases. Rain first.');
   const P = [
-    ['1', 'Mumbai monsoon pilot', 'Months 0–3', 'Rain, riders, one delivery app. Measure link coverage and accuracy against IMD.'],
-    ['2', 'Heatwaves', 'Months 4–12', 'Nagpur and Ahmedabad. Heat from phone and tower-site sensors.'],
+    ['1', 'Coverage audit + shadow pilot', 'Months 0–3', 'Mumbai: rain, riders, one delivery app. Payouts simulated; measure links and accuracy against IMD.'],
+    ['2', 'Sandbox + heat', 'Months 4–12', 'Real payouts for one app’s riders in IRDAI’s sandbox. Heat module in Nagpur and Ahmedabad.'],
     ['3', 'Kavach Basic', 'Year 2', 'At every recharge, priced city by city: ₹29–52 a month.'],
     ['4', 'National map', 'Year 3', 'Every district. Data API for insurers, states and Reliance.'],
   ];
@@ -231,7 +231,7 @@ const sec = { sectionTitle: 'Elimination round' };
       { text: p[3], options: { fontFace: 'Calibri', fontSize: 13, color: i === 0 ? '2A1E00' : 'B9C2D8' } },
     ], { x: x + 0.25, y: 2.6, w: cw - 0.5, h: 3.4, margin: 0, valign: 'top', paraSpaceAfter: 4, isTextBox: true, objectName: 'phT' + i });
   });
-  s.addNotes('[2:35–2:52] Four phases. Phase one is the Mumbai monsoon pilot: rain, riders, one delivery app. Phase two adds heatwaves in Nagpur and Ahmedabad. Phase three puts Kavach Basic on every recharge. Phase four is a national map with data for insurers and states.');
+  s.addNotes('[2:35–2:52] Four phases. Phase one is a Mumbai coverage audit with payouts in shadow mode: rain, riders, one delivery app. Phase two moves to real payouts in IRDAI’s sandbox and adds heatwaves in Nagpur and Ahmedabad. Phase three puts Kavach Basic on every recharge. Phase four is a national map with data for insurers and states.');
 }
 
 // 9 ---------------------------------------------------------------- close

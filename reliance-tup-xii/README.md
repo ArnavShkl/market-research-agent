@@ -17,6 +17,7 @@ Every tower is a rain gauge. JioMausam maps weather street by street from Jio's 
 | Pitch page (artifact source) | `jiomausam-pitch.html` |
 | Phone-app prototype (Mausam Kavach) | `prototype/Mausam_Kavach_App_standalone.html` |
 | Working model (Control Room, including the India layer) | `prototype/JioMausam_Control_Room_standalone.html` |
+| **Test Lab**: our tests re-run live on the real data (500 links vs radar, India pricing and stress test); adjustable assumptions | `prototype/JioMausam_Test_Lab_standalone.html` (source: `prototype/testlab/`) |
 | Idea brief (19 pages, older: its pilot plan predates the Mumbai focus) | `JioMausam_Idea_Brief.pdf` |
 | Beginner's guide (24 pages, superseded by the drill book) | `JioMausam_Explained_Simply.pdf` |
 

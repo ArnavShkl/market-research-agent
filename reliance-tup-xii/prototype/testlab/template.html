@@ -1,0 +1,704 @@
+<title>JioMausam Test Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a lab bench. Header strip with the engine's live status, three benches as tabs;
+   each bench reads results -> assumptions -> instruments -> how it works. Dark-first, mirrored light. */
+:root{
+  --bg:#0A0F1C; --panel:#111829; --panel2:#172038; --line:#232D47; --line2:#2E3A5A;
+  --tx:#EEF1F7; --mu:#A3AEC7; --dim:#76829E; --ac:#F5A623; --ac-ink:#F5A623; --ac-soft:rgba(245,166,35,.14);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --crit:#e05252; --good:#2fbf87;
+  --wet:rgba(57,135,229,.16); --cell0:#141c31;
+  --r1:#123a6b; --r2:#184f95; --r3:#2a6fc9; --r4:#4b90e6; --r5:#86b6ef; --r6:#cde2fb;
+  --display:"Sora","Segoe UI",system-ui,sans-serif; --body:"DM Sans","Segoe UI",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F3F5F9; --panel:#FFFFFF; --panel2:#EDF1F7; --line:#D9DFEA; --line2:#C6CFDE;
+  --tx:#0E1526; --mu:#4A566E; --dim:#6A7590; --ac:#F5A623; --ac-ink:#9A5B00; --ac-soft:rgba(245,166,35,.16);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --crit:#d03b3b; --good:#0b8a4f;
+  --wet:rgba(42,120,214,.12); --cell0:#E4E9F1;
+  --r1:#cde2fb; --r2:#9ec5f4; --r3:#6da7ec; --r4:#3987e5; --r5:#1c5cab; --r6:#0d366b;
+  color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#F3F5F9; --panel:#FFFFFF; --panel2:#EDF1F7; --line:#D9DFEA; --line2:#C6CFDE;
+  --tx:#0E1526; --mu:#4A566E; --dim:#6A7590; --ac:#F5A623; --ac-ink:#9A5B00; --ac-soft:rgba(245,166,35,.16);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --crit:#d03b3b; --good:#0b8a4f;
+  --wet:rgba(42,120,214,.12); --cell0:#E4E9F1;
+  --r1:#cde2fb; --r2:#9ec5f4; --r3:#6da7ec; --r4:#3987e5; --r5:#1c5cab; --r6:#0d366b;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:17px}
+.brand svg{flex:none}
+.brand small{font-family:var(--body);font-weight:500;color:var(--mu);font-size:13px}
+.status{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 10px;min-width:0}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ac);flex:none}
+.status.ok i{background:var(--good)} .status.busy i{animation:pulse 1s infinite}
+.status .bar{width:64px;height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.status .bar b{display:block;height:100%;width:0;background:var(--ac)}
+@keyframes pulse{50%{opacity:.35}}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 56px}
+.intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:end;margin-bottom:24px}
+.intro h1{font-size:clamp(26px,3.6vw,38px);line-height:1.12}
+.intro h1 em{font-style:normal;color:var(--ac-ink)}
+.intro p{margin:0;color:var(--mu);max-width:60ch}
+.eyebrow{font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ac-ink);margin-bottom:10px}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:22px;overflow-x:auto}
+.tabs button{flex:1 0 auto;border:0;background:none;padding:10px 16px;border-radius:9px;cursor:pointer;color:var(--mu);font-weight:600;white-space:nowrap}
+.tabs button span{font:500 11px var(--mono);color:var(--dim);margin-right:8px}
+.tabs button[aria-selected="true"]{background:var(--panel2);color:var(--tx);box-shadow:inset 0 0 0 1px var(--line2)}
+.tabs button[aria-selected="true"] span{color:var(--ac-ink)}
+.bench{display:grid;gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.kpi{background:var(--panel);padding:14px 16px 15px;min-width:0}
+.kpi b{display:block;font:600 clamp(22px,2.4vw,28px)/1.1 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi span{display:block;font-size:12.5px;color:var(--mu);margin-top:6px;line-height:1.35}
+.kpi.lead b{color:var(--ac-ink)}
+.verify{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-weight:600;font-size:12.5px;border:1px solid var(--line2);background:var(--panel)}
+.pill.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent)}
+.pill.diff{color:var(--ac-ink);border-color:color-mix(in srgb,var(--ac) 50%,transparent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.panel h2{font-size:17px;margin-bottom:4px}
+.panel .sub{color:var(--mu);font-size:13.5px;margin:0 0 14px}
+.controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 20px}
+.ctl{min-width:0}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:600;margin-bottom:6px}
+.ctl label output{font:600 13px var(--mono);color:var(--ac-ink)}
+.ctl small{display:block;color:var(--dim);font-size:12px;margin-top:4px;line-height:1.35}
+input[type=range]{width:100%;accent-color:var(--ac);height:22px}
+select{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:8px;padding:8px 10px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--line2);background:var(--panel2);border-radius:9px;padding:7px 12px;cursor:pointer;font-weight:600;font-size:13px}
+.btn:hover{border-color:var(--ac)}
+.btn.primary{background:var(--ac);border-color:var(--ac);color:#1a1205}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer;color:var(--mu);font-weight:600}
+.chip[aria-pressed="true"]{border-color:var(--ac);color:var(--tx);background:var(--ac-soft)}
+.chip small{font:500 11px var(--mono);color:var(--dim);margin-left:4px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.seg button{border:0;background:var(--panel);padding:6px 12px;font-size:13px;font-weight:600;color:var(--mu);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--panel2);color:var(--tx);box-shadow:inset 0 -2px 0 var(--ac)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.maps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.map figure{margin:0}
+.map figcaption{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:600;margin-bottom:6px}
+.map figcaption span{color:var(--dim);font-weight:500}
+canvas{display:block;width:100%;max-width:100%;border-radius:10px;background:var(--panel2)}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mu);margin-top:10px}
+.legend .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.legend .ln{display:inline-block;width:16px;height:2px;border-radius:2px;margin-right:6px;vertical-align:3px}
+.scrub{display:flex;gap:12px;align-items:center;margin-top:12px}
+.scrub input{flex:1;min-width:0}
+.scrub .when{font:600 13px var(--mono);min-width:13ch;text-align:right}
+.chart{width:100%;min-width:0;position:relative}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart text{fill:var(--dim);font:11px var(--body)}
+.chart .ax{stroke:var(--line2);stroke-width:1}
+.chart .gr{stroke:var(--line);stroke-width:1}
+.facts{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:var(--mu);margin:2px 0 12px}
+.facts b{color:var(--tx);font-family:var(--mono);font-weight:600}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;font-size:14px;color:var(--mu)}
+.steps li::before{counter-increment:s;content:counter(s);font:600 12px/26px var(--mono);text-align:center;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);color:var(--ac-ink)}
+.steps b{color:var(--tx);font-weight:600}
+.formula{font:500 13.5px/1.6 var(--mono);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;overflow-wrap:anywhere}
+.wide{grid-column:span 2}
+.formula b{color:var(--ac-ink)}
+.note{font-size:13px;color:var(--dim);margin:10px 0 0}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--panel);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:240px}
+.tip b{font-family:var(--mono)}
+.tip .k{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.empty{display:grid;place-items:center;min-height:180px;color:var(--dim);font-size:13.5px;text-align:center;padding:20px}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--dim);display:grid;gap:6px}
+footer code{font-family:var(--mono);font-size:12px;color:var(--mu)}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.intro{grid-template-columns:minmax(0,1fr);gap:12px}}
+@media (max-width:720px){.two,.maps{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.wrap{padding-inline:16px}.top-in{padding:10px 16px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.controls{grid-template-columns:minmax(0,1fr)}.wide{grid-column:auto}.status{margin-left:0;width:100%}.tabs button{padding:9px 12px}}
+@media (prefers-reduced-motion:reduce){.status.busy i{animation:none}}
+</style>
+
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2v22" stroke="var(--ac)" stroke-width="2" stroke-linecap="round"/><path d="M6 8c2-2.6 4.4-4 7-4s5 1.4 7 4M3 12c2.6-4 6-6 10-6s7.4 2 10 6" stroke="var(--mu)" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="13" cy="15" r="2.4" fill="var(--s1)"/></svg>
+    <span>JioMausam Test Lab <small>· prototype v0.1</small></span>
+  </div>
+  <div class="status busy" id="status" role="status"><i></i><span id="statusText">Loading the link data…</span><span class="bar" id="statusBar"><b></b></span></div>
+</div></header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <div class="eyebrow">Our tests, re-run live</div>
+      <h1>Every number in our pitch, <em>recalculated in your browser</em> from the raw data.</h1>
+    </div>
+    <p>This page runs the same steps as our Python code on the same public data: 500 real microwave links checked against weather radar, and 25 years of IMD station records for pricing. Change an assumption and watch the results move.</p>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Tests">
+    <button role="tab" id="t-net" aria-selected="true" aria-controls="tab-net"><span>A</span>Network vs radar</button>
+    <button role="tab" id="t-link" aria-selected="false" aria-controls="tab-link"><span>B</span>Inside one link</button>
+    <button role="tab" id="t-india" aria-selected="false" aria-controls="tab-india"><span>C</span>India prices &amp; stress test</button>
+  </nav>
+
+  <!-- ================= A: NETWORK ================= -->
+  <section class="bench" id="tab-net" role="tabpanel" aria-labelledby="t-net">
+    <div class="kpis" id="netKpis"></div>
+    <div class="verify"><span class="pill" id="verifyPill">Published result · re-running…</span><span id="verifyText">Tuned on 10–12 May, scored on 13–20 May, days the model never saw.</span></div>
+
+    <div class="panel">
+      <h2>Assumptions</h2>
+      <p class="sub">The first two re-score instantly. The last two re-run all 500 links from the raw signal.</p>
+      <div class="controls">
+        <div class="ctl"><label for="calDays">Tuning days <output id="calDaysOut"></output></label><input type="range" id="calDays" min="1" max="5" step="1" value="3"><small>Days used to fit the one scale factor. The rest are the unseen test.</small></div>
+        <div class="ctl"><label for="trigger">Payout trigger <output id="triggerOut"></output></label><input type="range" id="trigger" min="5" max="25" step="1" value="10"><small>Rain in any 3 hours, per 4 km square, that pays out.</small></div>
+        <div class="ctl"><label for="thrMult">Rain detection sensitivity <output id="thrMultOut"></output></label><input type="range" id="thrMult" min="0.9" max="1.6" step="0.01" value="1.12"><small>Signal wobble needed to call a link wet, as a multiple of its usual level.</small></div>
+        <div class="ctl"><label for="waaMax">Wet-antenna allowance <output id="waaMaxOut"></output></label><input type="range" id="waaMax" min="0" max="3" step="0.1" value="1.5"><small>Signal loss blamed on water sitting on the antenna, not on rain.</small></div>
+      </div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="resetNet">Reset to published settings</button></div>
+    </div>
+
+    <div class="panel map">
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <div><h2>Street-level map vs radar</h2><p class="sub" style="margin:0">Each square is about 3 × 4 km. Left: built only from tower links. Right: weather radar, the answer key.</p></div>
+        <div class="seg" role="group" aria-label="Map view"><button id="mRain" aria-pressed="true">Rain each hour</button><button id="mPay" aria-pressed="false">Payout decisions each day</button></div>
+      </div>
+      <div class="maps">
+        <figure><figcaption>Our map <span id="capOurs">from 500 links</span></figcaption><canvas id="cvOurs" aria-label="Rain map from microwave links"></canvas></figure>
+        <figure><figcaption>Radar <span id="capRad">German Weather Service</span></figcaption><canvas id="cvRad" aria-label="Rain map from weather radar"></canvas></figure>
+      </div>
+      <div class="legend" id="mapLegend"></div>
+      <div class="scrub" id="scrubHour"><button class="btn" id="play" aria-label="Play">▶ Play</button><input type="range" id="hour" min="0" max="263" value="0" aria-label="Hour"><span class="when" id="hourOut"></span></div>
+      <div class="scrub" id="scrubDay" hidden><div class="chips" id="dayChips"></div></div>
+    </div>
+
+    <div class="panel">
+      <h2>Network average, hour by hour</h2>
+      <p class="sub">Average rain over all 500 links: our estimate against radar along the same paths. Shaded days were used for tuning.</p>
+      <div class="chart" id="netChart"><div class="empty">The chart appears once the link data has loaded.</div></div>
+    </div>
+
+    <div class="two">
+      <div class="panel">
+        <h2>How this test works</h2>
+        <ol class="steps">
+          <li><span><b>Real signals.</b> 500 microwave links from a German mobile network, signal strength every minute, 10–20 May 2018. 7.9 million readings.</span></li>
+          <li><span><b>Rain from signal loss.</b> Each link runs the steps shown in tab B to turn signal loss into millimetres of rain.</span></li>
+          <li><span><b>Fair tuning.</b> One scale factor is fitted on the tuning days only. Every score on this page uses days the model never saw.</span></li>
+          <li><span><b>Three comparisons.</b> Along each link's path, on the 4 km map, and as pay or no-pay decisions per square per day.</span></li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h2>Reading the payout numbers</h2>
+        <p class="sub" style="margin-bottom:10px">A decision is one square on one day: pay or don't pay.</p>
+        <div class="facts" id="btFacts"></div>
+        <p class="note" style="margin-top:0">Agreement is high partly because most square-days are dry, which is why we also quote events caught and false triggers. Combining links with radar and gauges is how the pilot lifts events caught to 80%.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= B: ONE LINK ================= -->
+  <section class="bench" id="tab-link" role="tabpanel" aria-labelledby="t-link" hidden>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <div style="min-width:0;flex:1 1 260px"><h2>Pick a link</h2><p class="sub" style="margin:0">A link is a radio beam between two towers. Rain in its path weakens the signal.</p></div>
+        <div class="chips" id="linkQuick"></div>
+      </div>
+      <div class="controls" style="margin-top:14px">
+        <div class="ctl wide"><label for="linkSel">Link</label><select id="linkSel"><option>Loading…</option></select></div>
+        <div class="ctl"><label for="thrMult2">Rain detection sensitivity <output id="thrMult2Out"></output></label><input type="range" id="thrMult2" min="0.9" max="1.6" step="0.01" value="1.12"></div>
+        <div class="ctl"><label for="waaMax2">Wet-antenna allowance <output id="waaMax2Out"></output></label><input type="range" id="waaMax2" min="0" max="3" step="0.1" value="1.5"></div>
+      </div>
+      <div class="chips" id="linkDays" style="margin-top:14px"></div>
+    </div>
+
+    <div class="panel">
+      <h2>1. What the tower sees</h2>
+      <p class="sub">Signal loss on this link, every minute of the chosen day. Shaded minutes are the ones our code marked as rain. The dashed line is the dry baseline it subtracts.</p>
+      <div class="facts" id="linkFacts"></div>
+      <div class="chart" id="sigChart"><div class="empty">Loading the link data…</div></div>
+    </div>
+    <div class="panel">
+      <h2>2. Rain we calculate vs radar</h2>
+      <p class="sub">Hourly rain along this link's path. Ours comes only from the signal above.</p>
+      <div class="chart" id="rainChart"><div class="empty">Loading the link data…</div></div>
+    </div>
+    <div class="panel">
+      <h2>The steps, in order</h2>
+      <ol class="steps">
+        <li><span><b>Read the signal</b> every minute: power sent minus power received, in dB.</span></li>
+        <li><span><b>Fill short gaps</b> of up to 5 minutes with a straight line.</span></li>
+        <li><span><b>Spot rain</b> from the wobble: if the signal's variation over the surrounding hour is bigger than <span class="mono" id="stepThr">1.12</span> × this link's usual level, the minute counts as wet.</span></li>
+        <li><span><b>Hold a dry baseline</b> through each wet spell, using the last 5 dry minutes.</span></li>
+        <li><span><b>Remove the wet-antenna effect</b>, up to <span class="mono" id="stepWaa">1.5</span> dB (Schleiss et al., 2013).</span></li>
+        <li><span><b>Convert dB to mm per hour</b> with the ITU-R standard formula for this link's frequency and length.</span></li>
+        <li><span><b>Apply one scale factor</b> (<span class="mono" id="stepK">×1.17</span>) fitted across the network on the tuning days only.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= C: INDIA ================= -->
+  <section class="bench" id="tab-india" role="tabpanel" aria-labelledby="t-india" hidden>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+        <div style="min-width:0;flex:1 1 280px"><h2>Price a Kavach product on 25 years of IMD data</h2><p class="sub" style="margin:0">Pick a product or set your own trigger. Every year from 2000 to 2024 is replayed as if we had sold it that year.</p></div>
+        <div class="chips" id="presets"></div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label for="city">City</label><select id="city"><option>Mumbai</option><option>Nagpur</option><option>Ahmedabad</option></select><small id="cityNote"></small></div>
+        <div class="ctl"><label>Weather</label><div class="seg" role="group" aria-label="Weather"><button id="pRain" aria-pressed="true">Heavy rain</button><button id="pHeat" aria-pressed="false">Heatwave</button></div><small>Daily rainfall, or the day's highest temperature.</small></div>
+        <div class="ctl wide"><label for="th">Trigger <output id="thOut"></output></label><input type="range" id="th" min="20" max="260" step="0.1" value="64.5"><div class="chips" id="thMarks" style="margin-top:6px"></div></div>
+        <div class="ctl"><label for="pay">Payout per trigger day <output id="payOut"></output></label><input type="range" id="pay" min="100" max="1000" step="50" value="300"></div>
+        <div class="ctl"><label for="cap">Most days paid in a year <output id="capOut"></output></label><input type="range" id="cap" min="1" max="10" step="1" value="5"></div>
+        <div class="ctl"><label for="lr">Target payout share <output id="lrOut"></output></label><input type="range" id="lr" min="0.4" max="0.9" step="0.05" value="0.6"><small>Share of premiums paid back as claims. The rest covers costs and margin.</small></div>
+        <div class="ctl"><label>Station</label><div class="mono" id="station" style="font-size:13px;padding-top:4px;color:var(--mu)"></div></div>
+      </div>
+    </div>
+    <div class="kpis" id="inKpis"></div>
+    <div class="formula" id="formula"></div>
+    <div class="panel">
+      <h2>Stress test: every year replayed</h2>
+      <p class="sub">Claims as a share of premiums in each year. Above 100%, that year lost money and reinsurance pays the difference.</p>
+      <div class="chart" id="stressChart"></div>
+    </div>
+    <div class="panel">
+      <h2>Two Mumbai stations, 20 km apart</h2>
+      <p class="sub" id="hlSub"></p>
+      <div class="chart" id="hlChart"></div>
+      <p class="note">On 26 July 2005, IMD recorded 944 mm at Santacruz and 73 mm at Colaba. The global archive used here under-records that day (461 mm), so we use it to count how often thresholds are crossed, not for exact totals.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div><b style="color:var(--mu)">Data.</b> Microwave links: OpenSense / pycomlink public research sample, 500 links, 10–20 May 2018, with German Weather Service (DWD RADOLAN) radar as reference. India: IMD synoptic station reports 2000–2024 (Santacruz, Colaba, Nagpur, Ahmedabad) from NOAA's Global Summary of the Day.</div>
+    <div><b style="color:var(--mu)">Code.</b> <code>prototype/pipeline/rain_pipeline.py</code>, <code>prototype/india/india_layer.py</code>, <code>prototype/india/stress_test.py</code>. This page is a JavaScript port of the same steps. With the published settings it reproduces all 132,000 hourly rain values from the Python run and every number above.</div>
+  </footer>
+</main>
+<div class="tip" id="tip" hidden></div>
+
+<script id="engine-src">/*__ENGINE__*/</script>
+<script>/*__INDIAJS__*/</script>
+<script>const META=/*__META__*/;const INDIA_DATA=/*__INDIA__*/;</script>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const M = META, nH = M.nH, nc = M.nCells, DAYS = Math.floor(nH / 24);
+const PUB = { K: 1.173, rNet: 0.953, medLink: 0.882, share07: 0.906, rAreal: 0.779, rHourly: 0.801, agree: 0.946, pod: 0.683, far: 0.179 };
+const DEF = { thrMult: 1.12, waaMax: 1.5, calDays: 3, trigger: 10 };
+const S = Object.assign({ hour: 0, mapMode: 'rain', day: 3, link: null, linkDay: null }, DEF);
+let D = null, Rh = null, SC = null, runToken = 0, playing = null, linkCache = null;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const t0 = Date.UTC(2018, 4, 10);
+const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const dayName = d => { const t = new Date(t0 + d * 864e5); return `${WD[t.getUTCDay()]} ${t.getUTCDate()} May`; };
+const hourName = h => `${dayName(Math.floor(h / 24))}, ${String(h % 24).padStart(2, '0')}:00`;
+const f2 = v => v.toFixed(2), pct = (v, d = 0) => (100 * v).toFixed(d) + '%';
+const inr = v => '₹' + Math.round(v).toLocaleString('en-IN');
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+
+/* ---------- tooltip ---------- */
+const tip = $('tip');
+function showTip(ev, html) {
+  tip.innerHTML = html; tip.hidden = false;
+  const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = Math.max(8, x) + 'px'; tip.style.top = Math.max(8, y) + 'px';
+}
+const hideTip = () => { tip.hidden = true; };
+const key = c => `<span class="k" style="background:${c}"></span>`;
+
+/* ---------- tabs ---------- */
+const TABS = ['net', 'link', 'india'];
+function openTab(t) {
+  TABS.forEach(n => { $('t-' + n).setAttribute('aria-selected', n === t); $('tab-' + n).hidden = n !== t; });
+  try { localStorage.setItem('jm-lab-tab', t); } catch (e) {}
+  requestAnimationFrame(() => { if (t === 'net') renderNet(); if (t === 'link') renderLink(); if (t === 'india') renderIndia(); });
+}
+TABS.forEach(n => $('t-' + n).addEventListener('click', () => openTab(n)));
+
+/* ---------- status ---------- */
+function setStatus(text, state, frac) {
+  $('statusText').textContent = text;
+  $('status').className = 'status ' + (state || '');
+  $('statusBar').hidden = frac == null; if (frac != null) $('statusBar').firstChild.style.width = (100 * frac).toFixed(0) + '%';
+}
+
+/* ---------- generic SVG charts ---------- */
+function frame(host, h) {
+  host.innerHTML = ''; const w = Math.max(280, host.clientWidth);
+  const svg = el('svg', { width: w, height: h, viewBox: `0 0 ${w} ${h}`, role: 'img' }, host);
+  return { svg, w, h };
+}
+// round axis: at most 5 steps of 1, 2, 2.5 or 5 x 10^k
+function niceScale(v) { if (!(v > 0)) return { max: 1, step: 0.25 }; let p = Math.pow(10, Math.floor(Math.log10(v / 5)));
+  for (;;) { for (const m of [1, 2, 2.5, 5]) { const st = m * p; if (Math.ceil(v / st - 1e-9) <= 5) return { max: Math.ceil(v / st - 1e-9) * st, step: st }; } p *= 10; } }
+function yAxis(svg, m, iw, ih, max, fmt, label, min = 0, step) {
+  const g = el('g', {}, svg), n = Math.round((max - min) / (step || (max - min) / 4));
+  for (let k = 0; k <= n; k++) { const v = min + (max - min) * k / n, y = m.t + ih - ih * k / n;
+    el('line', { x1: m.l, x2: m.l + iw, y1: y, y2: y, class: k ? 'gr' : 'ax' }, g);
+    el('text', { x: m.l - 7, y: y + 4, 'text-anchor': 'end' }, g).textContent = fmt(v); }
+  if (label) el('text', { x: m.l, y: m.t - 10 }, g).textContent = label;
+}
+// line chart with crosshair. series: [{name,color,values}], xs: n points
+function lineChart(host, o) {
+  const { svg, w, h } = frame(host, o.height || 260), narrow = w < 560, m = { l: 44, r: 14, t: narrow ? 42 : 26, b: 30 }, iw = w - m.l - m.r, ih = h - m.t - m.b, n = o.n;
+  let mx = 0; o.series.forEach(s => s.values.forEach(v => { if (v > mx) mx = v; }));
+  const ns = niceScale(mx * 1.05), min = o.min || 0, max = o.max || ns.max, step = o.max ? null : ns.step, X = i => m.l + iw * i / (n - 1), Y = v => m.t + ih - ih * (Math.min(v, max) - min) / (max - min);
+  if (o.bands) o.bands.forEach(b => el('rect', { x: X(b[0]), y: m.t, width: Math.max(0.5, X(b[1]) - X(b[0])), height: ih, fill: b[2] || 'var(--wet)' }, svg));
+  if (o.shade) { const x2 = X(o.shade.to); el('rect', { x: m.l, y: m.t, width: x2 - m.l, height: ih, fill: 'var(--panel2)' }, svg);
+    el('text', { x: m.l + 6, y: m.t + 14, style: 'fill:var(--mu);font-weight:600' }, svg).textContent = o.shade.label;
+    el('text', { x: x2 + 6, y: m.t + 14, style: 'fill:var(--mu);font-weight:600' }, svg).textContent = o.shade.label2; }
+  yAxis(svg, m, iw, ih, max, o.yfmt || (v => (v >= 10 ? v.toFixed(0) : +v.toFixed(2))), o.ylabel, min, step);
+  (o.xticks || []).forEach(t => { const x = X(t.i); el('line', { x1: x, x2: x, y1: m.t + ih, y2: m.t + ih + 4, class: 'ax' }, svg); el('text', { x, y: h - 10, 'text-anchor': t.anchor || 'middle' }, svg).textContent = t.label; });
+  o.series.forEach(s => { let d = ''; s.values.forEach((v, i) => { if (v === v && v != null) d += (d && s.values[i - 1] === s.values[i - 1] ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); });
+    el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': s.width || 2, 'stroke-linejoin': 'round', 'stroke-dasharray': s.dash || '', opacity: s.opacity || 1 }, svg);
+    if (s.dots) s.values.forEach((v, i) => { if (v === v) el('circle', { cx: X(i), cy: Y(v), r: 3.5, fill: s.color, stroke: 'var(--panel)', 'stroke-width': 2 }, svg); }); });
+  // legend (top right)
+  let lx = w - m.r; o.series.filter(s => !s.noLegend).slice().reverse().forEach(s => { const t = el('text', { x: lx, y: 12, 'text-anchor': 'end', style: 'fill:var(--mu);font-weight:600' }, svg); t.textContent = s.name; const tw = t.getComputedTextLength(); el('rect', { x: lx - tw - 22, y: 6, width: 16, height: 3, rx: 1.5, fill: s.color }, svg); lx -= tw + 34; });
+  const cross = el('line', { y1: m.t, y2: m.t + ih, class: 'ax', opacity: 0 }, svg), dots = o.series.filter(s => !s.noLegend).map(s => el('circle', { r: 4.5, fill: s.color, stroke: 'var(--panel)', 'stroke-width': 2, opacity: 0 }, svg));
+  const hit = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+  const move = ev => { const r = svg.getBoundingClientRect(), i = Math.max(0, Math.min(n - 1, Math.round((ev.clientX - r.left - m.l) / iw * (n - 1))));
+    cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('opacity', 1);
+    o.series.filter(s => !s.noLegend).forEach((s, k) => { const v = s.values[i]; dots[k].setAttribute('cx', X(i)); dots[k].setAttribute('cy', Y(v === v ? v : min)); dots[k].setAttribute('opacity', v === v ? 1 : 0); });
+    showTip(ev, o.tip(i)); };
+  hit.addEventListener('pointermove', move); hit.addEventListener('pointerdown', move);
+  hit.addEventListener('pointerleave', () => { hideTip(); cross.setAttribute('opacity', 0); dots.forEach(d => d.setAttribute('opacity', 0)); });
+}
+// bar chart: groups of bars. o.cats [{label,sub}], o.series [{name,color(fn or str),values}]
+function barChart(host, o) {
+  const { svg, w, h } = frame(host, o.height || 260), m = { l: 46, r: 12, t: 28, b: o.sub ? 40 : 28 }, iw = w - m.l - m.r, ih = h - m.t - m.b, n = o.cats.length;
+  let mx = 0; o.series.forEach(s => s.values.forEach(v => { if (v > mx) mx = v; })); (o.refs || []).forEach(r => { if (r.v > mx) mx = r.v; });
+  const ns = niceScale(mx * 1.08), max = ns.max, Y = v => m.t + ih - ih * v / max, gw = iw / n, k = o.series.length, bw = Math.max(2, Math.min(28, (gw - 4) / k));
+  yAxis(svg, m, iw, ih, max, o.yfmt || (v => v), o.ylabel, 0, ns.step);
+  const every = Math.ceil(n / Math.max(1, Math.floor(iw / (o.labelW || 34))));
+  o.cats.forEach((c, i) => { const cx = m.l + gw * i + gw / 2;
+    if (i % every === 0) { el('text', { x: cx, y: h - (o.sub ? 24 : 10), 'text-anchor': 'middle' }, svg).textContent = c.label; if (o.sub && c.sub) el('text', { x: cx, y: h - 10, 'text-anchor': 'middle' }, svg).textContent = c.sub; }
+    o.series.forEach((s, j) => { const v = s.values[i], x = cx - (k * bw) / 2 + j * bw, y = Y(Math.max(v, 0)), hh = m.t + ih - y;
+      const col = typeof s.color === 'function' ? s.color(v, i) : s.color;
+      const r = Math.min(4, bw / 2 - 1), x1 = x + 1, x2 = x + bw - 1, yb = m.t + ih;
+      if (hh > 0.5) el('path', { d: `M${x1} ${yb}V${y + Math.min(r, hh)}Q${x1} ${y} ${x1 + r} ${y}H${x2 - r}Q${x2} ${y} ${x2} ${y + Math.min(r, hh)}V${yb}Z`, fill: col }, svg);
+      if (o.label && o.label(v, i, j)) el('text', { x: x + bw / 2, y: y - 5, 'text-anchor': 'middle', style: 'fill:var(--tx);font-family:var(--mono);font-size:10.5px;font-weight:600' }, svg).textContent = o.label(v, i, j); });
+    const hit = el('rect', { x: m.l + gw * i, y: m.t, width: gw, height: ih, fill: 'transparent' }, svg);
+    const mv = ev => showTip(ev, o.tip(i)); hit.addEventListener('pointermove', mv); hit.addEventListener('pointerdown', mv); hit.addEventListener('pointerleave', hideTip); });
+  (o.refs || []).forEach(r => { const y = Y(r.v); el('line', { x1: m.l, x2: m.l + iw, y1: y, y2: y, stroke: r.color, 'stroke-width': 1.5, 'stroke-dasharray': r.dash || '' }, svg);
+    el('text', { x: m.l + iw, y: y - 5, 'text-anchor': 'end', style: `fill:${r.color};font-weight:600` }, svg).textContent = r.label; });
+  if (o.legend) { let lx = m.l; o.legend.forEach(s => { el('rect', { x: lx, y: 4, width: 11, height: 11, rx: 3, fill: s.color }, svg); const t = el('text', { x: lx + 16, y: 13.5, style: 'fill:var(--mu);font-weight:600' }, svg); t.textContent = s.name; lx += t.getComputedTextLength() + 34; }); }
+}
+
+/* ---------- A: network ---------- */
+const sliders = [['calDays', v => v + (v > 1 ? ' days' : ' day')], ['trigger', v => v + ' mm'], ['thrMult', v => '×' + (+v).toFixed(2)], ['waaMax', v => (+v).toFixed(1) + ' dB'], ['thrMult2', v => '×' + (+v).toFixed(2)], ['waaMax2', v => (+v).toFixed(1) + ' dB']];
+function syncInputs() {
+  $('calDays').value = S.calDays; $('trigger').value = S.trigger; $('thrMult').value = $('thrMult2').value = S.thrMult; $('waaMax').value = $('waaMax2').value = S.waaMax;
+  sliders.forEach(([id, f]) => { $(id + 'Out').textContent = f($(id).value); });
+  $('stepThr').textContent = S.thrMult.toFixed(2); $('stepWaa').textContent = S.waaMax.toFixed(1);
+}
+const isDefault = () => S.thrMult === DEF.thrMult && S.waaMax === DEF.waaMax && S.calDays === DEF.calDays && S.trigger === DEF.trigger;
+
+function kpis(v, live) {
+  const items = [
+    [f2(v.rNet), 'Network average vs radar, hour by hour (correlation)', true],
+    [f2(v.medLink), `Median single link (${v.share07 != null ? pct(v.share07) : '91%'} of links above 0.7)`],
+    [f2(v.rAreal), 'Street-level map vs radar map, every square, every hour'],
+    [pct(v.agree, 1), 'Pay / no-pay decisions that match radar'],
+    [pct(v.pod), 'Radar payout events we caught'],
+    [pct(v.far), 'Our triggers radar did not confirm']];
+  $('netKpis').innerHTML = items.map(a => `<div class="kpi${a[2] ? ' lead' : ''}"><b>${a[0]}</b><span>${a[1]}</span></div>`).join('');
+  $('netKpis').style.opacity = live ? 1 : .75;
+}
+function verify() {
+  const cal = S.calDays, txt = `Tuned on ${cal === 1 ? '10 May' : '10–' + (9 + cal) + ' May'}, scored on ${10 + cal}–20 May, days the model never saw. Scale factor ×${SC.K.toFixed(3)}.`;
+  $('verifyText').textContent = txt;
+  const p = $('verifyPill');
+  if (isDefault()) {
+    const same = Math.round(SC.rNet * 1e3) / 1e3 === PUB.rNet && Math.round(SC.medLink * 1e3) / 1e3 === PUB.medLink && Math.round(SC.rAreal * 1e3) / 1e3 === PUB.rAreal &&
+      Math.round(SC.bt.agree * 1e3) / 1e3 === PUB.agree && Math.round(SC.bt.pod * 1e3) / 1e3 === PUB.pod && Math.round(SC.bt.far * 1e3) / 1e3 === PUB.far && Math.round(SC.K * 1e3) / 1e3 === PUB.K;
+    p.className = 'pill ' + (same ? 'ok' : 'diff'); p.textContent = same ? '✓ Matches our Python run' : 'Differs from the Python run';
+  } else { p.className = 'pill diff'; p.textContent = '◆ Your settings'; }
+}
+function rescore() {
+  SC = Engine.score(Rh, M, D, { calDays: S.calDays, trigger: S.trigger });
+  // network averages for the chart
+  SC.netOurs = new Float64Array(nH); SC.netRad = new Float64Array(nH);
+  for (let h = 0; h < nH; h++) { let s = 0, t = 0, n = 0; for (let l = 0; l < M.nL; l++) { s += Rh[l * nH + h] * SC.K; const r = D.refh[l * nH + h]; if (r === r) { t += r; n++; } } SC.netOurs[h] = s / M.nL; SC.netRad[h] = n ? t / n : NaN; }
+  kpis({ rNet: SC.rNet, medLink: SC.medLink, share07: SC.share07, rAreal: SC.rAreal, agree: SC.bt.agree, pod: SC.bt.pod, far: SC.bt.far }, true);
+  verify();
+  if (S.day < S.calDays) S.day = S.calDays;
+  if (!S.hourTouched) { let bh = S.calDays * 24; for (let h = bh; h < nH; h++) if (SC.netRad[h] > SC.netRad[bh]) bh = h; S.hour = bh; $('hour').value = bh;
+    let bd = S.calDays, bv = -1; for (let d = S.calDays; d < DAYS; d++) { let c = 0; for (let j = 0; j < nc; j++) c += SC.tr[d * nc + j]; if (c > bv) { bv = c; bd = d; } } S.day = bd; }
+  if (S.link == null) { const q = quickLinks(); S.link = q[1][1]; S.linkDay = pickDay(S.link); }
+  linkOptions(); linkCache = null; renderNet(); renderLink();
+}
+function runNetwork() {
+  const token = ++runToken, P = { thrMult: S.thrMult, waaMax: S.waaMax }, out = new Float64Array(M.nL * nH), tStart = performance.now();
+  let li = 0; $('verifyPill').className = 'pill'; $('verifyPill').textContent = 'Re-running…';
+  const step = () => {
+    if (token !== runToken) return;
+    const tEnd = performance.now() + 40;
+    while (li < M.nL && performance.now() < tEnd) { out.set(Engine.link(D.sig, M, li, P), li * nH); li++; }
+    setStatus(`Processing link ${li} of ${M.nL}…`, 'busy', li / M.nL);
+    if (li < M.nL) { setTimeout(step, 0); return; }
+    Rh = out; rescore();
+    const secs = ((performance.now() - tStart) / 1000).toFixed(1);
+    setStatus(`Re-ran 500 links · 7.9M readings in ${secs} s`, 'ok');
+  };
+  step();
+}
+function bindSlider(id, prop, fast) {
+  let tm = null;
+  $(id).addEventListener('input', () => {
+    S[prop] = +$(id).value; syncInputs();
+    if (!D) return;
+    if (fast) { clearTimeout(tm); tm = setTimeout(rescore, 60); return; }
+    renderLink(true);
+    clearTimeout(tm); tm = setTimeout(runNetwork, 450);
+  });
+}
+bindSlider('calDays', 'calDays', true); bindSlider('trigger', 'trigger', true);
+bindSlider('thrMult', 'thrMult'); bindSlider('waaMax', 'waaMax'); bindSlider('thrMult2', 'thrMult'); bindSlider('waaMax2', 'waaMax');
+$('resetNet').addEventListener('click', () => { const re = S.thrMult !== DEF.thrMult || S.waaMax !== DEF.waaMax; Object.assign(S, DEF); syncInputs(); if (!D) return; if (re) { renderLink(true); runNetwork(); } else rescore(); });
+
+/* maps */
+const CW = 3.09, CH = 3.74; // km per square
+let geo = null;
+function geom() {
+  if (geo) return geo;
+  let x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+  M.cellXY.forEach(([x, y]) => { x2 = Math.max(x2, x + CW / 2); y2 = Math.max(y2, y + CH / 2); x1 = Math.min(x1, x - CW / 2); y1 = Math.min(y1, y - CH / 2); });
+  return (geo = { x1: x1 - 2, y1: y1 - 2, x2: x2 + 2, y2: y2 + 2 });
+}
+const BINS = [0.1, 0.5, 1, 2, 5, 10];
+function rainColor(v, ramp) { if (!(v >= BINS[0])) return null; let k = 0; while (k < BINS.length - 1 && v >= BINS[k + 1]) k++; return ramp[k]; }
+function drawMap(cv, values, mode, showLinks) {
+  const g = geom(), w = cv.clientWidth || 300, sc = w / (g.x2 - g.x1), h = Math.round((g.y2 - g.y1) * sc), dpr = devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); cv.style.height = h + 'px';
+  const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
+  const P = (x, y) => [(x - g.x1) * sc, (g.y2 - y) * sc];
+  const ramp = ['--r1', '--r2', '--r3', '--r4', '--r5', '--r6'].map(css), empty = css('--cell0'), cat = [css('--s1'), css('--s2'), css('--s3')];
+  for (let j = 0; j < nc; j++) {
+    const [x, y] = M.cellXY[j], [px, py] = P(x - CW / 2, y + CH / 2);
+    let col = empty;
+    if (mode === 'rain') col = rainColor(values[j], ramp) || empty; else { const v = values[j]; if (v) col = cat[v - 1]; }
+    c.fillStyle = col; c.fillRect(px, py, CW * sc - 0.6, CH * sc - 0.6);
+  }
+  if (showLinks) {
+    c.strokeStyle = css('--mu'); c.globalAlpha = 0.35; c.lineWidth = 1; c.beginPath();
+    M.seg.forEach(s => { const a = P(s[0], s[1]), b = P(s[2], s[3]); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); }); c.stroke(); c.globalAlpha = 1;
+  }
+  if (S.link != null) { const s = M.seg[S.link], a = P(s[0], s[1]), b = P(s[2], s[3]); c.strokeStyle = css('--ac'); c.lineWidth = 3; c.lineCap = 'round'; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+  return { sc, P };
+}
+function mapLegend() {
+  const L = $('mapLegend');
+  if (S.mapMode === 'rain') {
+    const labels = ['0.1–0.5', '0.5–1', '1–2', '2–5', '5–10', '10+'];
+    L.innerHTML = '<span>Rain, mm per hour:</span>' + labels.map((t, k) => `<span><i class="sw" style="background:var(--r${k + 1})"></i>${t}</span>`).join('') + '<span><i class="sw" style="background:var(--cell0);box-shadow:inset 0 0 0 1px var(--line2)"></i>dry</span><span><i class="ln" style="background:var(--ac)"></i>link picked in tab B</span>';
+  } else {
+    const d = S.day, tc = SC.tc, tr = SC.tr; let h = 0, mi = 0, fa = 0;
+    for (let j = 0; j < nc; j++) { const a = tc[d * nc + j], b = tr[d * nc + j]; if (a && b) h++; else if (b) mi++; else if (a) fa++; }
+    L.innerHTML = `<span><i class="sw" style="background:var(--s1)"></i>Both pay <b class="mono">${h}</b></span><span><i class="sw" style="background:var(--s2)"></i>Radar pays, we miss <b class="mono">${mi}</b></span><span><i class="sw" style="background:var(--s3)"></i>We pay, radar doesn't <b class="mono">${fa}</b></span><span>Trigger: ${S.trigger} mm in 3 hours. Both maps show the same decisions, colored by who triggered.</span>`;
+  }
+}
+function renderMaps() {
+  if (!SC || $('tab-net').hidden) return;
+  if (S.mapMode === 'rain') {
+    const h = S.hour, ours = SC.cml.subarray(h * nc, (h + 1) * nc), rad = D.radc.subarray(h * nc, (h + 1) * nc);
+    drawMap($('cvOurs'), ours, 'rain', true); drawMap($('cvRad'), rad, 'rain', false);
+    $('hourOut').textContent = hourName(h) + ' UTC'; $('capOurs').textContent = 'from 500 links'; $('capRad').textContent = 'German Weather Service';
+  } else {
+    const d = S.day, cat = new Uint8Array(nc);
+    for (let j = 0; j < nc; j++) { const a = SC.tc[d * nc + j], b = SC.tr[d * nc + j]; cat[j] = a && b ? 1 : b ? 2 : a ? 3 : 0; }
+    drawMap($('cvOurs'), cat.map(v => (v === 1 || v === 3 ? v : 0)), 'pay', true); drawMap($('cvRad'), cat.map(v => (v === 1 || v === 2 ? v : 0)), 'pay', false);
+    $('capOurs').textContent = 'our decisions, ' + dayName(d); $('capRad').textContent = 'radar decisions, ' + dayName(d);
+  }
+  mapLegend();
+}
+function dayChips() {
+  $('dayChips').innerHTML = Array.from({ length: DAYS }, (_, d) => d < S.calDays ? '' : `<button class="chip" data-d="${d}" aria-pressed="${d === S.day}">${dayName(d)}</button>`).join('');
+}
+$('dayChips').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; S.day = +b.dataset.d; S.hourTouched = true; dayChips(); renderMaps(); });
+function setMapMode(m) { S.mapMode = m; $('mRain').setAttribute('aria-pressed', m === 'rain'); $('mPay').setAttribute('aria-pressed', m === 'pay'); $('scrubHour').hidden = m !== 'rain'; $('scrubDay').hidden = m !== 'pay'; stopPlay(); if (m === 'pay') dayChips(); renderMaps(); }
+$('mRain').addEventListener('click', () => setMapMode('rain')); $('mPay').addEventListener('click', () => setMapMode('pay'));
+$('hour').addEventListener('input', () => { S.hour = +$('hour').value; S.hourTouched = true; renderMaps(); });
+function stopPlay() { if (playing) { clearInterval(playing); playing = null; $('play').textContent = '▶ Play'; } }
+$('play').addEventListener('click', () => {
+  if (playing) return stopPlay(); if (!SC) return;
+  $('play').textContent = '❚❚ Pause';
+  playing = setInterval(() => { S.hourTouched = true; S.hour = (S.hour + 1) % nH; $('hour').value = S.hour; renderMaps(); }, 160);
+});
+function renderNetChart() {
+  const host = $('netChart'); if (!SC || $('tab-net').hidden) return;
+  const ticks = Array.from({ length: DAYS }, (_, d) => ({ i: d * 24 + 12, label: String(10 + d) })); ticks.unshift({ i: 0, label: 'May', anchor: 'start' });
+  lineChart(host, { n: nH, height: 270, ylabel: 'mm per hour', xticks: ticks.filter((t, k) => k === 0 || host.clientWidth > 520 || k % 2 === 1),
+    shade: { to: S.calDays * 24, label: 'Tuning', label2: 'Unseen test days' },
+    series: [{ name: 'Radar', color: 'var(--s2)', values: Array.from(SC.netRad) }, { name: 'Ours, from links', color: 'var(--s1)', values: Array.from(SC.netOurs) }],
+    tip: i => `${hourName(i)} UTC<br>${key('var(--s1)')}Ours <b>${SC.netOurs[i].toFixed(2)}</b> mm/h<br>${key('var(--s2)')}Radar <b>${SC.netRad[i].toFixed(2)}</b> mm/h` });
+}
+function renderNet() {
+  if ($('tab-net').hidden) return;
+  if (SC) {
+    const b = SC.bt;
+    $('btFacts').innerHTML = `<span>Decisions <b>${b.cellDays.toLocaleString('en-IN')}</b></span><span>Radar events <b>${b.events.toLocaleString('en-IN')}</b></span><span>Caught <b>${b.hit.toLocaleString('en-IN')}</b></span><span>Missed <b>${b.miss.toLocaleString('en-IN')}</b></span><span>False triggers <b>${b.fa.toLocaleString('en-IN')}</b></span>`;
+  }
+  renderMaps(); renderNetChart();
+}
+
+/* ---------- B: one link ---------- */
+function linkOptions() {
+  const sel = $('linkSel'), r = SC ? SC.linkR : null;
+  sel.innerHTML = M.L.map((L, i) => `<option value="${i}">Link ${i} · ${M.fGHz[i].toFixed(1)} GHz · ${L.toFixed(1)} km${r && r[i] === r[i] ? ' · r ' + r[i].toFixed(2) : ''}</option>`).join('');
+  if (S.link != null) sel.value = S.link;
+}
+function quickLinks() {
+  const r = SC.linkR, idx = []; for (let i = 0; i < r.length; i++) if (r[i] === r[i]) idx.push(i);
+  idx.sort((a, b) => r[a] - r[b]);
+  const pick = q => idx[Math.min(idx.length - 1, Math.floor(q * (idx.length - 1)))];
+  return [['Best link', idx[idx.length - 1]], ['Typical link', pick(0.5)], ['Weak link', pick(0.1)]];
+}
+function pickDay(li) { let best = S.calDays, bv = -1; for (let d = 0; d < DAYS; d++) { let s = 0; for (let h = d * 24; h < d * 24 + 24; h++) { const v = D.refh[li * nH + h]; if (v === v) s += v; } if (s > bv) { bv = s; best = d; } } return best; }
+function setLink(li, keepDay) { S.link = li; $('linkSel').value = li; if (!keepDay) S.linkDay = pickDay(li); linkCache = null; renderLink(); }
+$('linkSel').addEventListener('change', () => setLink(+$('linkSel').value));
+$('linkQuick').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (b) setLink(+b.dataset.l); });
+$('linkDays').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (b) { S.linkDay = +b.dataset.d; renderLink(); } });
+function renderLink(force) {
+  if (!D || !SC || $('tab-link').hidden) return;
+  if (S.link == null) { const q = quickLinks(); S.link = q[1][1]; S.linkDay = pickDay(S.link); }
+  if (!$('linkSel').options.length || $('linkSel').options.length < M.nL || force === 'opts') linkOptions();
+  $('linkSel').value = S.link;
+  const q = quickLinks();
+  $('linkQuick').innerHTML = q.map(([n, i]) => `<button class="chip" data-l="${i}" aria-pressed="${i === S.link}">${n}<small>r ${SC.linkR[i].toFixed(2)}</small></button>`).join('');
+  const li = S.link, d = S.linkDay;
+  $('linkDays').innerHTML = Array.from({ length: DAYS }, (_, k) => { let s = 0; for (let h = k * 24; h < k * 24 + 24; h++) { const v = D.refh[li * nH + h]; if (v === v) s += v; } return `<button class="chip" data-d="${k}" aria-pressed="${k === d}">${dayName(k)}<small>${s.toFixed(0)} mm</small></button>`; }).join('');
+  const key0 = li + ':' + S.thrMult + ':' + S.waaMax;
+  if (!linkCache || linkCache.key !== key0) linkCache = { key: key0, r: Engine.link(D.sig, M, li, { thrMult: S.thrMult, waaMax: S.waaMax }, true) };
+  const res = linkCache.r, ch = res.ch[0], K = SC.K, a = d * 1440, b = a + 1440;
+  // signal chart
+  const sig = Array.from(ch.trsl.subarray(a, b)), base = Array.from(ch.bl.subarray(a, b)), bands = [];
+  let st = -1; for (let i = 0; i <= 1440; i++) { const w = i < 1440 && ch.wet[a + i]; if (w && st < 0) st = i; if (!w && st >= 0) { bands.push([st, i - 1]); st = -1; } }
+  let lo = Infinity, hi = -Infinity; sig.forEach(v => { if (v === v) { lo = Math.min(lo, v); hi = Math.max(hi, v); } });
+  const ticks = [0, 3, 6, 9, 12, 15, 18, 21].map(hh => ({ i: hh * 60, label: String(hh).padStart(2, '0') + ':00' }));
+  const span = Math.max(2, Math.ceil(hi - lo + 1)), step = span <= 4 ? 1 : span <= 8 ? 2 : span <= 20 ? 5 : 10, ymin = Math.floor((lo - 0.5) / step) * step, ymax = ymin + Math.ceil((hi + 0.5 - ymin) / (4 * step)) * 4 * step;
+  lineChart($('sigChart'), { n: 1440, height: 250, ylabel: 'Signal loss, dB', bands, min: ymin, max: ymax, yfmt: v => +(v).toFixed(1),
+    xticks: ticks.filter((t, k) => $('sigChart').clientWidth > 560 || k % 2 === 0),
+    series: [{ name: 'Signal loss', color: 'var(--mu)', width: 1.4, values: sig }, { name: 'Dry baseline', color: 'var(--ac)', dash: '5 4', width: 1.6, values: base }],
+    tip: i => `${dayName(d)}, ${String(Math.floor(i / 60)).padStart(2, '0')}:${String(i % 60).padStart(2, '0')} UTC<br>Signal loss <b>${sig[i] === sig[i] ? sig[i].toFixed(1) + '</b> dB' : 'no reading</b>'}<br>Baseline <b>${base[i] === base[i] ? base[i].toFixed(1) : '–'}</b> dB<br>${ch.wet[a + i] ? '<b>Marked as rain</b>' : 'Dry'}` });
+  // rain chart
+  const ours = Array.from(res.hourly.subarray(d * 24, d * 24 + 24)).map(v => v * K), rad = Array.from(D.refh.subarray(li * nH + d * 24, li * nH + d * 24 + 24));
+  lineChart($('rainChart'), { n: 24, height: 240, ylabel: 'mm per hour', xticks: [0, 3, 6, 9, 12, 15, 18, 21].filter((hh, k) => $('rainChart').clientWidth > 560 || k % 2 === 0).map(hh => ({ i: hh, label: String(hh).padStart(2, '0') + ':00' })),
+    series: [{ name: 'Radar along the path', color: 'var(--s2)', values: rad, dots: true }, { name: 'Ours, from the signal', color: 'var(--s1)', values: ours, dots: true }],
+    tip: i => `${dayName(d)}, ${String(i).padStart(2, '0')}:00 UTC<br>${key('var(--s1)')}Ours <b>${ours[i].toFixed(2)}</b> mm/h<br>${key('var(--s2)')}Radar <b>${(rad[i] || 0).toFixed(2)}</b> mm/h` });
+  const so = ours.reduce((s, v) => s + v, 0), sr = rad.reduce((s, v) => s + (v === v ? v : 0), 0), wetMin = ch.wet.subarray(a, b).reduce((s, v) => s + v, 0);
+  const rUnseen = SC.linkR[li];
+  $('linkFacts').innerHTML = `<span>Frequency <b>${M.fGHz[li].toFixed(1)} GHz</b></span><span>Length <b>${M.L[li].toFixed(1)} km</b></span><span>Minutes marked rain <b>${wetMin}</b></span><span>Day total: ours <b>${so.toFixed(1)} mm</b>, radar <b>${sr.toFixed(1)} mm</b></span><span>Match on unseen days <b>${rUnseen === rUnseen ? 'r ' + rUnseen.toFixed(2) : 'not scored'}</b></span>`;
+  $('stepK').textContent = '×' + K.toFixed(2);
+  if (!$('tab-net').hidden) renderMaps();
+}
+
+/* ---------- C: India ---------- */
+const STN = { Mumbai: 'Santacruz airport · IMD 43003', Nagpur: 'Sonegaon airport · IMD 42867', Ahmedabad: 'Ahmedabad airport · IMD 42647' };
+const IS = { city: 'Mumbai', peril: 'rain', th: 64.5, pay: 300, cap: 5, lr: 0.6, preset: 0 };
+const PRESETS = [
+  ['Kavach Plus · Mumbai riders', { city: 'Mumbai', peril: 'rain', th: 64.5, cap: 5 }],
+  ['Kavach Basic · Mumbai', { city: 'Mumbai', peril: 'rain', th: 204.5, cap: 5 }],
+  ['Basic · Nagpur heat', { city: 'Nagpur', peril: 'heat', th: 47, cap: 5 }],
+  ['Basic · Ahmedabad heat', { city: 'Ahmedabad', peril: 'heat', th: 47, cap: 5 }]];
+const MARKS = { rain: [[64.5, 'Heavy 64.5'], [115.6, 'Very heavy 115.6'], [204.5, 'Extreme 204.5']], heat: [[44, '44°C'], [45, '45°C'], [46, '46°C'], [47, '47°C']] };
+function inSync() {
+  $('city').value = IS.city; $('pRain').setAttribute('aria-pressed', IS.peril === 'rain'); $('pHeat').setAttribute('aria-pressed', IS.peril === 'heat');
+  const th = $('th'); if (IS.peril === 'rain') { th.min = 20; th.max = 260; th.step = 0.1; } else { th.min = 40; th.max = 49; th.step = 0.5; }
+  th.value = IS.th; $('thOut').textContent = IS.peril === 'rain' ? `${IS.th} mm in a day` : `${IS.th}°C or hotter`;
+  $('pay').value = IS.pay; $('payOut').textContent = inr(IS.pay); $('cap').value = IS.cap; $('capOut').textContent = IS.cap + (IS.cap > 1 ? ' days' : ' day');
+  $('lr').value = IS.lr; $('lrOut').textContent = pct(IS.lr); $('station').textContent = STN[IS.city];
+  $('thMarks').innerHTML = MARKS[IS.peril].map(([v, t]) => `<button class="chip" data-th="${v}" aria-pressed="${v === IS.th}">${t}</button>`).join('');
+  $('presets').innerHTML = PRESETS.map(([n], i) => `<button class="chip" data-p="${i}" aria-pressed="${i === IS.preset}">${n}</button>`).join('');
+  $('cityNote').textContent = IS.peril === 'heat' && IS.city === 'Mumbai' ? 'Mumbai never reached 40°C in these records. Heat cover starts in Nagpur and Ahmedabad.' : '';
+}
+function matchPreset() { IS.preset = PRESETS.findIndex(([, p]) => p.city === IS.city && p.peril === IS.peril && p.th === IS.th && p.cap === IS.cap && IS.pay === 300 && IS.lr === 0.6); }
+function inChange() { matchPreset(); inSync(); renderIndia(); }
+$('presets').addEventListener('click', e => { const b = e.target.closest('[data-p]'); if (!b) return; Object.assign(IS, PRESETS[+b.dataset.p][1], { pay: 300, lr: 0.6 }); inChange(); });
+$('thMarks').addEventListener('click', e => { const b = e.target.closest('[data-th]'); if (!b) return; IS.th = +b.dataset.th; inChange(); });
+$('city').addEventListener('change', () => { IS.city = $('city').value; inChange(); });
+$('pRain').addEventListener('click', () => { IS.peril = 'rain'; IS.th = 64.5; inChange(); });
+$('pHeat').addEventListener('click', () => { IS.peril = 'heat'; IS.th = 47; if (IS.city === 'Mumbai') IS.city = 'Nagpur'; inChange(); });
+[['th', 'th'], ['pay', 'pay'], ['cap', 'cap'], ['lr', 'lr']].forEach(([id, p]) => $(id).addEventListener('input', () => { IS[p] = +$(id).value; inChange(); }));
+function renderIndia() {
+  if ($('tab-india').hidden) return;
+  const st = INDIA_DATA.stations[IS.city], r = India.price(st, IS.peril, IS.th, IS.cap, IS.pay, IS.lr), n = r.years.length;
+  const items = [
+    [inr(r.premMonth), 'Price per person per month', true],
+    [r.meanDays.toFixed(1), 'Trigger days a year, on average'],
+    [r.meanPaid.toFixed(1), `Days paid a year, after the ${IS.cap}-day cap`],
+    [inr(r.maxPayout), 'Most one person can get in a year'],
+    [r.premYear > 0 ? pct(r.worst.ratio) : '–', r.premYear > 0 ? `Worst year: ${r.worst.year}, ${r.worst.days} trigger days` : 'No trigger days in 25 years'],
+    [`${r.over100} of ${n}`, 'Years when claims beat premiums']];
+  $('inKpis').innerHTML = items.map(a => `<div class="kpi${a[2] ? ' lead' : ''}"><b>${a[0]}</b><span>${a[1]}</span></div>`).join('');
+  $('formula').innerHTML = `Price = <b>${r.meanPaid.toFixed(2)}</b> days paid a year × <b>${inr(IS.pay)}</b> ÷ <b>${IS.lr}</b> payout share ÷ 12 months = <b>${inr(r.premMonth)}</b> a month`;
+  const crit = 'var(--crit)', ok = 'var(--s1)';
+  barChart($('stressChart'), { height: 270, cats: r.years.map(y => ({ label: "'" + String(y).slice(2) })), labelW: 30, yfmt: v => Math.round(v * 100) + '%',
+    series: [{ name: 'Claims ÷ premiums', color: v => (v > 1 ? crit : ok), values: r.ratio }],
+    refs: [{ v: 1, label: '100%: break-even', color: 'var(--mu)' }, { v: IS.lr, label: `Target ${pct(IS.lr)}`, color: 'var(--ac)', dash: '5 4' }],
+    legend: [{ name: 'Profitable year', color: ok }, { name: 'Loss year, reinsurance pays', color: crit }],
+    label: (v, i) => (v > 1 ? pct(v) : ''),
+    tip: i => `<b>${r.years[i]}</b><br>Trigger days <b>${r.days[i]}</b>, paid <b>${r.paid[i]}</b><br>Claims ${inr(r.paid[i] * IS.pay)} vs premium ${inr(r.premYear)}<br>Claims ÷ premiums <b>${pct(r.ratio[i])}</b>` });
+  // hyperlocal
+  const th = 64.5, pairs = INDIA_DATA.pairs.slice().sort((a, b) => (a[0] < b[0] ? -1 : 1)).filter(([, s, c]) => India.mm(s) >= th || India.mm(c) >= th), hl = India.hyperlocal(INDIA_DATA.pairs, th);
+  const yrs = INDIA_DATA.pairs.map(p => +p[0].slice(0, 4));
+  $('hlSub').textContent = `Monsoon days when both stations filed a complete report (${hl.days} days, ${Math.min(...yrs)}–${Math.max(...yrs)}). On ${hl.lt} of the ${hl.heavy} heavy-rain days, one station got less than half the other's rain. One gauge per city is not enough.`;
+  barChart($('hlChart'), { height: 250, sub: true, labelW: 42, cats: pairs.map(([dt]) => { const p = dt.split('-'); return { label: +p[2] + '/' + +p[1], sub: "'" + p[0].slice(2) }; }),
+    series: [{ name: 'Santacruz', color: 'var(--s1)', values: pairs.map(p => India.mm(p[1])) }, { name: 'Colaba', color: 'var(--s2)', values: pairs.map(p => India.mm(p[2])) }],
+    legend: [{ name: 'Santacruz', color: 'var(--s1)' }, { name: 'Colaba', color: 'var(--s2)' }], yfmt: v => Math.round(v), ylabel: '',
+    tip: i => { const [dt, s, c] = pairs[i]; return `<b>${dt}</b><br>${key('var(--s1)')}Santacruz <b>${India.mm(s).toFixed(0)}</b> mm<br>${key('var(--s2)')}Colaba <b>${India.mm(c).toFixed(0)}</b> mm`; } });
+}
+
+/* ---------- data loading ---------- */
+async function gunzip(bytes) {
+  if (typeof DecompressionStream === 'undefined') throw new Error('nostream');
+  const s = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  return new Uint8Array(await new Response(s).arrayBuffer());
+}
+async function loadData() {
+  try {
+    let bytes;
+    const inl = document.getElementById('bin64');
+    if (inl) { setStatus('Unpacking the link data…', 'busy', 0.05); const b64 = inl.textContent.trim(), bin = atob(b64); bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); }
+    else {
+      const res = await fetch('testlab-data.txt'); if (!res.ok) throw new Error('fetch');
+      const total = +res.headers.get('content-length') || 8.07e6, rd = res.body.getReader(), chunks = []; let got = 0;
+      for (;;) { const { done, value } = await rd.read(); if (done) break; chunks.push(value); got += value.length; setStatus(`Loading the link data · ${(got / 1e6).toFixed(1)} of ${(Math.max(total, got) / 1e6).toFixed(1)} MB`, 'busy', Math.min(1, got / total)); }
+      const txt = new Uint8Array(got); let o = 0; for (const c of chunks) { txt.set(c, o); o += c.length; }
+      const bin = atob(new TextDecoder().decode(txt).trim()); bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    }
+    const raw = await gunzip(bytes);
+    D = Engine.decode(raw, M);
+    runNetwork();
+  } catch (e) {
+    setStatus(e.message === 'nostream' ? 'This browser cannot unpack the data. Use a recent Chrome, Edge, Safari or Firefox.' : 'Could not load the link data. Check your connection and reload.', '');
+    $('verifyPill').textContent = 'Published result';
+  }
+}
+
+/* ---------- boot ---------- */
+syncInputs(); inSync();
+kpis({ rNet: PUB.rNet, medLink: PUB.medLink, share07: PUB.share07, rAreal: PUB.rAreal, agree: PUB.agree, pod: PUB.pod, far: PUB.far }, false);
+S.hour = 4 * 24 + 15; $('hour').value = S.hour;
+let start = 'net'; try { const t = localStorage.getItem('jm-lab-tab'); if (TABS.includes(t)) start = t; } catch (e) {}
+const hash = location.hash.slice(1); if (TABS.includes(hash)) start = hash;
+openTab(start);
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { renderNet(); renderLink(); renderIndia(); }, 150); });
+const mq = matchMedia('(prefers-color-scheme: dark)'); (mq.addEventListener ? mq.addEventListener('change', () => { renderNet(); renderLink(); renderIndia(); }) : 0);
+new MutationObserver(() => { renderNet(); renderLink(); renderIndia(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+loadData();
+})();
+</script>

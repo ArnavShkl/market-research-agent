@@ -280,7 +280,7 @@ footer code{font-family:var(--mono);font-size:12px;color:var(--mu)}
   </section>
 
   <footer>
-    <div><b style="color:var(--mu)">Data.</b> Microwave links: OpenSense / pycomlink public research sample, 500 links, 10–20 May 2018, with German Weather Service (DWD RADOLAN) radar as reference. India: IMD synoptic station reports 2000–2024 (Santacruz, Colaba, Nagpur, Ahmedabad) from NOAA's Global Summary of the Day.</div>
+    <div><b style="color:var(--mu)">Data.</b> Microwave links: pycomlink example dataset (Karlsruhe Institute of Technology), 500 links, 10–20 May 2018, with German Weather Service (DWD RADOLAN) radar as reference. India: IMD synoptic station reports 2000–2024 (Santacruz, Colaba, Nagpur, Ahmedabad) from NOAA's Global Summary of the Day.</div>
     <div><b style="color:var(--mu)">Code.</b> <code>prototype/pipeline/rain_pipeline.py</code>, <code>prototype/india/india_layer.py</code>, <code>prototype/india/stress_test.py</code>. This page is a JavaScript port of the same steps. With the published settings it reproduces all 132,000 hourly rain values from the Python run and every number above.</div>
   </footer>
 </main>
@@ -623,7 +623,7 @@ function inSync() {
   $('lr').value = IS.lr; $('lrOut').textContent = pct(IS.lr); $('station').textContent = STN[IS.city];
   $('thMarks').innerHTML = MARKS[IS.peril].map(([v, t]) => `<button class="chip" data-th="${v}" aria-pressed="${v === IS.th}">${t}</button>`).join('');
   $('presets').innerHTML = PRESETS.map(([n], i) => `<button class="chip" data-p="${i}" aria-pressed="${i === IS.preset}">${n}</button>`).join('');
-  $('cityNote').textContent = IS.peril === 'heat' && IS.city === 'Mumbai' ? 'Mumbai never reached 40°C in these records. Heat cover starts in Nagpur and Ahmedabad.' : '';
+  $('cityNote').textContent = IS.peril === 'heat' && IS.city === 'Mumbai' ? 'Mumbai’s hottest day in these records was 42°C, below every heat trigger. Heat cover starts in Nagpur and Ahmedabad.' : '';
 }
 function matchPreset() { IS.preset = PRESETS.findIndex(([, p]) => p.city === IS.city && p.peril === IS.peril && p.th === IS.th && p.cap === IS.cap && IS.pay === 300 && IS.lr === 0.6); }
 function inChange() { matchPreset(); inSync(); renderIndia(); }

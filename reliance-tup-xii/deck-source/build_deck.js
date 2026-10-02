@@ -77,7 +77,7 @@ const sec = { sectionTitle: 'Elimination round' };
   stat(s, 9.75, 2.45, 3.0, '500', 'real tower-to-tower microwave links, 1-minute signal data', 'st1');
   stat(s, 9.75, 3.85, 3.0, '0', 'radars, weather stations or new hardware on our side', 'st2', sa);
   s.addText('Open the live prototype to replay the storm', { x: 9.75, y: 5.35, w: 3.0, h: 0.6, fontFace: 'Calibri', fontSize: 12.5, color: sa, underline: { style: 'sng' }, margin: 0, isTextBox: true, objectName: 'link', hyperlink: { url: D.cr_url, tooltip: 'JioMausam Control Room' } });
-  foot(s, 'Real data: 500 commercial microwave links, 13–14 May 2018 storm (OpenSense / pycomlink sample). Reference: German Weather Service radar.');
+  foot(s, 'Real data: 500 commercial microwave links, 13–14 May 2018 storm (pycomlink public example data). Reference: German Weather Service radar.');
   s.addNotes('[0:12–0:40] This is our working prototype, the JioMausam Control Room. On the left is rain mapped only from 500 real tower-to-tower radio links. On the right is a national weather radar that costs crores. Same storm, same moment. The shapes and the heavy patches match. We added nothing to the network to get this. (If the call allows, switch to the live prototype tab and press “Replay the storm”.)');
 }
 

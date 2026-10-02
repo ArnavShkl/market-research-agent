@@ -9,6 +9,8 @@ Every tower is a rain gauge. JioMausam maps weather street by street from Jio's 
 | What | File |
 |---|---|
 | **Drill book: the master document** (48 pages, 199 cross-questions, including a five-page chapter answering the expert feedback) | `JioMausam_Drill_Book.pdf` |
+| **How we got our numbers** (21 pages): data, the rain pipeline step by step, correlation, payout test, India pricing, stress test, financial plan | `JioMausam_How_We_Got_Our_Numbers.pdf` |
+| **Data pack**: the public German files, readable CSVs of every pipeline stage, India daily records, and a formula-driven Excel workbook that recomputes every number | `data/` (start with `data/README.txt` and `data/JioMausam_Numbers_Workbook.xlsx`) |
 | 3-minute presentation (9 slides), with Morph transitions and animations | `JioMausam_3min_Presentation.pptx` (static backup: `JioMausam_3min_Presentation.pdf`) |
 | 3-minute pitch video, 2:54 | `JioMausam_Pitch_3min_clean.mp4` (for your voice-over), `JioMausam_Pitch_3min_captions.mp4` |
 | Voice-over script and subtitles | `voiceover-script-3min.txt`, `JioMausam_Pitch_3min.srt` |
@@ -25,7 +27,7 @@ The standalone HTML files open offline in any browser. Fonts load from Google Fo
 
 ## Data and code
 
-- Rain-sensing test: 500 commercial microwave links, 10–20 May 2018 (OpenSense / pycomlink sample), scored against German Weather Service radar. Code: `prototype/pipeline/rain_pipeline.py` (Python, built on the open-source pycomlink library from Karlsruhe Institute of Technology).
+- Rain-sensing test: 500 commercial microwave links, 10–20 May 2018 (pycomlink example dataset), scored against German Weather Service radar. Code: `prototype/pipeline/rain_pipeline.py` (Python, built on the open-source pycomlink library from Karlsruhe Institute of Technology).
 - India layer: IMD station reports 2000–2024 for Mumbai Santacruz, Mumbai Colaba, Nagpur and Ahmedabad (NOAA Global Summary of the Day). Code and results: `prototype/india/`.
 - Stress test (25 years, worst year per product, loss ratios, cap options): `prototype/india/stress_test.py`, results in `prototype/india/stress_test.json`.
 - Deck source: `deck-source/` (pptxgenjs builder plus the transition and animation step).

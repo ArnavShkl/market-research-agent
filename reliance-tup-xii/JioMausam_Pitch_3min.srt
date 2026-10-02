@@ -15,161 +15,157 @@ Nobody noticed — because we call it Jio.
 Weather in India is hyperlocal, but our data isn't.
 
 5
-00:00:16,010 --> 00:00:19,734
-About forty Doppler radars watch 3.3 million square kilometres.
+00:00:16,010 --> 00:00:23,872
+On 26 July 2005, Santacruz in Mumbai got 944 millimetres of rain.
 
 6
-00:00:19,734 --> 00:00:24,700
-When a cloudburst hits one ward, the people who lose the most —
+00:00:23,872 --> 00:00:27,183
+Colaba, twenty kilometres away, got 73.
 
 7
-00:00:24,700 --> 00:00:28,838
-farmers, delivery riders, construction workers, street vendors — lose it alone.
+00:00:27,183 --> 00:00:30,079
+About forty radars can't see that difference.
 
 8
-00:00:28,838 --> 00:00:33,390
-Heat alone could cost India thirty-four million full-time jobs by 2030.
+00:00:30,079 --> 00:00:35,045
+The people who lose the most — riders, vendors, labourers — get no help,
 
 9
-00:00:33,390 --> 00:00:36,700
-And when insurance does exist, claims take months.
+00:00:35,045 --> 00:00:37,114
+and insurance claims take months.
 
 10
-00:00:37,400 --> 00:00:38,641
+00:00:37,814 --> 00:00:39,055
 Here's the insight.
 
 11
-00:00:38,641 --> 00:00:41,538
+00:00:39,055 --> 00:00:41,952
 Rain weakens the radio links between towers —
 
 12
-00:00:41,538 --> 00:00:47,331
+00:00:41,952 --> 00:00:47,745
 and how much it weakens tells you how hard it's raining, minute by minute.
 
 13
-00:00:47,331 --> 00:00:51,055
+00:00:47,745 --> 00:00:51,469
 Smartphone batteries, averaged across a city, track air temperature.
 
 14
-00:00:51,055 --> 00:00:56,021
+00:00:51,469 --> 00:00:56,434
 So every tower is a rain gauge. Every phone is a thermometer.
 
 15
-00:00:56,021 --> 00:00:59,331
+00:00:56,434 --> 00:00:59,745
 We don't build sensors. We become the sensor.
 
 16
-00:01:00,031 --> 00:01:02,928
+00:01:00,445 --> 00:01:03,341
 Does it actually work? We built it.
 
 17
-00:01:02,928 --> 00:01:07,893
-We ran our prototype on 500 real microwave links for eleven days —
+00:01:03,341 --> 00:01:09,962
+On 500 real microwave links, our rain readings matched national radar at 0.95.
 
 18
-00:01:07,893 --> 00:01:10,790
-and checked it against national weather radar.
-
-19
-00:01:10,790 --> 00:01:15,341
-Network-wide, our rain readings match radar with a correlation of 0.95.
-
-20
-00:01:15,341 --> 00:01:21,134
+00:01:09,962 --> 00:01:15,755
 Our payout rule made the same decision as radar ninety-five percent of the time.
 
+19
+00:01:15,755 --> 00:01:19,893
+Then we priced Kavach on twenty-five years of IMD records —
+
+20
+00:01:19,893 --> 00:01:24,031
+rain cover for Mumbai, heat cover for Nagpur and Ahmedabad.
+
 21
-00:01:21,834 --> 00:01:22,662
+00:01:24,731 --> 00:01:25,559
 Meet JioMausam —
 
 22
-00:01:22,662 --> 00:01:26,386
+00:01:25,559 --> 00:01:29,283
 a live, street-level weather map built from network data.
 
 23
-00:01:26,386 --> 00:01:28,869
+00:01:29,283 --> 00:01:31,766
 On top of it: Mausam Kavach —
 
 24
-00:01:28,869 --> 00:01:33,834
-parametric micro-insurance you add to your recharge for twenty-nine rupees a month.
+00:01:31,766 --> 00:01:36,317
+you add it to your recharge, from twenty-nine rupees a month.
 
 25
-00:01:33,834 --> 00:01:40,455
-When the network measures 45 degrees in your area, or rain heavy enough to stop work,
+00:01:36,317 --> 00:01:42,524
+When the network measures your city's extreme — 47 degrees in Ahmedabad, a deluge in Mumbai —
 
 26
-00:01:40,455 --> 00:01:44,179
-the payout lands in your JioPay wallet within hours.
+00:01:42,524 --> 00:01:46,662
+three hundred rupees lands in your JioPay wallet within hours.
 
 27
-00:01:44,179 --> 00:01:47,076
+00:01:46,662 --> 00:01:49,559
 No claim forms. No surveyor. No waiting.
 
 28
-00:01:47,776 --> 00:01:49,845
+00:01:50,259 --> 00:01:52,328
 The business has three layers.
 
 29
-00:01:49,845 --> 00:01:55,638
+00:01:52,328 --> 00:01:58,121
 One: Kavach premiums — one percent of Jio's 500 million users is five million policies —
 
 30
-00:01:55,638 --> 00:01:58,121
+00:01:58,121 --> 00:02:00,603
 around 170 crore rupees a year.
 
 31
-00:01:58,121 --> 00:02:03,914
-Two: B2B — gig platforms buy cover for riders; insurers and states buy hyperlocal data.
+00:02:00,603 --> 00:02:06,810
+Two: delivery apps buy Kavach Plus for their riders; insurers and states buy the data.
 
 32
-00:02:03,914 --> 00:02:05,983
-Three: Reliance is customer zero —
+00:02:06,810 --> 00:02:11,362
+Three: Reliance is customer zero — JioMart, New Energy and Jio itself.
 
 33
-00:02:05,983 --> 00:02:12,190
-JioMart forecasts rainy-day demand, New Energy forecasts solar output, and Jio predicts its own rain-fade.
-
-34
-00:02:12,890 --> 00:02:14,131
+00:02:12,062 --> 00:02:13,303
 Why only Reliance?
 
-35
-00:02:14,131 --> 00:02:16,614
+34
+00:02:13,303 --> 00:02:15,786
 A startup can't own the towers.
 
-36
-00:02:16,614 --> 00:02:19,510
+35
+00:02:15,786 --> 00:02:18,683
 An insurer can't reach 500 million people.
 
-37
-00:02:19,510 --> 00:02:24,890
+36
+00:02:18,683 --> 00:02:24,062
 No other telecom has a payments app, an insurance arm, a retail chain
 
-38
-00:02:24,890 --> 00:02:28,200
+37
+00:02:24,062 --> 00:02:27,372
 and a giga-scale energy business under one roof.
 
-39
-00:02:28,200 --> 00:02:29,855
+38
+00:02:27,372 --> 00:02:29,028
 Reliance has every layer.
 
-40
-00:02:30,555 --> 00:02:36,348
+39
+00:02:29,728 --> 00:02:35,521
 We start with a ninety-day pilot in Vidarbha and Ahmedabad, validated against IMD gauges.
 
-41
-00:02:36,348 --> 00:02:40,072
+40
+00:02:35,521 --> 00:02:39,245
 Then an IRDAI sandbox product. Then a national map.
 
-42
-00:02:40,072 --> 00:02:44,624
+41
+00:02:39,245 --> 00:02:43,797
 India won't adapt to climate change only by building new infrastructure.
 
-43
-00:02:44,624 --> 00:02:48,762
+42
+00:02:43,797 --> 00:02:47,934
 It'll adapt by listening to the infrastructure it already has.
 
-44
-00:02:48,762 --> 00:02:51,245
+43
+00:02:47,934 --> 00:02:50,417
 This is JioMausam. Different by design.

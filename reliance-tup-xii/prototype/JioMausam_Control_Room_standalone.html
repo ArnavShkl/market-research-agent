@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JioMausam Control Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,6 +82,8 @@ input[type=range]{flex:1;min-width:180px;accent-color:var(--ac)}
 @media (max-width:480px){.kpis{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
+</head><body>
+
 
 <div class="wrap">
   <header>
@@ -383,3 +387,5 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.datase
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{const a=document.querySelector('.tabs [aria-selected="true"]').dataset.tab;show(a)},150)});
 const h=(location.hash||'').slice(1);show(['map','link','acc','kavach','india'].includes(h)?h:'map');
 </script>
+
+</body></html>

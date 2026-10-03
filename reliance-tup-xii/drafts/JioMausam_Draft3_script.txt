@@ -1,0 +1,21 @@
+JioMausam · Elimination round · Draft 3 · 3-minute script (about 150 words a minute)
+
+Slide 1  [0:00–0:18] Our video showed that Jio’s network can see rain. Since then we stress-tested coverage, accuracy and who pays. The problem: on 26 July 2005, Santacruz got 944 millimetres and Colaba just 73. Weather changes street by street, but business decisions are still made city by city.
+
+Slide 2  [0:18–0:33] The insight: rain weakens the microwave links between telecom sites, and how much it weakens tells you how hard it’s raining. That’s established science. We don’t build a new sensor network; we turn an existing one into an extra sensing layer.
+
+Slide 3  [0:33–0:53] We tested on 500 real links from a public German dataset, not Jio’s network. Network-wide we matched radar at 0.95, a single link at 0.88. But links alone caught 68% of radar’s trigger events: promising for operational intelligence, not enough to pay claims. So intelligence comes first.
+
+Slide 4  [0:53–1:08] So JioMausam never relies on one sensor. Jio’s links are the dense layer; IMD radar, rain gauges and satellite validate them. The engine produces a one-kilometre grid with a confidence score, and feeds business decisions, insurance triggers and enterprise APIs.
+
+Slide 5  [1:08–1:30] Our first product is better decisions. Today a business hears “heavy rain in Mumbai” and reacts broadly: incentives in dry zones, riders sent into flooded ones, late deliveries. With JioMausam it knows Zone A is heavy, B moderate, C clear, and acts precisely: dispatch, incentives, weather-linked pricing, pause alerts. Logistics and cities use the same signal.
+
+Slide 6  [1:30–1:48] The same intelligence can protect workers. When a qualifying event hits a zone, JioMausam verifies it and a licensed insurer pays a fixed benefit, say 300 rupees, to workers active there when it began. No claim, no proof of loss, once accuracy reaches 80%.
+
+Slide 7  [1:48–2:08] IMD data shows risk differs by city. Kavach Basic covers rare extremes: about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad. Kavach Plus, platform-sponsored, covers Mumbai’s twelve heavy-rain days at about 208. Rain first; heat follows, from IMD data.
+
+Slide 8  [2:08–2:28] Who pays? We don’t assume. Businesses pay for intelligence first; for Kavach, the pilot tests platform, co-funded and individual models. Jio earns decision and data fees, plus distribution fees on Kavach, while the insurer carries the risk. Fifty thousand riders is a 12.5 crore premium pool, not Jio revenue.
+
+Slide 9  [2:28–2:40] Why Jio? The moat isn’t the sensor; it’s the ecosystem. Jio senses, JioMausam understands, Reliance reaches customers and businesses, and JFS with licensed insurers protects. Reliance can connect every layer.
+
+Slide 10  [2:40–3:00] So don’t believe us: test it. Ninety days: audit Mumbai’s links, back-test archived monsoon data, then a shadow-mode pilot with one Reliance operation. We aren’t asking Jio to build another weather network. We’re asking it to discover what its network can already tell us.

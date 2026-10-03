@@ -1,0 +1,19 @@
+JioMausam · Elimination round · Draft 2 · 3-minute script
+
+Slide 1  [0:00–0:20] Meet Ravi, a delivery rider in Andheri. A cloudburst floods the roads, he goes offline, and that day’s income is gone. Nothing pays him for it. And rain is fiercely local: on 26 July 2005, Santacruz got 944 millimetres, Colaba just 73. A city-wide alert can’t decide Ravi’s payout.
+
+Slide 2  [0:20–0:40] Our insight: Jio’s microwave links, the radio beams between sites, lose signal when rain falls between them. Measure that loss, apply the standard ITU formula, and you get rain, street by street. No new sensors. One caveat: fibre doesn’t sense rain, so usable coverage is what we test first.
+
+Slide 3  [0:40–1:02] We tested the physics first, on 500 real microwave links from a public research dataset in Germany, not Jio’s network. On unseen days the network matched radar at 0.95, a single link at 0.88. But for insurance, links alone caught 68% of payout events, with 18% false triggers. The sensing works; it isn’t insurance-grade yet.
+
+Slide 4  [1:02–1:22] So no single sensor decides a payout. Jio’s links are the dense primary signal; IMD radar validates, gauges calibrate, satellite covers outages. The engine fuses them into a one-kilometre grid with a confidence score. Our pilot targets: 80% of events caught, under 15% false triggers, payouts within six hours.
+
+Slide 5  [1:22–1:45] The product. A delivery platform buys Kavach Plus, so Ravi is covered automatically. When very heavy rain, 115 millimetres in a day, hits his zone, a licensed insurer sends 300 rupees to his bank within six hours. No claim form, and he needn’t ride into the storm to qualify. It costs 165 rupees a rider a month.
+
+Slide 6  [1:45–2:05] Why would a platform pay? Today a storm means riders offline, failed orders, and rain surge pay that rewards riding into danger. Kavach turns that into a fixed, budgeted benefit that keeps riders safe and loyal. We don’t claim the return yet; the pilot measures it in their own data.
+
+Slide 7  [2:05–2:25] The money: the platform pays premiums to a licensed insurer, which carries the risk. Fifty thousand riders is a 9.9 crore premium pool; Jio earns fifteen to twenty-five percent in fees, with no insurance risk, plus its own data revenue. Reliance can connect the whole chain, from sensing to payment.
+
+Slide 8  [2:25–2:47] Our ask: a 90-day Mumbai pilot in shadow mode, so no money moves. First, a coverage audit: how much of Mumbai Jio’s links can see. Then accuracy, triggers and simulated payouts, and a go or no-go at day ninety. We need link data, JioMart’s riders, one insurance partner and five people: under a crore.
+
+Slide 9  [2:47–3:00] Rain first, then more cities and risks, then everyone, then a national weather layer. We aren’t asking Jio to build another weather network. We’re asking it to discover what its network can already tell us. Thank you.

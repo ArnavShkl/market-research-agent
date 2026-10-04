@@ -1,0 +1,55 @@
+JioMausam · Elimination round · Draft 6 (locked) · 3-minute script (445 words, about 150 words a minute)
+
+Slide 1  [0:00–0:17] India doesn’t have a weather-data problem. It has a weather-decision problem. On 26 July 2005, Santacruz got 944 millimetres of rain; Colaba, 20 kilometres away, got 73. A city-level alert can still tell a business only “heavy rain in Mumbai”. It needs to know which zones to act on.
+
+Slide 2  [0:17–0:34] Jio may already own the infrastructure for a new weather-sensing layer. Rain weakens its microwave links, and the excess loss estimates rainfall along each link. JioMausam fuses those signals with radar and gauges into a weather grid, then into decision-ready alerts.
+
+Slide 3  [0:34–0:56] Published science supports the physics, and has mapped rain across a whole country. We tested the method ourselves on 500 real links from a public dataset. The signal is real: 0.95 against radar. But the key finding was where it failed: links alone missed all three of our accuracy gates.
+
+Slide 4  [0:56–1:14] So we never use links alone; accuracy decides the mix. Jio’s links, filtered by network-health data, plus IMD radar, gauges and satellite, with paid data only if it lifts accuracy. The pilot scores every mix against held-out gauges and picks the cheapest that clears every gate.
+
+Slide 5  [1:14–1:30] Reliance is the first proving ground. The hero test is Jio’s own network team: can we tell rain from equipment faults before sending a crew? Jio owns the data and the decision. JioMart then tests commercial value; MyJio tests reach at scale.
+
+Slide 6  [1:30–1:48] Then we sell the same intelligence to the market. Rain hits Zone A: JioMausam sends a zone alert, and the platform decides how to adjust dispatch, delivery times or incentives. Delivery comes first, then logistics, cities and insurers, then agriculture and power.
+
+Slide 7  [1:48–2:04] Our edge isn’t the sensor; it’s integration. Jio senses, JioMausam understands, Reliance reaches customers, licensed partners protect. We sell intelligence outside and create savings inside Reliance; insurance is optional. So the business stands even if insurance never launches.
+
+Slide 8  [2:04–2:22] Our original idea was Kavach. Stress-testing showed the stronger business is the intelligence underneath it. Insurance becomes one application: JioMausam supplies trigger data, and a licensed insurer would pay a fixed benefit, only after the accuracy and actuarial gates. If it never launches, nothing breaks.
+
+Slide 9  [2:22–2:38] If we offer Kavach, Indian weather sets the price. From 25 years of IMD records: Basic about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad. Plus is priced from twelve historical heavy-rain days, capped at five paid days: 208.
+
+Slide 10  [2:38–3:00] Don’t believe us; test it. Ninety days, three gates: coverage, accuracy, value. We don’t pre-select the city; the audit does. We aren’t asking Jio to build a weather network, but to discover what its network can tell us. First prove the signal. Then sell the intelligence. Protection comes last.
+
+────────────────────────────────────────
+THE ONE IDEA TO LAND
+  We don’t need to prove Jio has built a weather network. We need to prove its existing network holds enough
+  extra weather information to create economic value. The 90-day pilot answers exactly that.
+
+HOW TO TALK ABOUT OUR NUMBERS
+  They are ours: our pipeline (open-source pycomlink, KIT) on pycomlink’s public dataset of 500 real links in Germany,
+  10–20 May 2018, with German DWD radar as the reference. Tuned on 3 days, scored on 8 unseen days. Not Jio data.
+
+  Links alone vs our accuracy gates (all measured against radar):
+    Trigger events caught        68%  (1,120 of 1,639)   gate ≥80%   FAIL
+    Rain totals                  18% low (bias 0.82)     gate ±10%   FAIL
+    Our triggers not confirmed   18%  (244 of 1,364)     gate <15%   FAIL
+  Q&A only: 0.88 typical single link · 0.78 map level · rain/no-rain days 91% detected, 5% false.
+
+  Say:  “Published science supports the physics. We tested the method ourselves, and links alone failed our gates.”
+  Never say: “We tested Jio’s network.” · “Studies show 68%.” · “Jio can already sense the weather.”
+
+MEMORISE THESE ANSWERS
+  0.95 vs 68%: “0.95 is the network-wide hourly match, where local errors cancel. At map level it’s 0.78, and a trigger
+    test is harsher: 9 mm against an 11 mm trigger is a miss. Links also read 18% low.”
+  ₹208: “₹208 isn’t priced from our 10-mm-in-3-hour prototype trigger. It uses 25 years of daily IMD heavy-rain history,
+    capped at five paid days. The pilot measures the 3-hour trigger’s real frequency and recalibrates before launch.”
+  Hyperlocal exists: “Exactly. BMC gauges and IMD radar are inputs we fuse. The pilot’s radar-plus-gauges-without-links
+    run measures what Jio adds.”
+  Rain fade: “It may. Then Gate 1 confirms cheaply what weather information is available; if not, the same telemetry
+    is a new signal.”
+  No rain in days 61–90: “The back-test replays archived monsoon events; the full live test runs in Mumbai’s 2027 monsoon.”
+  Who decides payouts: “Jio only supplies trigger data. A licensed insurer owns the contract, rules and payout.”
+  Eligibility: riders already active in the zone before the event began, under predefined rules (stops logging in to
+    collect a payout).
+
+  More in the Q&A backup slides (proof hierarchy, 14-row defence wall, tough questions).

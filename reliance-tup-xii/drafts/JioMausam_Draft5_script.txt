@@ -1,0 +1,53 @@
+JioMausam · Elimination round · Draft 5 · 3-minute script (442 words, about 150 words a minute)
+
+Slide 1  [0:00–0:17] India doesn’t have a weather-data problem. It has a weather-decision problem. On 26 July 2005, Santacruz got 944 millimetres of rain; Colaba, 20 kilometres away, got 73. Yet a business alert just says “heavy rain in Mumbai”, and workers carry the loss.
+
+Slide 2  [0:17–0:34] Jio doesn’t need to build another weather network. Its microwave links may carry a weather signal: rain weakens them, and the excess loss estimates rainfall along each link. JioMausam turns those signals, with radar and gauges, into a weather grid, and the grid into decisions.
+
+Slide 3  [0:34–0:56] None of this science is ours: it’s published in Science and PNAS, and has mapped rain across a whole country. We checked it ourselves, running the open-source method on 500 real links from a public dataset. It matched radar at 0.95, but links alone caught only 68% of trigger events.
+
+Slide 4  [0:56–1:14] So we don’t use links alone; we let accuracy decide the mix. Jio’s links, IMD radar, gauges, satellite, and paid data only if it lifts accuracy. The pilot scores every combination against hidden gauges, and we pick the cheapest one that clears every gate.
+
+Slide 5  [1:14–1:30] Reliance is the first proving ground. The hero is Jio’s own network team: telling rain fade from equipment faults saves wasted site visits, and Jio owns both the data and the decision. JioMart then proves the commercial decision; MyJio proves distribution.
+
+Slide 6  [1:30–1:48] Then the market. Platforms buy decisions, not maps: rain hits Zone A, so move riders, update delivery times, adjust incentives. Logistics, cities and insurers follow, then agriculture and power. Decisions for real-time operators; data for those who need proof.
+
+Slide 7  [1:48–2:04] Our edge isn’t the sensor; it’s integration. Jio senses, JioMausam understands, Reliance reaches customers, licensed partners protect. Others hold one or two layers. Jio earns decision and data fees and saves money at home, so the business stands even if insurance never launches.
+
+Slide 8  [2:04–2:22] Our original idea was Kavach. Stress-testing showed the stronger business is the intelligence underneath it. Insurance becomes one application: a verified trigger lets a licensed insurer pay a fixed benefit, only after the full accuracy and actuarial gates. If it never launches, nothing breaks.
+
+Slide 9  [2:22–2:38] If we offer Kavach, Indian weather sets the price. From 25 years of IMD records: Basic about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad. Plus prices Mumbai’s twelve heavy-rain days, capped at five paid days: 208 rupees.
+
+Slide 10  [2:38–3:00] Don’t believe us; test it. Ninety days, three gates: coverage, accuracy, value. We don’t pre-select the city; the audit does. Only if all three pass do we scale. We aren’t asking Jio to build a weather network, but to discover what its network can already tell us, and turn that into decisions.
+
+────────────────────────────────────────
+HOW TO TALK ABOUT 0.95, 0.88 AND 68%
+
+What they are: our own results. We wrote a pipeline on top of the open-source pycomlink library (KIT, Germany), the same
+method as the published papers, and ran it on pycomlink’s public example dataset: 500 real commercial microwave links
+in Germany, 10–20 May 2018, with German weather radar (DWD RADOLAN) as the reference. We tuned on 3 days and scored on 8
+unseen days. Anyone can rerun it: the data, scripts and Test Lab are in the repo.
+
+Say:
+  “The science is published. We checked it ourselves on public research data, and found both the strength and the limit.”
+  “None of this science is ours. What’s ours is the business design built around its limit.”
+  “68% is links alone, from one public dataset. That’s exactly why we never use links alone.”
+
+Never say:
+  “We tested Jio’s network.” (We had no Jio data.)
+  “Studies show 68%.” (The 68% is our number, not a paper’s.)
+  “Jio’s network can already sense the weather.” (Say “may carry a usable weather signal”.)
+
+If asked “Did you build the model?”
+  “We didn’t invent the method; it’s 20 years of published research. We implemented it with open-source tools,
+  ran it on real link data ourselves, and measured where it falls short. Our contribution is the business design.”
+
+If asked “Germany isn’t India. Why trust this?”
+  “We don’t ask you to. Gate 2 of the pilot back-tests Jio’s own archived Mumbai monsoon data against hidden IMD and
+  BMC gauges. Until that passes, nothing scales.”
+
+THE HIERARCHY (keep this in your head for Q&A)
+  Proven (published):     the physics; the method; country-wide rain maps (Netherlands, PNAS 2013).
+  Our check (public data): 0.95 network-wide, 0.88 single link, 68% of trigger events, 18% of our triggers unconfirmed.
+  Not yet proven (pilot):  Jio’s usable coverage; Indian accuracy; business value; who pays; insurance-grade triggers.
+  Line to land: “We know what is proven. We know what isn’t. The 90-day pilot is built around the unknowns.”

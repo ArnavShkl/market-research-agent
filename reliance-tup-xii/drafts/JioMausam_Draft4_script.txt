@@ -1,0 +1,21 @@
+JioMausam · Elimination round · Draft 4 · 3-minute script (about 150 words a minute)
+
+Slide 1  [0:00–0:18] Since our video, we stress-tested coverage, accuracy and who pays. Here’s the problem: on 26 July 2005, Santacruz got 944 millimetres of rain and Colaba just 73. Weather changes street by street, but businesses still decide city by city, and workers carry the loss.
+
+Slide 2  [0:18–0:34] So we’re building JioMausam: a street-level weather layer from Jio’s own network. Rain weakens the microwave links between sites; measuring that loss gives rainfall along every link, every minute. It isn’t a new sensor network or an insurer, and fibre doesn’t count.
+
+Slide 3  [0:34–0:56] This is proven science, published in Science and PNAS, and used to map rain across a whole country. We tested it ourselves on 500 real links from a public German dataset: 0.95 against radar network-wide, 0.88 for a single link. But links alone caught only 68% of radar’s trigger events. That’s our honest limit.
+
+Slide 4  [0:56–1:18] So we combine sources, cheapest first: Jio’s links, IMD radar, rain gauges and satellite, with paid data only where gaps remain. The pilot doesn’t guess the best mix; it scores each combination against hidden gauges, and even measures what Jio’s links add on their own. Target: 80% of events caught.
+
+Slide 5  [1:18–1:34] Reliance is the first customer. Jio’s network teams can tell rain from faults and avoid wasted site visits; JioMart can dispatch and promise deliveries by zone; MyJio can send street-level alerts. We prove accuracy and value at home first.
+
+Slide 6  [1:34–1:52] Then the market. Delivery and ride-hailing platforms buy decisions: where to dispatch, where incentives are needed, when to pause. Logistics, cities and insurers follow, then agriculture and power. Decisions for those who act in real time; data for those who need proof.
+
+Slide 7  [1:52–2:06] Jio earns decision and data fees, plus savings inside Reliance, and carries no insurance risk. Jio senses, JioMausam understands, Reliance reaches, partners protect. The business stands even if insurance never launches.
+
+Slide 8  [2:06–2:26] Insurance is one application, not our anchor. Once accuracy passes 80%, a verified trigger lets a licensed insurer pay workers a fixed benefit automatically, say 300 rupees. Who pays is still unproven, so the pilot tests it. If it doesn’t work, the core business is untouched.
+
+Slide 9  [2:26–2:42] If we offer it, Indian data sets the price. Twenty-five years of IMD records: Kavach Basic about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad; platform-sponsored Plus about 208. Rain first; heat follows, from IMD data.
+
+Slide 10  [2:42–3:00] So don’t believe us; test it. Ninety days: audit Mumbai’s links, back-test archived monsoon data to find the best source mix, then a shadow pilot inside Reliance. We aren’t asking Jio to build another weather network. We’re asking it to discover what its network can already tell us.

@@ -1,0 +1,149 @@
+JioMausam · Elimination round · FINAL 3-minute pitch (454 words; deliver at a brisk ~150 words a minute)
+
+Delivery: short sentences, real pauses after questions. Leave a one-beat silence between the last three lines.
+If you run over in rehearsal, drop "Sounds great? We thought so too." first.
+
+[Slide 1 | 0:00–0:19]
+Imagine you’re running deliveries in Mumbai. Your dashboard says: “Heavy rain in Mumbai.” Do you stop the whole city? On 26 July 2005, Santacruz got 944 millimetres of rain. Colaba, 20 kilometres away, got 73. The problem isn’t weather data. It’s knowing what to do, zone by zone.
+
+[Slide 2 | 0:19–0:37]
+But Jio may already own infrastructure that can carry a signal about that rain. Rain weakens microwave signals between telecom sites. Measure the extra loss and you can estimate rain along each link. JioMausam combines that with radar and gauges into alerts businesses can act on.
+
+[Slide 3 | 0:37–0:58]
+Sounds great? We thought so too. The physics is well established, so we tested it ourselves: 500 real links from a public dataset in Germany, not Jio’s. The links tracked radar closely, but alone they caught only 68% of rain events. Our bar is 80%. That gap told us how to build JioMausam.
+
+[Slide 4 | 0:58–1:15]
+So we don’t bet on one sensor. Accuracy decides the mix: Jio’s links, network-health data to filter out faults, radar, gauges, satellite. The pilot tests every combination against held-out gauges. The answer isn’t “Jio only”. It’s the cheapest mix that works.
+
+[Slide 5 | 1:15–1:32]
+Before selling to Swiggy, where do we prove it? Inside Reliance, starting with Jio. A signal drops: is it rain, or is something broken? If JioMausam can answer that before a crew goes out, that’s real value. Then JioMart tests commercial value; MyJio tests reach.
+
+[Slide 6 | 1:32–1:49]
+Once that works, the same intelligence goes outside. Rain hits Zone A. JioMausam flags it. The platform decides whether to reroute, delay or raise incentives. That’s the product: not a prettier weather map, but a signal that changes a business decision.
+
+[Slide 7 | 1:49–2:04]
+So why Jio? Not because it invented the physics. The edge is integration: Jio’s signal, JioMausam’s intelligence, Reliance’s proving ground and reach. We can monetise the intelligence outside and create savings inside Reliance, even if insurance never launches.
+
+[Slide 8 | 2:04–2:22]
+Kavach is where we started: protection for workers. Then we stress-tested it. Who pays? Is the trigger accurate? Can an insurer price it? The insurance isn’t the business; the intelligence underneath it is. So Kavach becomes one application, only after the accuracy and actuarial gates pass.
+
+[Slide 9 | 2:22–2:39]
+If we offer it, Indian weather risk sets the starting point for the price. From 25 years of IMD records: about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad, and 208 for Mumbai Plus. All illustrative until actuarial validation.
+
+[Slide 10 | 2:39–3:00]
+We’re not asking you to believe us. We’re asking Jio to test it. Ninety days, three questions. Does Jio have the coverage? Does the combined system clear our bar? Does it improve a real Reliance operation? If yes, scale. If not, stop. First prove the signal. Then sell the intelligence. Protection comes last.
+
+────────────────────────────────────────
+HOW THE 68% WAS CALCULATED (know this cold)
+
+Tool: no AI or machine-learning model. Physics formulas plus simple statistics, run in Python.
+  · pycomlink 0.6.0: the open-source Python toolbox for rain from commercial microwave links,
+    built at Karlsruhe Institute of Technology (KIT), Germany. BSD licence.
+    Code and data: https://github.com/pycomlink/pycomlink   (data folder: pycomlink/io/example_data)
+    Install: pip install pycomlink   (https://pypi.org/project/pycomlink/)
+  · From pycomlink we used three standard functions: dry baseline, wet-antenna correction (Schleiss et al. 2013),
+    and the rain formula (ITU-R P.838, 2005 coefficients).
+  · Our own code did the rest: cleaning, wet/dry detection, calibration, the zone map, and the yes/no comparison.
+    File: prototype/pipeline/rain_pipeline.py (the Test Lab re-runs the same steps in a browser).
+
+Data (all bundled in pycomlink's example data):
+  · example_cml_data.nc: 500 real microwave links from a German mobile network, 2 directions each,
+    signal levels every minute for 11 days (10-20 May 2018). Locations shifted for anonymity.
+  · example_path_averaged_reference_data.nc: radar rain along each link, every 5 minutes.
+  · example_areal_reference_data.nc: the radar rain map (190 x 228 squares of ~1 km, every 5 minutes),
+    German Weather Service (Deutscher Wetterdienst) RADOLAN YW product. DWD open data: https://opendata.dwd.de
+
+Steps:
+  1. Signal loss = power sent - power received, every minute, every link.
+  2. Wet or dry: if the loss wobbles much more than that link's normal, it is raining.
+  3. Subtract the normal dry loss and a small wet-antenna allowance (up to 1.5 dB) = loss caused by rain.
+  4. Turn rain loss into rain rate with the ITU formula (depends on link length, frequency, polarization).
+  5. Average to hourly. One scale factor (1.17) tuned on 10-12 May only; 13-20 May never used for tuning.
+  6. Spread link rain into ~1,800 zones of ~4 km (nearest links weigh more).
+  7. Each zone, each of the 8 test days: did any 3 hours reach 10 mm? Ask the same of radar's map.
+     14,256 yes/no decisions. Radar said yes 1,639 times; links alone also said yes 1,120 times.
+     1,120 / 1,639 = 68%.
+
+The papers behind the method:
+  · Messer, Zinevich & Alpert, Science (2006): rain measured from a cellular network, Israel. doi:10.1126/science.1120034
+  · Overeem, Leijnse & Uijlenhoet, PNAS (2013): country-wide rain maps of the Netherlands. doi:10.1073/pnas.1217961110
+  · Schleiss, Rieckermann & Berne (2013): wet-antenna correction for microwave links.
+  · ITU-R Recommendation P.838: the standard rain-to-signal-loss formula.
+
+India data (prices): NOAA Global Summary of the Day, the public archive of IMD station reports.
+  https://noaa-gsod-pds.s3.amazonaws.com/{year}/{station}.csv
+  e.g. https://noaa-gsod-pds.s3.amazonaws.com/2024/43003099999.csv (Mumbai Santacruz)
+  Stations: 43003099999 Santacruz · 42867099999 Nagpur · 42647099999 Ahmedabad · 43057099999 Colaba
+
+────────────────────────────────────────
+EVERY NUMBER ON SCREEN: WHAT IT IS AND WHERE IT COMES FROM
+Labels:  FACT = official source, no calculation · OURS = our calculation on public data
+         TARGET / ASSUMPTION / PLAN = our choice, and we say so
+
+Only two calculations exist in the deck: the 68% (slides 3-4) and the prices (slide 9).
+
+Slide 1  944 mm vs 73 mm, 26 July 2005, Santacruz vs Colaba (~20 km apart)
+         FACT: India Meteorological Department rainfall records. No calculation.
+
+Slide 2  No numbers. Rain weakens microwave signals: standard physics (ITU-R P.838 formula).
+         "Spatial weather grid": we don't promise 1 km everywhere; the pilot finds the real resolution.
+
+Slide 3  Science 2006 (Messer et al., Israel) · PNAS 2013 (Overeem et al., Netherlands)   FACT: published papers
+         500 real links, Germany, 10-20 May 2018                                            FACT: public pycomlink dataset (KIT)
+         68% of rain events caught by links alone                                           OURS
+           How: signal loss each minute (sent - received) -> remove dry-weather loss -> ITU formula turns
+           extra loss into rain -> one scale factor tuned on 10-12 May only -> map of ~1,800 zones of ~4 km ->
+           each zone, each of 8 test days (13-20 May): did any 3 hours reach 10 mm? Same question to radar.
+           Radar said yes 1,639 times; we also said yes on 1,120.  1,120 / 1,639 = 68%.
+         Event = 10 mm in 3 hours, ~4 km zone                                               ASSUMPTION (our rule; 5 and 15 mm also tested)
+         80% bar                                                                            TARGET (set above what links alone achieved)
+           "Why 80%?" -> "It's our go/no-go threshold for the pilot, deliberately set above the 68% baseline. The
+           commercial threshold can be tightened for each use case and the insurer's requirements." Never call it an industry standard.
+         Line chart: network average, hourly, links vs radar                               OURS
+
+Slide 4  "Our check: 68%" = same as slide 3                                                 OURS
+         80% · ±10% totals · <15% unconfirmed                                               TARGETS
+         Source labels: Jio-owned · IMD (govt) · IMD · BMC · External · New install · Commercial   FACT (who provides each)
+           No prices claimed. Blue = data that already exists; amber = needs new spending. The pilot prices each source.
+
+Slides 5-7  No numbers. Company names are examples of buyers, not customers we have spoken to.
+
+Slide 8  ₹300 benefit                                                                       ASSUMPTION (prototype figure)
+         A licensed insurer would underwrite and pay                                       PLAN (no insurer partner yet)
+         Eligible = already active in the zone before the event began                       PLAN (design rule)
+
+Slide 9  Title: "weather risk sets the starting price" (weather is the starting point; loss ratio, costs and
+         reinsurance come from the insurer).
+         Data: NOAA archive of IMD daily station reports, 2000-2024, Santacruz / Nagpur / Ahmedabad   FACT
+         Triggers 204.5 mm and 64.5 mm a day                                                FACT (IMD's own heavy-rain categories)
+         47°C                                                                               ASSUMPTION (our rare-heat level)
+         Raw days a year: count trigger days each year, average over 25 years              OURS (counting)
+         Paid days: same, at most 5 a year (e.g. Nagpur 2013 had 14 hot days, 5 count)    OURS (counting)
+         Price = paid days x ₹300 / 0.6 / 12                                                OURS (formula)
+           Mumbai Basic  1.08 x 300 = 324 -> 540 -> ₹45
+           Nagpur        1.24 x 300 = 372 -> 620 -> ₹52
+           Ahmedabad     0.64 x 300 = 192 -> 320 -> ₹27, raised to our ₹29 minimum
+           Mumbai Plus   5 x 300 = 1,500 -> 2,500 -> ₹208 (every year has 5+ heavy-rain days)
+         ₹300, 60% loss ratio, 5-day cap, ₹29 minimum                                     ASSUMPTIONS
+         City cards: Mumbai 11.9 days at 64.5 mm+ · Nagpur 2.2 and Ahmedabad 0.7 days at 47°C+   OURS (counting; same triggers as the table)
+         Plus: designed for potential platform sponsorship, subject to pilot validation (who pays is unproven, slide 8)
+
+Slide 10 90 days, phases, gates, KPIs, roadmap                                              PLAN / TARGETS
+
+ANY NUMBER QUESTION: source -> status -> pilot
+  "That's from our check on public German data, not Jio's. It's directional; the pilot replaces it with Jio's real number."
+  "Prices are illustrative: 25 years of IMD data and an assumed ₹300 benefit. The insurer sets final prices."
+
+MORE ANSWERS
+  "How do you know what each source costs?" -> "We don't claim prices. The slide shows who provides each source. The pilot
+    puts a rupee figure on each, and the rule picks the cheapest mix that clears the bar."
+  "Which satellite?" -> "The pilot evaluates the available satellite sources on coverage, latency, resolution and licensing.
+    We haven't preselected one, because Gate 2 decides the minimum-cost mix."
+    (Back pocket only if pushed: NASA and ISRO both publish open satellite rainfall data; it is coarse, so it is a fallback.)
+  "JFS isn't Reliance." -> "A group company and a natural partner. Any arrangement would be at arm's length, with a licensed
+    insurer carrying the risk."
+
+NEVER SAY:  "Jio data" · "studies show 68%" · ₹300 or 60% as facts.
+BACK POCKET (exact figures, Q&A only): 0.95 network-wide · 0.88 typical link · 0.78 map · 18% low · 18% unconfirmed
+  · 94.6% agreement · stress test worst years 222% / 242% / 469%, Plus 60% every year.
+  All in the Q&A backup slides, the Numbers Workbook and the Test Lab.

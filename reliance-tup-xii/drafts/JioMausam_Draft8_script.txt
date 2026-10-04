@@ -1,0 +1,88 @@
+JioMausam · Elimination round · Draft 8 · 3-minute script (445 words, about 150 words a minute)
+
+Slide 1  [0:00–0:17] India doesn’t have a weather-data problem. It has a weather-decision problem. On 26 July 2005, Santacruz got 944 millimetres of rain; Colaba, 20 kilometres away, got 73. A city-level alert can still tell a business only “heavy rain in Mumbai”. It needs to know which zones to act on.
+
+Slide 2  [0:17–0:34] Jio may already own the infrastructure for a new weather-sensing layer. Rain weakens its microwave links, and the excess loss estimates rainfall along each link. JioMausam fuses those signals with radar and gauges into a weather grid, then into decision-ready alerts.
+
+Slide 3  [0:34–0:56] Published science supports the physics, and has mapped rain across a whole country. We ran the method ourselves on 500 real links from a public dataset. The links tracked radar closely. But the key finding was the limit: alone, they caught only 68% of rain events, below our 80% bar.
+
+Slide 4  [0:56–1:14] So we never use links alone; accuracy decides the mix. Jio’s links, filtered by network-health data, plus IMD radar, gauges and satellite, with paid data only if it lifts accuracy. The pilot scores every mix against held-out gauges and picks the cheapest that clears every gate.
+
+Slide 5  [1:14–1:30] Reliance is the first proving ground. The hero test: Jio’s network team. Can we tell rain from equipment faults before sending a crew? Jio owns the network data and controls the operational decision. JioMart then tests commercial value; MyJio tests reach at scale.
+
+Slide 6  [1:30–1:48] Then we sell the same intelligence to the market. Rain hits Zone A: JioMausam sends a zone alert, and the platform decides how to adjust dispatch, delivery times or incentives. Delivery comes first, then logistics, cities and insurers, then agriculture and power.
+
+Slide 7  [1:48–2:04] Our edge isn’t the sensor; it’s integration. Jio senses, JioMausam understands, Reliance reaches customers, licensed partners protect. We sell intelligence outside and create savings inside Reliance; insurance is optional. So the business stands even if insurance never launches.
+
+Slide 8  [2:04–2:22] Our original idea was Kavach. Stress-testing showed the stronger business is the intelligence underneath it. Insurance becomes one application: JioMausam supplies trigger data, and a licensed insurer would underwrite and pay, only after the accuracy and actuarial gates. If it never launches, nothing breaks.
+
+Slide 9  [2:22–2:38] If we offer Kavach, Indian weather sets the price. From 25 years of IMD records: Basic about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad. Plus is priced from twelve historical heavy-rain days, capped at five paid days: 208.
+
+Slide 10  [2:38–3:00] Don’t believe us; test it. Ninety days, three gates: coverage, accuracy, value. We don’t pre-select the city; the audit does. We aren’t asking Jio to build a weather network, but to discover what its network can tell us. First prove the signal. Then sell the intelligence. Protection comes last.
+
+────────────────────────────────────────
+EVERY NUMBER ON SCREEN: WHAT IT IS AND WHERE IT COMES FROM
+Labels:  FACT = official source, no calculation · OURS = our calculation on public data
+         TARGET / ASSUMPTION / PLAN = our choice, and we say so
+
+Only two calculations exist in the deck: the 68% (slides 3-4) and the prices (slide 9).
+
+Slide 1  944 mm vs 73 mm, 26 July 2005, Santacruz vs Colaba (~20 km apart)
+         FACT: India Meteorological Department rainfall records. No calculation.
+
+Slide 2  No numbers. Rain weakens microwave signals: standard physics (ITU-R P.838 formula).
+         "Zone-level weather grid": we don't promise 1 km everywhere; the pilot finds the real resolution.
+
+Slide 3  Science 2006 (Messer et al., Israel) · PNAS 2013 (Overeem et al., Netherlands)   FACT: published papers
+         500 real links, Germany, 10-20 May 2018                                            FACT: public pycomlink dataset (KIT)
+         68% of rain events caught by links alone                                           OURS
+           How: signal loss each minute (sent - received) -> remove dry-weather loss -> ITU formula turns
+           extra loss into rain -> one scale factor tuned on 10-12 May only -> map of ~1,800 zones of ~4 km ->
+           each zone, each of 8 test days (13-20 May): did any 3 hours reach 10 mm? Same question to radar.
+           Radar said yes 1,639 times; we also said yes on 1,120.  1,120 / 1,639 = 68%.
+         Event = 10 mm in 3 hours, ~4 km zone                                               ASSUMPTION (our rule; 5 and 15 mm also tested)
+         80% bar                                                                            TARGET (set above what links alone achieved)
+         Line chart: network average, hourly, links vs radar                               OURS
+
+Slide 4  "Our check: 68%" = same as slide 3                                                 OURS
+         80% · ±10% totals · <15% unconfirmed                                               TARGETS
+         Source labels: Jio-owned · IMD (govt) · IMD · BMC · NASA · ISRO · New install · Commercial   FACT (who provides each)
+           No prices claimed. Blue = data that already exists; amber = needs new spending. The pilot prices each source.
+
+Slides 5-7  No numbers. Company names are examples of buyers, not customers we have spoken to.
+
+Slide 8  ₹300 benefit                                                                       ASSUMPTION (prototype figure)
+         A licensed insurer would underwrite and pay                                       PLAN (no insurer partner yet)
+         Eligible = already active in the zone before the event began                       PLAN (design rule)
+
+Slide 9  Data: NOAA archive of IMD daily station reports, 2000-2024, Santacruz / Nagpur / Ahmedabad   FACT
+         Triggers 204.5 mm and 64.5 mm a day                                                FACT (IMD's own heavy-rain categories)
+         47°C                                                                               ASSUMPTION (our rare-heat level)
+         Raw days a year: count trigger days each year, average over 25 years              OURS (counting)
+         Paid days: same, at most 5 a year (e.g. Nagpur 2013 had 14 hot days, 5 count)    OURS (counting)
+         Price = paid days x ₹300 / 0.6 / 12                                                OURS (formula)
+           Mumbai Basic  1.08 x 300 = 324 -> 540 -> ₹45
+           Nagpur        1.24 x 300 = 372 -> 620 -> ₹52
+           Ahmedabad     0.64 x 300 = 192 -> 320 -> ₹27, raised to our ₹29 minimum
+           Mumbai Plus   5 x 300 = 1,500 -> 2,500 -> ₹208 (every year has 5+ heavy-rain days)
+         ₹300, 60% loss ratio, 5-day cap, ₹29 minimum                                     ASSUMPTIONS
+         City cards: Mumbai 11.9 days at 64.5 mm+ · Nagpur 2.2 and Ahmedabad 0.7 days at 47°C+   OURS (counting; same triggers as the table)
+         Plus: designed for potential platform sponsorship, subject to pilot validation (who pays is unproven, slide 8)
+
+Slide 10 90 days, phases, gates, KPIs, roadmap                                              PLAN / TARGETS
+
+ANY NUMBER QUESTION: source -> status -> pilot
+  "That's from our check on public German data, not Jio's. It's directional; the pilot replaces it with Jio's real number."
+  "Prices are illustrative: 25 years of IMD data and an assumed ₹300 benefit. The insurer sets final prices."
+
+MORE ANSWERS
+  "How do you know what each source costs?" -> "We don't claim prices. The slide shows who provides each source. The pilot
+    puts a rupee figure on each, and the rule picks the cheapest mix that clears the bar."
+  "Satellite?" -> "A fallback only: open data from NASA and ISRO, but coarse (about 10 km squares)."
+  "JFS isn't Reliance." -> "A group company and a natural partner. Any arrangement would be at arm's length, with a licensed
+    insurer carrying the risk."
+
+NEVER SAY:  "Jio data" · "studies show 68%" · ₹300 or 60% as facts.
+BACK POCKET (exact figures, Q&A only): 0.95 network-wide · 0.88 typical link · 0.78 map · 18% low · 18% unconfirmed
+  · 94.6% agreement · stress test worst years 222% / 242% / 469%, Plus 60% every year.
+  All in the Q&A backup slides, the Numbers Workbook and the Test Lab.

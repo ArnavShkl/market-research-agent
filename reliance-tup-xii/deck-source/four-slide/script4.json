@@ -1,0 +1,30 @@
+[
+ {
+  "slide": 1,
+  "words": 94,
+  "start": "0:00",
+  "end": "0:38",
+  "text": "Imagine you’re running deliveries in Mumbai. Your dashboard says: “Heavy rain in Mumbai.” Do you stop the whole city? On 26 July 2005, Santacruz got 944 millimetres of rain. Colaba, 20 kilometres away, got 73. The problem isn’t weather data. It’s knowing what to do, zone by zone. But Jio may already own infrastructure that can carry a signal about that rain. Rain weakens microwave signals between telecom sites. Measure the extra loss and you can estimate rain along each link. JioMausam combines that with radar and gauges into alerts businesses can act on."
+ },
+ {
+  "slide": 2,
+  "words": 88,
+  "start": "0:38",
+  "end": "1:13",
+  "text": "The physics is well established, so we tested it ourselves: 500 real links from a public dataset in Germany, not Jio’s. The links tracked radar closely, but alone they caught only 68% of rain events. Our bar is 80%. That gap told us how to build JioMausam. So we don’t bet on one sensor. Accuracy decides the mix: Jio’s links, network-health data to filter out faults, radar, gauges, satellite. The pilot tests every combination against held-out gauges. The answer isn’t “Jio only”. It’s the cheapest mix that works."
+ },
+ {
+  "slide": 3,
+  "words": 124,
+  "start": "1:13",
+  "end": "2:02",
+  "text": "Before selling to Swiggy, where do we prove it? Inside Reliance, starting with Jio. A signal drops: is it rain, or is something broken? If JioMausam can answer that before a crew goes out, that’s real value. Then JioMart tests commercial value; MyJio tests reach. Once that works, the same intelligence goes outside. Rain hits Zone A. JioMausam flags it. The platform decides whether to reroute, delay or raise incentives. That’s the product: not a prettier weather map, but a signal that changes a business decision. So why Jio? Not because it invented the physics. The edge is integration: Jio’s signal, JioMausam’s intelligence, Reliance’s proving ground and reach. We can monetise the intelligence outside and create savings inside Reliance, even if insurance never launches."
+ },
+ {
+  "slide": 4,
+  "words": 138,
+  "start": "2:02",
+  "end": "2:58",
+  "text": "Kavach is where we started: protection for workers. Then we stress-tested it. Who pays? Is the trigger accurate? Can an insurer price it? The insurance isn’t the business; the intelligence underneath it is. So Kavach becomes one application, only after the accuracy and actuarial gates pass. If we offer it, weather risk sets the starting price. From 25 years of IMD records: about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad, and 208 for Mumbai Plus. All illustrative until actuarial validation. We’re not asking you to believe us. We’re asking Jio to test it. Ninety days, three questions. Does Jio have the coverage? Does the combined system clear our bar? Does it improve a real Reliance operation? If yes, scale. If not, stop. First prove the signal. Then sell the intelligence. Protection comes last."
+ }
+]

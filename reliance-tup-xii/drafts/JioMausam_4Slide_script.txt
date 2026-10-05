@@ -1,0 +1,105 @@
+JioMausam · 4-slide pitch · timed script (444 words ≈ 2:58 at 150 words a minute)
+
+Click to the next slide exactly at each timestamp. Short sentences, real pauses after the questions.
+Leave one beat of silence between the last three lines.
+
+══════════════════════════════════════════════════════════════════════════════
+SLIDE 1  [0:00 – 0:38]  · A weather-decision problem, and a signal Jio may already carry
+(94 words)
+
+  Imagine you’re running deliveries in Mumbai.
+  Your dashboard says: “Heavy rain in Mumbai.”
+  Do you stop the whole city?
+  On 26 July 2005, Santacruz got 944 millimetres of rain.
+  Colaba, 20 kilometres away, got 73.
+  The problem isn’t weather data.
+  It’s knowing what to do, zone by zone.
+  But Jio may already own infrastructure that can carry a signal about that rain.
+  Rain weakens microwave signals between telecom sites.
+  Measure the extra loss and you can estimate rain along each link.
+  JioMausam combines that with radar and gauges into alerts businesses can act on.
+
+  Point to: Mumbai chart (944 vs 73) while you say the numbers · the alert → “Which zones do I act on?” box on “zone by zone” · the tower diagram on “microwave signals” · the “decision infrastructure” flow on the last line
+
+  → CLICK to slide 2 at 0:38
+
+══════════════════════════════════════════════════════════════════════════════
+SLIDE 2  [0:38 – 1:13]  · Links alone fall short of our bar, so accuracy decides the mix
+(88 words)
+
+  The physics is well established, so we tested it ourselves: 500 real links from a public dataset in Germany, not Jio’s.
+  The links tracked radar closely, but alone they caught only 68% of rain events.
+  Our bar is 80%.
+  That gap told us how to build JioMausam.
+  So we don’t bet on one sensor.
+  Accuracy decides the mix: Jio’s links, network-health data to filter out faults, radar, gauges, satellite.
+  The pilot tests every combination against held-out gauges.
+  The answer isn’t “Jio only”.
+  It’s the cheapest mix that works.
+
+  Point to: the 68% bar and the dashed 80% line on “Our bar is 80%” · the sources list on “Accuracy decides the mix” · the Rule box on “the cheapest mix that works”
+
+  → CLICK to slide 3 at 1:13
+
+══════════════════════════════════════════════════════════════════════════════
+SLIDE 3  [1:13 – 2:02]  · Prove it inside Reliance, then sell the same intelligence
+(124 words)
+
+  Before selling to Swiggy, where do we prove it?
+  Inside Reliance, starting with Jio.
+  A signal drops: is it rain, or is something broken?
+  If JioMausam can answer that before a crew goes out, that’s real value.
+  Then JioMart tests commercial value; MyJio tests reach.
+  Once that works, the same intelligence goes outside.
+  Rain hits Zone A.
+  JioMausam flags it.
+  The platform decides whether to reroute, delay or raise incentives.
+  That’s the product: not a prettier weather map, but a signal that changes a business decision.
+  So why Jio?
+  Not because it invented the physics.
+  The edge is integration: Jio’s signal, JioMausam’s intelligence, Reliance’s proving ground and reach.
+  We can monetise the intelligence outside and create savings inside Reliance, even if insurance never launches.
+
+  Point to: column 1 (Reliance) for the first three sentences · column 2 (Zone A chain) on “Rain hits Zone A” · column 3 (Sense → Protect) on “So why Jio?”
+
+  → CLICK to slide 4 at 2:02
+
+══════════════════════════════════════════════════════════════════════════════
+SLIDE 4  [2:02 – 2:58]  · Insurance comes last. Test the rest in 90 days
+(138 words)
+
+  Kavach is where we started: protection for workers.
+  Then we stress-tested it.
+  Who pays?
+  Is the trigger accurate?
+  Can an insurer price it?
+  The insurance isn’t the business; the intelligence underneath it is.
+  So Kavach becomes one application, only after the accuracy and actuarial gates pass.
+  If we offer it, weather risk sets the starting price.
+  From 25 years of IMD records: about 45 rupees a month in Mumbai, 52 in Nagpur, 29 in Ahmedabad, and 208 for Mumbai Plus.
+  All illustrative until actuarial validation.
+  We’re not asking you to believe us.
+  We’re asking Jio to test it.
+  Ninety days, three questions.
+  Does Jio have the coverage?
+  Does the combined system clear our bar?
+  Does it improve a real Reliance operation?
+  If yes, scale.
+  If not, stop.
+  First prove the signal.
+  Then sell the intelligence.
+  Protection comes last.
+
+  Point to: the Kavach flow for the first part · the price table on “weather risk sets the starting price” · the three gates on “Ninety days” · the dark closing box for the last three lines
+
+══════════════════════════════════════════════════════════════════════════════
+IF YOU RUN LONG (cut in this order)
+  1. Slide 4: “Then we stress-tested it.”  (−1 s)
+  2. Slide 3: “That’s the product: not a prettier weather map, but a signal that changes a business decision.”  (−6 s)
+  3. Slide 2: “The answer isn’t “Jio only”.”  (−2 s)
+
+IF YOU RUN SHORT
+  Slow down on slide 2’s numbers (68%, 80%) and pause after each gate question on slide 4.
+
+NUMBERS YOU SAY ALOUD (all on the slides)
+  944 vs 73 mm (IMD) · 500 links, 68% vs our 80% bar · ₹45 / ₹52 / ₹29 / ₹208 a month · 90 days, three gates

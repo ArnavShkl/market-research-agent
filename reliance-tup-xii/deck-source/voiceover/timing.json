@@ -1,0 +1,189 @@
+{
+ "starts": [
+  0,
+  6.271428571428571,
+  21.97142857142857,
+  42.385714285714286,
+  64.5142857142857,
+  79.35714285714285,
+  88.19999999999999
+ ],
+ "total": 103.98571428571428,
+ "lines": [
+  {
+   "slide": 0,
+   "line": 0,
+   "start": 0,
+   "slot": 2.571,
+   "text": "India's biggest weather network already exists."
+  },
+  {
+   "slide": 0,
+   "line": 1,
+   "start": 2.571,
+   "slot": 3.0,
+   "text": "Nobody noticed — because we call it Jio."
+  },
+  {
+   "slide": 1,
+   "line": 0,
+   "start": 6.271,
+   "slot": 3.857,
+   "text": "Weather in India is hyperlocal, but our data isn't."
+  },
+  {
+   "slide": 1,
+   "line": 1,
+   "start": 10.129,
+   "slot": 3.857,
+   "text": "About forty Doppler radars cover 3.3 million square kilometres."
+  },
+  {
+   "slide": 1,
+   "line": 2,
+   "start": 13.986,
+   "slot": 4.286,
+   "text": "Heat alone could cost India thirty-four million jobs by 2030 —"
+  },
+  {
+   "slide": 1,
+   "line": 3,
+   "start": 18.271,
+   "slot": 3.0,
+   "text": "and when insurance exists, claims take months."
+  },
+  {
+   "slide": 2,
+   "line": 0,
+   "start": 21.971,
+   "slot": 3.857,
+   "text": "Here's the insight: rain weakens the signal between towers —"
+  },
+  {
+   "slide": 2,
+   "line": 1,
+   "start": 25.829,
+   "slot": 3.857,
+   "text": "and that tells you exactly how hard it's raining."
+  },
+  {
+   "slide": 2,
+   "line": 2,
+   "start": 29.686,
+   "slot": 3.857,
+   "text": "Phone batteries, averaged across a city, track air temperature."
+  },
+  {
+   "slide": 2,
+   "line": 3,
+   "start": 33.543,
+   "slot": 4.714,
+   "text": "Every tower is a rain gauge. Every phone is a thermometer."
+  },
+  {
+   "slide": 2,
+   "line": 4,
+   "start": 38.257,
+   "slot": 3.429,
+   "text": "We don't build sensors. We become the sensor."
+  },
+  {
+   "slide": 3,
+   "line": 0,
+   "start": 42.386,
+   "slot": 5.571,
+   "text": "Meet JioMausam: a live, street-level weather map of India, built from network data."
+  },
+  {
+   "slide": 3,
+   "line": 1,
+   "start": 47.957,
+   "slot": 6.429,
+   "text": "On top of it, Mausam Kavach — insurance on your recharge for twenty-nine rupees a month."
+  },
+  {
+   "slide": 3,
+   "line": 2,
+   "start": 54.386,
+   "slot": 3.429,
+   "text": "When the network measures 45 degrees near you,"
+  },
+  {
+   "slide": 3,
+   "line": 3,
+   "start": 57.814,
+   "slot": 3.857,
+   "text": "the payout lands in your JioPay wallet within hours."
+  },
+  {
+   "slide": 3,
+   "line": 4,
+   "start": 61.671,
+   "slot": 2.143,
+   "text": "No claim forms. No waiting."
+  },
+  {
+   "slide": 4,
+   "line": 0,
+   "start": 64.514,
+   "slot": 6.429,
+   "text": "One percent of Jio's users is five million policies — about 170 crore rupees a year."
+  },
+  {
+   "slide": 4,
+   "line": 1,
+   "start": 70.943,
+   "slot": 3.0,
+   "text": "Gig platforms and insurers buy the data."
+  },
+  {
+   "slide": 4,
+   "line": 2,
+   "start": 73.943,
+   "slot": 4.714,
+   "text": "And Reliance is customer zero: JioMart, New Energy and Jio itself."
+  },
+  {
+   "slide": 5,
+   "line": 0,
+   "start": 79.357,
+   "slot": 1.286,
+   "text": "Why only Reliance?"
+  },
+  {
+   "slide": 5,
+   "line": 1,
+   "start": 80.643,
+   "slot": 3.857,
+   "text": "It owns every layer — the network, 500 million customers,"
+  },
+  {
+   "slide": 5,
+   "line": 2,
+   "start": 84.5,
+   "slot": 3.0,
+   "text": "payments, insurance and retail — under one roof."
+  },
+  {
+   "slide": 6,
+   "line": 0,
+   "start": 88.2,
+   "slot": 4.714,
+   "text": "A ninety-day pilot in Vidarbha and Ahmedabad. Then a national map."
+  },
+  {
+   "slide": 6,
+   "line": 1,
+   "start": 92.914,
+   "slot": 6.0,
+   "text": "India will adapt to climate change by listening to the infrastructure it already has."
+  },
+  {
+   "slide": 6,
+   "line": 2,
+   "start": 98.914,
+   "slot": 2.571,
+   "text": "This is JioMausam. Different by design."
+  }
+ ]
+}
